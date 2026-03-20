@@ -30,8 +30,8 @@ CareerAI is a modern, AI-powered platform designed to streamline the career deve
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Viralane-del/vicareer.git
-   cd vicareer
+   git clone https://github.com/Viralane-del/ViCareerAI.git
+   cd ViCareerAI
    ```
 
 2. **Install dependencies:**
@@ -85,8 +85,8 @@ CareerAI, kariyer geliştirme sürecini kolaylaştırmak için tasarlanmış mod
 
 1. **Projeyi klonlayın:**
    ```bash
-   git clone https://github.com/Viralane-del/vicareer.git
-   cd vicareer
+   git clone https://github.com/Viralane-del/ViCareerAI.git
+   cd ViCareerAI
    ```
 
 2. **Bağımlılıkları yükleyin:**
