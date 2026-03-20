@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useRouter } from "@/i18n/routing";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,7 +15,8 @@ import { ModernTemplate } from "@/components/cv/templates/ModernTemplate";
 import { MinimalTemplate } from "@/components/cv/templates/MinimalTemplate";
 import AIEnhanceModal from "@/components/cv/AIEnhanceModal";
 
-export default function CVEditorPage({ params }: { params: { id: string } }) {
+export default function CVEditorPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = React.use(params);
     const router = useRouter();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [isImporting, setIsImporting] = useState(false);
@@ -174,7 +173,7 @@ export default function CVEditorPage({ params }: { params: { id: string } }) {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    id: params.id !== "new" ? params.id : undefined,
+                    id: id !== "new" ? id : undefined,
                     title: `${cvData.personal.fullName || "Yeni"} - CV`,
                     template: template,
                     data: cvData
@@ -191,7 +190,7 @@ export default function CVEditorPage({ params }: { params: { id: string } }) {
                 }
             } else {
                 toast.success("CV başarıyla kaydedildi!");
-                if (params.id === "new" && result.id) {
+                if (id === "new" && result.id) {
                     // router.replace(`/cv/${result.id}/edit`);
                 }
             }

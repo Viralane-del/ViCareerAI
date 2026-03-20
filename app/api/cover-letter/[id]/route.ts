@@ -4,10 +4,10 @@ import { cookies } from "next/headers";
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { id } = params;
+        const { id } = await params;
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
         const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -21,14 +21,14 @@ export async function GET(
             },
         });
 
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
         const { data, error } = await supabase
             .from("cover_letters")
             .select("*")
             .eq("id", id)
-            .eq("user_id", session.user.id)
+            .eq("user_id", user.id)
             .single();
 
         if (error) throw error;
@@ -40,10 +40,10 @@ export async function GET(
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { id } = params;
+        const { id } = await params;
         const cookieStore = await cookies();
         const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
             cookies: {
@@ -52,14 +52,14 @@ export async function DELETE(
             },
         });
 
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
         const { error } = await supabase
             .from("cover_letters")
             .delete()
             .eq("id", id)
-            .eq("user_id", session.user.id);
+            .eq("user_id", user.id);
 
         if (error) throw error;
         return NextResponse.json({ success: true });
