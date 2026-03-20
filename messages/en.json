@@ -1,0 +1,88 @@
+{
+    "Index": {
+        "title": "Shape Your Career with AI",
+        "description": "Create ATS-friendly CVs in seconds, write professional letters, and find your dream job 85% faster.",
+        "badge": "AI-Powered Next-Gen Career Platform",
+        "ctaPrimary": "Start Free",
+        "ctaSecondary": "Explore Features",
+        "socialProof": "Trusted by 12,000+ users",
+        "featuresTitle": "Automate your job search",
+        "featuresDesc": "We have shortened the path to your career goals with the most advanced AI models.",
+        "pricingTitle": "Choose the right plan",
+        "pricingDesc": "Simple, transparent, and affordable career support plans for every budget.",
+        "faqTitle": "Frequently Asked Questions",
+        "ctaFinal": "Start your career journey today",
+        "ctaFinalDesc": "Make a difference in your applications with the CV you will create in minutes.",
+        "ctaFinalButton": "Sign Up and Start"
+    },
+    "Navigation": {
+        "home": "Home",
+        "dashboard": "Dashboard",
+        "pricing": "Pricing",
+        "login": "Login",
+        "register": "Start Free",
+        "cvHistory": "CV History",
+        "letterHistory": "Letter History",
+        "jobs": "Discover Jobs",
+        "settings": "Settings",
+        "menuLabel": "MENU",
+        "logout": "Logout"
+    },
+    "Dashboard": {
+        "welcome": "Hello, {name} 👋",
+        "todayGoal": "What would you like to do for your career today?",
+        "newCv": "New CV",
+        "writeLetter": "Write Letter",
+        "stats": {
+            "cvs": "Created CVs",
+            "letters": "Cover Letters",
+            "analysis": "Job Analysis",
+            "plan": "Active Plan",
+            "thisMonth": "For this month",
+            "used": "Used",
+            "pro": "Pro ✨",
+            "free": "Free"
+        },
+        "quickAccess": {
+            "title": "Quick Access",
+            "desc": "Quickly access your frequently used sections.",
+            "cvs": "My CVs",
+            "letter": "Write Letter",
+            "applications": "My Applications",
+            "find": "Search Jobs"
+        },
+        "aiTools": {
+            "title": "AI-Powered Tools",
+            "desc": "Your AI services are ready and active.",
+            "feature1": "Professional writing with GPT-4o for CV content",
+            "feature2": "CV compatibility analysis according to job postings",
+            "feature3": "Personalized cover letter production",
+            "button": "Start Job Analysis"
+        }
+    },
+    "Tracker": {
+        "title": "Application Board",
+        "desc": "Manage your job application processes visually with drag-and-drop.",
+        "aiAdd": "AI Add Job",
+        "manualAdd": "Manual Add",
+        "columns": {
+            "Saved": "Saved",
+            "Applied": "Applied",
+            "Interviewing": "Interviewing",
+            "Offer": "Offer",
+            "Rejected": "Rejected"
+        }
+    },
+    "History": {
+        "cvTitle": "CV History",
+        "cvDesc": "All the resumes you have created and edited before.",
+        "letterTitle": "Letter History",
+        "letterDesc": "Cover letters you have created before.",
+        "empty": "No records found yet.",
+        "actions": {
+            "edit": "Edit",
+            "download": "Download",
+            "delete": "Delete"
+        }
+    }
+}

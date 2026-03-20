@@ -1,0 +1,254 @@
+"use client";
+
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Sparkles, Loader2, Target, CheckCircle2, AlertTriangle, ArrowRight, BookOpen, Search, Building2, MapPin, Clock, Tag } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+
+interface JobListing {
+    id: string;
+    title: string;
+    company: string;
+    location: string;
+    description: string;
+    type: string;
+    matchScore: number;
+    skills: string[];
+    source: string;
+    postedAt: string;
+}
+
+export default function JobDiscoverPage() {
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSearching, setIsSearching] = useState(false);
+    const [result, setResult] = useState<any>(null);
+    const [jobs, setJobs] = useState<JobListing[]>([]);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [hasSearched, setHasSearched] = useState(false);
+
+    const [form, setForm] = useState({
+        company: "",
+        position: "",
+        jobDescription: "",
+    });
+
+    const handleAnalyze = async () => {
+        if (!form.jobDescription || !form.position || !form.company) return;
+
+        setIsLoading(true);
+        // Simulate API delay
+        setTimeout(() => {
+            setResult({
+                matchScore: 82,
+                matchedSkills: ["React", "TypeScript", "Tailwind CSS", "Next.js"],
+                missingSkills: ["GraphQL", "AWS", "Jest"],
+                recommendations: [
+                    "AWS S3 ve EC2 hakkında temel seviye bilgi edin.",
+                    "Frontend testing için Jest dökümantasyonunu incele.",
+                ]
+            });
+            setIsLoading(false);
+        }, 2000);
+    };
+
+    const handleJobSearch = async () => {
+        setIsSearching(true);
+        setHasSearched(true);
+        try {
+            const res = await fetch("/api/jobs/search", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query: searchQuery }),
+            });
+            const data = await res.json();
+            setJobs(data.jobs || []);
+        } catch (err) {
+            setJobs([]);
+        } finally {
+            setIsSearching(false);
+        }
+    };
+
+    return (
+        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-5xl mx-auto p-4 md:p-8">
+            {/* Live Job Search Section */}
+            <div>
+                <h1 className="text-3xl font-bold tracking-tight">İş İlanları Keşfet</h1>
+                <p className="text-muted-foreground mt-1">
+                    Pozisyon veya beceri adı girerek size uygun ilanları bulun.
+                </p>
+            </div>
+
+            <Card className="shadow-sm">
+                <CardContent className="p-5">
+                    <div className="flex gap-3">
+                        <div className="relative flex-1">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input
+                                placeholder="Örn: React Developer, Next.js, Trendyol..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onKeyDown={(e) => e.key === "Enter" && handleJobSearch()}
+                                className="pl-10 h-11"
+                            />
+                        </div>
+                        <Button onClick={handleJobSearch} disabled={isSearching} className="gradient-brand text-white h-11 px-6">
+                            {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : "Ara"}
+                        </Button>
+                    </div>
+                </CardContent>
+            </Card>
+
+            {/* Job Results */}
+            {hasSearched && (
+                <div className="space-y-4 animate-in fade-in duration-300">
+                    {isSearching ? (
+                        <div className="py-10 text-center text-muted-foreground">
+                            <Loader2 className="h-8 w-8 animate-spin mx-auto mb-3 text-blue-500" />
+                            <p>İlanlar aranıyor...</p>
+                        </div>
+                    ) : jobs.length === 0 ? (
+                        <Card className="py-10 text-center border-dashed bg-zinc-50/50 dark:bg-zinc-900/50">
+                            <Target className="h-12 w-12 mx-auto text-muted-foreground opacity-30 mb-3" />
+                            <p className="text-muted-foreground">Arama sonucu bulunamadı.</p>
+                        </Card>
+                    ) : (
+                        <>
+                            <p className="text-sm text-muted-foreground font-medium">{jobs.length} sonuç bulundu</p>
+                            <div className="grid grid-cols-1 gap-4">
+                                {jobs.map(job => (
+                                    <Card key={job.id} className="shadow-sm hover:shadow-md transition-shadow group border-zinc-200 dark:border-zinc-800">
+                                        <CardContent className="p-5">
+                                            <div className="flex items-start justify-between gap-4">
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="flex items-center gap-2 flex-wrap">
+                                                        <h3 className="font-semibold text-base text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
+                                                            {job.title}
+                                                        </h3>
+                                                        <Badge variant="outline" className="text-[10px] shrink-0 border-zinc-200 dark:border-zinc-700">{job.type}</Badge>
+                                                    </div>
+                                                    <div className="flex items-center gap-4 mt-1.5 text-xs text-muted-foreground flex-wrap">
+                                                        <span className="flex items-center gap-1"><Building2 className="h-3 w-3" />{job.company}</span>
+                                                        <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{job.location}</span>
+                                                        <span className="flex items-center gap-1"><Clock className="h-3 w-3" />{job.postedAt}</span>
+                                                    </div>
+                                                    <p className="text-xs text-muted-foreground mt-2.5 line-clamp-2">{job.description}</p>
+                                                    <div className="flex flex-wrap gap-1.5 mt-3">
+                                                        {job.skills.map(skill => (
+                                                            <span key={skill} className="inline-flex items-center gap-1 text-[11px] font-medium bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 px-2 py-0.5 rounded-md">
+                                                                <Tag className="h-2.5 w-2.5" />{skill}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                                <div className="shrink-0 text-right flex flex-col items-end gap-3">
+                                                    <div className="flex flex-col items-center bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-900/50 rounded-xl px-3 py-2">
+                                                        <Sparkles className="h-3.5 w-3.5 text-green-600 dark:text-green-500 mb-0.5" />
+                                                        <span className="text-lg font-black text-green-700 dark:text-green-400 leading-none">{job.matchScore}%</span>
+                                                        <span className="text-[9px] text-green-600/70 dark:text-green-500/70 font-medium mt-0.5">Uyum</span>
+                                                    </div>
+                                                    <Button size="sm" variant="outline" className="h-8 text-xs group-hover:border-blue-400 group-hover:text-blue-600 dark:group-hover:border-blue-700 dark:group-hover:text-blue-400 transition-all">
+                                                        Analiz Et <ArrowRight className="ml-1.5 h-3 w-3" />
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                ))}
+                            </div>
+                        </>
+                    )}
+                </div>
+            )}
+
+            {/* Manual Analysis Section */}
+            <div className="border-t pt-8">
+                <h2 className="text-xl font-bold mb-1">İlan Metni ile Analiz</h2>
+                <p className="text-muted-foreground text-sm mb-6">Kopyaladığınız ilan metnini yapıştırın, AI profilinizle karşılaştırsın.</p>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <Card className="shadow-sm">
+                        <CardHeader>
+                            <CardTitle className="text-lg">İlan Bilgileri</CardTitle>
+                            <CardDescription>Analiz edilecek iş ilanının detaylarını girin.</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label>Şirket Adı</Label>
+                                    <Input placeholder="Örn: Google" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>Pozisyon</Label>
+                                    <Input placeholder="Örn: Frontend Developer" value={form.position} onChange={(e) => setForm({ ...form, position: e.target.value })} />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <Label>İlan Açıklaması</Label>
+                                <Textarea rows={8} className="resize-none" placeholder="İlanın gereksinimlerini buraya yapıştırın..." value={form.jobDescription} onChange={(e) => setForm({ ...form, jobDescription: e.target.value })} />
+                            </div>
+                            <Button className="w-full gradient-brand text-white mt-2" onClick={handleAnalyze} disabled={isLoading || !form.jobDescription}>
+                                {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Analiz Ediliyor...</> : <><Sparkles className="mr-2 h-4 w-4" />AI ile Analiz Et</>}
+                            </Button>
+                        </CardContent>
+                    </Card>
+
+                    <div className="flex flex-col h-full">
+                        {!result && !isLoading ? (
+                            <Card className="flex-1 flex flex-col items-center justify-center border-dashed bg-zinc-50/50 dark:bg-zinc-900/50 shadow-none p-10">
+                                <Target className="h-12 w-12 text-muted-foreground opacity-30 mb-4" />
+                                <h3 className="text-lg font-medium text-muted-foreground">Analiz Sonucu Bekleniyor</h3>
+                                <p className="text-sm text-center text-muted-foreground/70 mt-2 max-w-sm">İlan detaylarını doldurup analizi başlattığınızda eşleşme oranınız burada görünecek.</p>
+                            </Card>
+                        ) : isLoading ? (
+                            <Card className="flex-1 flex flex-col items-center justify-center bg-zinc-50/50 dark:bg-zinc-900/50 shadow-none p-10">
+                                <div className="h-16 w-16 rounded-full gradient-brand flex items-center justify-center animate-pulse">
+                                    <Sparkles className="h-7 w-7 text-white" />
+                                </div>
+                                <h3 className="text-lg font-medium mt-6">Yapay Zeka Çalışıyor</h3>
+                            </Card>
+                        ) : (
+                            <div className="space-y-4 animate-in fade-in zoom-in-95 duration-400">
+                                <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100 dark:from-blue-950/30 dark:to-indigo-950/30 dark:border-blue-900/50">
+                                    <CardContent className="p-6">
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <p className="text-sm font-medium text-blue-800 dark:text-blue-300">Uygunluk Skoru</p>
+                                                <h2 className="text-4xl font-black tracking-tight text-blue-900 dark:text-blue-100 mt-1">{result.matchScore}<span className="text-2xl text-blue-700/50">%</span></h2>
+                                            </div>
+                                            <div className="h-20 w-20 flex items-center justify-center">
+                                                <svg className="h-full w-full rotate-[-90deg]" viewBox="0 0 36 36">
+                                                    <path className="text-blue-200 dark:text-blue-900/50" strokeWidth="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                                    <path className="text-blue-600 dark:text-blue-400" strokeDasharray={`${result.matchScore}, 100`} strokeWidth="3" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                                <Card>
+                                    <CardContent className="p-6 space-y-6">
+                                        <div>
+                                            <h4 className="text-sm font-semibold flex items-center text-green-700 dark:text-green-400 mb-3"><CheckCircle2 className="mr-2 h-4 w-4" />Karşılanan Beceriler</h4>
+                                            <div className="flex flex-wrap gap-2">{result.matchedSkills.map((skill: string, i: number) => (<Badge key={i} className="bg-green-100 text-green-700 border-0 dark:bg-green-900/30 dark:text-green-400">{skill}</Badge>))}</div>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-sm font-semibold flex items-center text-red-700 dark:text-red-400 mb-3"><AlertTriangle className="mr-2 h-4 w-4" />Eksik Beceriler</h4>
+                                            <div className="flex flex-wrap gap-2">{result.missingSkills.map((skill: string, i: number) => (<Badge key={i} className="bg-red-100 text-red-700 border-0 dark:bg-red-900/30 dark:text-red-400">{skill}</Badge>))}</div>
+                                        </div>
+                                        <div className="pt-4 border-t">
+                                            <h4 className="text-sm font-semibold mb-3">AI Öğrenme Önerileri</h4>
+                                            <ul className="space-y-2">{result.recommendations.map((rec: string, i: number) => (<li key={i} className="flex gap-3 text-sm text-muted-foreground bg-zinc-50 dark:bg-zinc-900/50 p-3 rounded-lg border"><BookOpen className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />{rec}</li>))}</ul>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}

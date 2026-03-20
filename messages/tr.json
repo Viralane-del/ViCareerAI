@@ -1,0 +1,88 @@
+{
+    "Index": {
+        "title": "Kariyerini Yapay Zeka ile Şekillendir",
+        "description": "Saniyeler içinde ATS uyumlu CV oluştur, profesyonel mektuplar yaz ve hayalindeki işe %85 daha hızlı ulaş.",
+        "badge": "AI Destekli Yeni Nesil Kariyer Platformu",
+        "ctaPrimary": "Ücretsiz Dene",
+        "ctaSecondary": "Özellikleri Keşfet",
+        "socialProof": "12,000+ kişi tarafından tercih edildi",
+        "featuresTitle": "İş arama sürecini otomatiğe al",
+        "featuresDesc": "Teknoloji dünyasının en gelişmiş AI modelleriyle kariyer hedeflerine giden yolu kısalttık.",
+        "pricingTitle": "Sana uygun planı seç",
+        "pricingDesc": "Basit, şeffaf ve her bütçeye uygun kariyer destek planları.",
+        "faqTitle": "Sıkça Sorulan Sorular",
+        "ctaFinal": "Kariyer yolculuğunu bugün başlat",
+        "ctaFinalDesc": "Dakikalar içinde oluşturacağın CV ile başvurularında fark yarat.",
+        "ctaFinalButton": "Kayıt Ol ve Başla"
+    },
+    "Navigation": {
+        "home": "Ana Sayfa",
+        "dashboard": "Panelim",
+        "pricing": "Fiyatlandırma",
+        "login": "Giriş Yap",
+        "register": "Ücretsiz Başla",
+        "cvHistory": "CV Geçmişi",
+        "letterHistory": "Mektup Geçmişi",
+        "jobs": "Hemen Keşfet",
+        "settings": "Hesabım",
+        "menuLabel": "MENÜ",
+        "logout": "Çıkış Yap"
+    },
+    "Dashboard": {
+        "welcome": "Merhaba, {name} 👋",
+        "todayGoal": "Bugün kariyerin için ne yapmak istersin?",
+        "newCv": "Yeni CV",
+        "writeLetter": "Mektup Yaz",
+        "stats": {
+            "cvs": "Oluşturulan CV",
+            "letters": "Motivasyon Mektubu",
+            "analysis": "İş Analizi",
+            "plan": "Aktif Plan",
+            "thisMonth": "Bu ay için",
+            "used": "Kullanılan",
+            "pro": "Pro ✨",
+            "free": "Ücretsiz"
+        },
+        "quickAccess": {
+            "title": "Hızlı Erişim",
+            "desc": "Sık kullandığınız bölümlere hızlıca ulaşın.",
+            "cvs": "CV'lerim",
+            "letter": "Mektup Yaz",
+            "applications": "Başvurularım",
+            "find": "İlan Ara"
+        },
+        "aiTools": {
+            "title": "AI Destekli Araçlar",
+            "desc": "Yapay zeka hizmetleriniz hazır ve aktif.",
+            "feature1": "CV içerikleri için GPT-4o ile profesyonel yazım",
+            "feature2": "İş ilanlarına göre CV uyumluluk analizi",
+            "feature3": "Kişiselleştirilmiş motivasyon mektubu üretimi",
+            "button": "İlan Analizi Başlat"
+        }
+    },
+    "Tracker": {
+        "title": "Başvuru Board'u",
+        "desc": "Sürükle-bırak ile iş başvuru süreçlerinizi görsel olarak yönetin.",
+        "aiAdd": "AI İlan Ekle",
+        "manualAdd": "Manuel Ekle",
+        "columns": {
+            "Saved": "Kaydedilen",
+            "Applied": "Başvurulan",
+            "Interviewing": "Mülakat",
+            "Offer": "Teklif",
+            "Rejected": "Reddedildi"
+        }
+    },
+    "History": {
+        "cvTitle": "CV Geçmişim",
+        "cvDesc": "Daha önce oluşturduğunuz ve düzenlediğiniz tüm özgeçmişler.",
+        "letterTitle": "Mektup Geçmişim",
+        "letterDesc": "Daha önce oluşturduğunuz motivasyon mektupları.",
+        "empty": "Henüz kayıt bulunamadı.",
+        "actions": {
+            "edit": "Düzenle",
+            "download": "İndir",
+            "delete": "Sil"
+        }
+    }
+}

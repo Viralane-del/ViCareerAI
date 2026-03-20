@@ -1,0 +1,252 @@
+import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+
+// --------------------------------
+// Shared Data Types
+// --------------------------------
+export interface ExperienceItem {
+    id: string;
+    title: string;
+    company: string;
+    location?: string;
+    startDate: string;
+    endDate: string;
+    isCurrent: boolean;
+    description: string;
+}
+
+export interface EducationItem {
+    id: string;
+    degree: string;
+    school: string;
+    location?: string;
+    startDate: string;
+    endDate: string;
+    description?: string;
+}
+
+export interface SkillItem {
+    id: string;
+    name: string;
+    level?: 'beginner' | 'intermediate' | 'advanced' | 'expert';
+}
+
+export interface ProjectItem {
+    id: string;
+    name: string;
+    description: string;
+    url?: string;
+    technologies?: string;
+}
+
+export interface CVData {
+    personal: {
+        fullName: string;
+        jobTitle: string;
+        email: string;
+        phone: string;
+        linkedin: string;
+        website: string;
+        location?: string;
+        summary?: string;
+    };
+    summary: string;
+    experience: ExperienceItem[];
+    education: EducationItem[];
+    skills: SkillItem[];
+    projects: ProjectItem[];
+}
+
+// --------------------------------
+// Classic Template Styles
+// --------------------------------
+const styles = StyleSheet.create({
+    page: {
+        flexDirection: 'column',
+        backgroundColor: '#ffffff',
+        padding: 40,
+        fontFamily: 'Helvetica',
+    },
+    header: {
+        marginBottom: 20,
+        borderBottom: '1.5pt solid #2563EB',
+        paddingBottom: 14,
+    },
+    name: {
+        fontSize: 24,
+        fontFamily: 'Helvetica-Bold',
+        color: '#111827',
+    },
+    title: {
+        fontSize: 13,
+        color: '#2563EB',
+        marginTop: 3,
+    },
+    contactInfo: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginTop: 8,
+        gap: 12,
+    },
+    contactItem: {
+        fontSize: 9,
+        color: '#6b7280',
+    },
+    section: {
+        marginTop: 14,
+    },
+    sectionTitle: {
+        fontSize: 11,
+        fontFamily: 'Helvetica-Bold',
+        color: '#1E3A5F',
+        textTransform: 'uppercase',
+        letterSpacing: 0.8,
+        borderBottom: '0.5pt solid #DBEAFE',
+        paddingBottom: 4,
+        marginBottom: 10,
+    },
+    summaryText: {
+        fontSize: 9.5,
+        color: '#374151',
+        lineHeight: 1.6,
+    },
+    // Experience
+    expItem: {
+        marginBottom: 10,
+    },
+    expHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+    },
+    expTitle: {
+        fontSize: 10,
+        fontFamily: 'Helvetica-Bold',
+        color: '#111827',
+    },
+    expCompany: {
+        fontSize: 9.5,
+        color: '#2563EB',
+        marginTop: 1,
+    },
+    expDate: {
+        fontSize: 8.5,
+        color: '#9CA3AF',
+    },
+    expDesc: {
+        fontSize: 9,
+        color: '#4B5563',
+        lineHeight: 1.5,
+        marginTop: 4,
+    },
+    // Education
+    eduItem: {
+        marginBottom: 8,
+    },
+    eduDegree: {
+        fontSize: 10,
+        fontFamily: 'Helvetica-Bold',
+        color: '#111827',
+    },
+    eduSchool: {
+        fontSize: 9.5,
+        color: '#6B7280',
+        marginTop: 1,
+    },
+    // Skills
+    skillsGrid: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 6,
+    },
+    skillBadge: {
+        fontSize: 8.5,
+        color: '#1D4ED8',
+        backgroundColor: '#EFF6FF',
+        paddingVertical: 3,
+        paddingHorizontal: 8,
+        borderRadius: 4,
+    },
+});
+
+// --------------------------------
+// Classic Template Component
+// --------------------------------
+export const ClassicTemplate = ({ data }: { data: CVData }) => (
+    <Document>
+        <Page size="A4" style={styles.page}>
+
+            {/* Header */}
+            <View style={styles.header}>
+                <Text style={styles.name}>{data.personal.fullName || 'Ad Soyad'}</Text>
+                {data.personal.jobTitle && <Text style={styles.title}>{data.personal.jobTitle}</Text>}
+                <View style={styles.contactInfo}>
+                    {data.personal.email && <Text style={styles.contactItem}>{data.personal.email}</Text>}
+                    {data.personal.phone && <Text style={styles.contactItem}>• {data.personal.phone}</Text>}
+                    {data.personal.location && <Text style={styles.contactItem}>• {data.personal.location}</Text>}
+                    {data.personal.linkedin && <Text style={styles.contactItem}>• {data.personal.linkedin}</Text>}
+                    {data.personal.website && <Text style={styles.contactItem}>• {data.personal.website}</Text>}
+                </View>
+            </View>
+
+            {/* Summary */}
+            {data.summary && (
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Profesyonel Özet</Text>
+                    <Text style={styles.summaryText}>{data.summary}</Text>
+                </View>
+            )}
+
+            {/* Experience */}
+            {data.experience?.length > 0 && (
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>İş Deneyimi</Text>
+                    {data.experience.map((exp) => (
+                        <View key={exp.id} style={styles.expItem}>
+                            <View style={styles.expHeader}>
+                                <View>
+                                    <Text style={styles.expTitle}>{exp.title}</Text>
+                                    <Text style={styles.expCompany}>{exp.company}{exp.location ? ` · ${exp.location}` : ''}</Text>
+                                </View>
+                                <Text style={styles.expDate}>
+                                    {exp.startDate} — {exp.isCurrent ? 'Devam Ediyor' : exp.endDate}
+                                </Text>
+                            </View>
+                            {exp.description && <Text style={styles.expDesc}>{exp.description}</Text>}
+                        </View>
+                    ))}
+                </View>
+            )}
+
+            {/* Education */}
+            {data.education?.length > 0 && (
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Eğitim</Text>
+                    {data.education.map((edu) => (
+                        <View key={edu.id} style={styles.eduItem}>
+                            <View style={styles.expHeader}>
+                                <View>
+                                    <Text style={styles.eduDegree}>{edu.degree}</Text>
+                                    <Text style={styles.eduSchool}>{edu.school}{edu.location ? ` · ${edu.location}` : ''}</Text>
+                                </View>
+                                <Text style={styles.expDate}>{edu.startDate} — {edu.endDate}</Text>
+                            </View>
+                        </View>
+                    ))}
+                </View>
+            )}
+
+            {/* Skills */}
+            {data.skills?.length > 0 && (
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Beceriler</Text>
+                    <View style={styles.skillsGrid}>
+                        {data.skills.map((skill) => (
+                            <Text key={skill.id} style={styles.skillBadge}>{skill.name}</Text>
+                        ))}
+                    </View>
+                </View>
+            )}
+
+        </Page>
+    </Document>
+);
