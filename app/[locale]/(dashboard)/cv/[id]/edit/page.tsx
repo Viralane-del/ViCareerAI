@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useRef } from "react";
 import { useRouter } from "@/i18n/routing";
 import { toast } from "sonner";
