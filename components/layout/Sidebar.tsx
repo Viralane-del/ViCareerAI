@@ -79,7 +79,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
               return (
                 <Link
                   key={item.name}
-                  href={item.href as any}
+                  href={item.href as "/dashboard" | "/cv/history" | "/cover-letter/history" | "/jobs/discover" | "/profile"}
                   className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all ${
                     isActive
                       ? "bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400"

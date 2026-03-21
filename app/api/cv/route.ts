@@ -87,13 +87,13 @@ export async function POST(request: NextRequest) {
 
             return NextResponse.json({ success: true, id: newCv.id });
         }
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Save CV Error:", error);
         return NextResponse.json({ error: "CV kaydedilirken hata oluştu." }, { status: 500 });
     }
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
     // Get all CVs for the user
     try {
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -120,7 +120,7 @@ export async function GET(request: NextRequest) {
 
         if (error) throw error;
         return NextResponse.json(data);
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.json({ error: "CV'ler getirilemedi." }, { status: 500 });
     }
 }

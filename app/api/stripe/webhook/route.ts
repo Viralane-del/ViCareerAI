@@ -3,8 +3,8 @@ import Stripe from "stripe";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: "2025-01-27.acacia" as any,
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: "2026-02-25.clover" as any,
 });
 
 export async function POST(req: Request) {
@@ -17,9 +17,10 @@ export async function POST(req: Request) {
     try {
         if (!webhookSecret) throw new Error("Webhook secret is missing");
         event = stripe.webhooks.constructEvent(payload, signature, webhookSecret);
-    } catch (err: any) {
-        console.error(`Webhook signature verification failed: ${err.message}`);
-        return NextResponse.json({ error: err.message }, { status: 400 });
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : "Webhook signature verification failed";
+        console.error(errorMessage);
+        return NextResponse.json({ error: errorMessage }, { status: 400 });
     }
 
     // Handle the event

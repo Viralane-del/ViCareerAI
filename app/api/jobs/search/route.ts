@@ -68,7 +68,7 @@ const mockJobListings = [
 export async function POST(req: NextRequest) {
     try {
         const supabase = await createClient();
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session: _session } } = await supabase.auth.getSession();
 
         // TODO: Check Pro plan for external API access
         // For now, return mock data for all users
@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
             : mockJobListings;
 
         return NextResponse.json({ jobs: filtered });
-    } catch (error: any) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+    } catch (error: unknown) {
+        return NextResponse.json({ error: error instanceof Error ? error.message : "Unknown error" }, { status: 500 });
     }
 }

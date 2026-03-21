@@ -4,10 +4,10 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: "2025-01-27.acacia" as any,
+    apiVersion: "2026-02-25.clover" as any,
 });
 
-export async function POST(req: Request) {
+export async function POST(_req: Request) {
     try {
         const cookieStore = await cookies();
         const supabase = createServerClient(
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
         });
 
         return NextResponse.json({ url: portalSession.url });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Stripe Portal Error:", error);
         return NextResponse.json(
             { error: "Portal oluşturulamadı, ödeme geçmişi bulunamayabilir." },

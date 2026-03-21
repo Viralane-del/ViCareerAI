@@ -4,7 +4,7 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: "2025-01-27.acacia" as any, // Type assertion for correct stripe version compatibility if needed
+    apiVersion: "2026-02-25.clover" as any,
 });
 
 export async function POST(req: Request) {
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
             {
                 cookies: {
                     getAll() { return cookieStore.getAll(); },
-                    setAll(cookiesToSet) { /* Ignore */ },
+                    setAll(_cookiesToSet) { /* Ignore */ },
                 },
             }
         );
@@ -56,7 +56,7 @@ export async function POST(req: Request) {
         });
 
         return NextResponse.json({ url: stripeSession.url });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Stripe Checkout Error:", error);
         return NextResponse.json(
             { error: "Ödeme sayfası oluşturulamadı, API anahtarlarınızı kontrol edin." },

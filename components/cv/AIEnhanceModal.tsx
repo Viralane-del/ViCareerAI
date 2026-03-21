@@ -46,7 +46,7 @@ export default function AIEnhanceModal({ isOpen, onClose, initialText, sectionTy
             }
 
             setSuggestions(data.suggestions || []);
-        } catch (error) {
+        } catch (_error) {
             toast.error("Bir ağ hatası oluştu.");
         } finally {
             setIsLoading(false);
@@ -78,14 +78,14 @@ export default function AIEnhanceModal({ isOpen, onClose, initialText, sectionTy
                     </DialogTitle>
                     <DialogDescription>
                         Yazdığınız ham metni yapay zeka ile daha kurumsal ve dikkat çekici hale getirin.
-                        {targetPosition && ` Hedef Pozisyon: "${targetPosition}"`}
+                        {targetPosition && ` Hedef Pozisyon: &quot;${targetPosition}&quot;`}
                     </DialogDescription>
                 </DialogHeader>
 
                 {!hasRequested ? (
                     <div className="py-6 flex flex-col items-center justify-center space-y-4">
                         <div className="bg-muted p-4 rounded-lg w-full text-sm italic border text-muted-foreground whitespace-pre-wrap">
-                            "{initialText || 'Metin girilmemiş.'}"
+                            &quot;{initialText || 'Metin girilmemiş.'}&quot;
                         </div>
                         <Button
                             onClick={handleGenerate}

@@ -31,12 +31,12 @@ export async function GET() {
             location: job.location || "N/A",
             status: mapDbStatusToUi(job.status),
             appliedDate: job.applied_at || "-",
-            matchScore: (job.analysis as any)?.match_score || 0
+            matchScore: (job.analysis as { match_score?: number })?.match_score || 0
         }));
 
         return NextResponse.json(mappedData);
-    } catch (error: any) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+    } catch (error: unknown) {
+        return NextResponse.json({ error: error instanceof Error ? error.message : "Unknown error" }, { status: 500 });
     }
 }
 
@@ -64,8 +64,8 @@ export async function PATCH(request: NextRequest) {
 
         if (error) throw error;
         return NextResponse.json({ success: true });
-    } catch (error: any) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+    } catch (error: unknown) {
+        return NextResponse.json({ error: error instanceof Error ? error.message : "Unknown error" }, { status: 500 });
     }
 }
 

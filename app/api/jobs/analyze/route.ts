@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { createClient } from "@/lib/supabase/server";
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
@@ -7,6 +8,9 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
     try {
+        const supabase = await createClient(); // Added supabase client initialization
+        const { data: { session: _session } } = await supabase.auth.getSession(); // Added session check
+
         const { jobText } = await request.json();
 
         if (!jobText || jobText.length < 30) {
@@ -56,7 +60,7 @@ Yanıtı SADECE geçerli JSON olarak döndür, başka açıklama ekleme:
 
         const parsed = JSON.parse(content);
         return NextResponse.json(parsed);
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Job analyze error:", error);
         return NextResponse.json(
             { error: "İlan analiz edilirken hata oluştu." },

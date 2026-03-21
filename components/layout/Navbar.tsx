@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Link, usePathname } from "@/i18n/routing";
+import { Link } from "@/i18n/routing";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Sparkles, LayoutDashboard } from "lucide-react";
@@ -33,7 +33,7 @@ export default function Navbar() {
         });
 
         return () => listener.subscription.unsubscribe();
-    }, []);
+    }, [supabase.auth]);
 
     return (
         <motion.header

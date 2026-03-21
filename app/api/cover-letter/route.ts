@@ -66,13 +66,13 @@ export async function POST(request: NextRequest) {
             if (error) throw error;
             return NextResponse.json({ success: true, id: newLetter.id });
         }
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Save Cover Letter Error:", error);
         return NextResponse.json({ error: "Mektup kaydedilirken hata oluştu." }, { status: 500 });
     }
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
     try {
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
         const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -98,7 +98,7 @@ export async function GET(request: NextRequest) {
 
         if (error) throw error;
         return NextResponse.json(data);
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.json({ error: "Mektuplar getirilemedi." }, { status: 500 });
     }
 }

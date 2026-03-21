@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Link } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
@@ -10,10 +9,9 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Github, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 export default function LoginPage() {
-    const t = useTranslations("Navigation");
     const supabase = createClient();
     const router = useRouter();
 

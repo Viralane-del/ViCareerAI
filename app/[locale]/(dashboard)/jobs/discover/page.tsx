@@ -25,7 +25,7 @@ interface JobListing {
 export default function JobDiscoverPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [isSearching, setIsSearching] = useState(false);
-    const [result, setResult] = useState<any>(null);
+    const [result, setResult] = useState<unknown>(null);
     const [jobs, setJobs] = useState<JobListing[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [hasSearched, setHasSearched] = useState(false);
@@ -66,7 +66,7 @@ export default function JobDiscoverPage() {
             });
             const data = await res.json();
             setJobs(data.jobs || []);
-        } catch (err) {
+        } catch (_err) {
             setJobs([]);
         } finally {
             setIsSearching(false);
@@ -217,12 +217,12 @@ export default function JobDiscoverPage() {
                                         <div className="flex items-center justify-between">
                                             <div>
                                                 <p className="text-sm font-medium text-blue-800 dark:text-blue-300">Uygunluk Skoru</p>
-                                                <h2 className="text-4xl font-black tracking-tight text-blue-900 dark:text-blue-100 mt-1">{result.matchScore}<span className="text-2xl text-blue-700/50">%</span></h2>
+                                                <h2 className="text-4xl font-black tracking-tight text-blue-900 dark:text-blue-100 mt-1">{(result as any).matchScore}<span className="text-2xl text-blue-700/50">%</span></h2>
                                             </div>
                                             <div className="h-20 w-20 flex items-center justify-center">
                                                 <svg className="h-full w-full rotate-[-90deg]" viewBox="0 0 36 36">
                                                     <path className="text-blue-200 dark:text-blue-900/50" strokeWidth="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                                    <path className="text-blue-600 dark:text-blue-400" strokeDasharray={`${result.matchScore}, 100`} strokeWidth="3" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                                    <path className="text-blue-600 dark:text-blue-400" strokeDasharray={`${(result as any).matchScore}, 100`} strokeWidth="3" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                                                 </svg>
                                             </div>
                                         </div>
@@ -232,15 +232,15 @@ export default function JobDiscoverPage() {
                                     <CardContent className="p-6 space-y-6">
                                         <div>
                                             <h4 className="text-sm font-semibold flex items-center text-green-700 dark:text-green-400 mb-3"><CheckCircle2 className="mr-2 h-4 w-4" />Karşılanan Beceriler</h4>
-                                            <div className="flex flex-wrap gap-2">{result.matchedSkills.map((skill: string, i: number) => (<Badge key={i} className="bg-green-100 text-green-700 border-0 dark:bg-green-900/30 dark:text-green-400">{skill}</Badge>))}</div>
+                                            <div className="flex flex-wrap gap-2">{(result as any).matchedSkills.map((skill: string, i: number) => (<Badge key={i} className="bg-green-100 text-green-700 border-0 dark:bg-green-900/30 dark:text-green-400">{skill}</Badge>))}</div>
                                         </div>
                                         <div>
                                             <h4 className="text-sm font-semibold flex items-center text-red-700 dark:text-red-400 mb-3"><AlertTriangle className="mr-2 h-4 w-4" />Eksik Beceriler</h4>
-                                            <div className="flex flex-wrap gap-2">{result.missingSkills.map((skill: string, i: number) => (<Badge key={i} className="bg-red-100 text-red-700 border-0 dark:bg-red-900/30 dark:text-red-400">{skill}</Badge>))}</div>
+                                            <div className="flex flex-wrap gap-2">{(result as any).missingSkills.map((skill: string, i: number) => (<Badge key={i} className="bg-red-100 text-red-700 border-0 dark:bg-red-900/30 dark:text-red-400">{skill}</Badge>))}</div>
                                         </div>
                                         <div className="pt-4 border-t">
                                             <h4 className="text-sm font-semibold mb-3">AI Öğrenme Önerileri</h4>
-                                            <ul className="space-y-2">{result.recommendations.map((rec: string, i: number) => (<li key={i} className="flex gap-3 text-sm text-muted-foreground bg-zinc-50 dark:bg-zinc-900/50 p-3 rounded-lg border"><BookOpen className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />{rec}</li>))}</ul>
+                                            <ul className="space-y-2">{(result as any).recommendations.map((rec: string, i: number) => (<li key={i} className="flex gap-3 text-sm text-muted-foreground bg-zinc-50 dark:bg-zinc-900/50 p-3 rounded-lg border"><BookOpen className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />{rec}</li>))}</ul>
                                         </div>
                                     </CardContent>
                                 </Card>

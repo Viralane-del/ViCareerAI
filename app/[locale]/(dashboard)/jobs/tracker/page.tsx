@@ -47,8 +47,8 @@ export default function JobTrackerPage() {
             const res = await fetch("/api/jobs/tracker");
             const data = await res.json();
             if (Array.isArray(data)) setJobs(data);
-        } catch (err) {
-            console.error(err);
+        } catch (_err) {
+            console.error(_err);
         } finally {
             setIsLoading(false);
         }
@@ -75,9 +75,9 @@ export default function JobTrackerPage() {
                 body: JSON.stringify({ id: draggableId, status: newStatus })
             });
             if (!res.ok) throw new Error("Update failed");
-        } catch (err) {
+        } catch (_err) {
             setJobs(oldJobs); // Revert
-            console.error(err);
+            console.error(_err);
         }
     };
 

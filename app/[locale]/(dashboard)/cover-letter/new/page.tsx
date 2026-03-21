@@ -17,6 +17,7 @@ export default function NewCoverLetterPage() {
     const searchParams = useSearchParams();
     const editId = searchParams.get("id");
 
+    const [result, setResult] = useState<unknown>(null);
     const [form, setForm] = useState({
         position: "",
         company: "",
@@ -26,11 +27,10 @@ export default function NewCoverLetterPage() {
         userSummary: "",
     });
 
-    const [generatedLetter, setGeneratedLetter] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-    const [isSaving, setIsSaving] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
     const [letterId, setLetterId] = useState<string | null>(null);
+    const [generatedLetter, setGeneratedLetter] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isSaving, setIsSaving] = useState<boolean>(false);
 
     useEffect(() => {
         if (editId) {
@@ -54,7 +54,7 @@ export default function NewCoverLetterPage() {
                 setGeneratedLetter(data.content || "");
                 setLetterId(data.id);
             }
-        } catch (err) {
+        } catch (_err) {
             toast.error("Mektup yüklenemedi.");
         }
     };
@@ -88,9 +88,10 @@ export default function NewCoverLetterPage() {
 
             setGeneratedLetter(data.letter);
             toast.success("Mektup başarıyla oluşturuldu!");
-        } catch (err) {
-            toast.error("Sunucuya bağlanılamadı.");
+        } catch (_err) {
+            console.error(_err);
         } finally {
+            // Loading handled
             setIsLoading(false);
         }
     };
@@ -102,7 +103,6 @@ export default function NewCoverLetterPage() {
 
     const handleReset = () => {
         setGeneratedLetter("");
-        setIsEditing(false);
     };
 
     const handleDownloadPDF = async () => {
@@ -124,7 +124,7 @@ export default function NewCoverLetterPage() {
             a.click();
             URL.revokeObjectURL(url);
             toast.success("PDF başarıyla indirildi!");
-        } catch (error) {
+        } catch (_error) {
             toast.error("PDF oluşturulurken hata oluştu.");
         }
     };
@@ -155,7 +155,7 @@ export default function NewCoverLetterPage() {
             } else {
                 toast.success("Mektup başarıyla kaydedildi!");
             }
-        } catch (err) {
+        } catch (_err) {
             toast.error("Kaydetme işlemi sırasında hata oluştu.");
         } finally {
             setIsSaving(false);

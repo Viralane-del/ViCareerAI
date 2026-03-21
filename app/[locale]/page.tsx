@@ -8,6 +8,7 @@ import {
   Target, Zap, Globe, ShieldCheck, ArrowRight, Star
 } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function Home() {
   const t = useTranslations("Index");
@@ -89,8 +90,13 @@ export default function Home() {
           >
             <div className="flex -space-x-3">
               {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="h-12 w-12 rounded-full border-4 border-background bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center text-xs font-bold ring-2 ring-blue-500/10 overflow-hidden shadow-sm">
-                   <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=user${i}`} alt="user" />
+                <div key={i} className="h-12 w-12 rounded-full border-4 border-background bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center text-xs font-bold ring-2 ring-blue-500/10 overflow-hidden shadow-sm relative">
+                   <Image 
+                     src={`https://api.dicebear.com/7.x/avataaars/svg?seed=user${i}`} 
+                     alt="user" 
+                     fill
+                     className="object-cover"
+                   />
                 </div>
               ))}
             </div>

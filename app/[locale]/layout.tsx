@@ -32,7 +32,7 @@ export default async function RootLayout(props: Readonly<{
   const params = await props.params;
   const { locale } = params;
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as "en" | "tr")) {
     notFound();
   }
 

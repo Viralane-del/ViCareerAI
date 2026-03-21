@@ -69,7 +69,7 @@ Sadece mektubu yaz, başlık veya açıklama ekleme.`;
         }
 
         return NextResponse.json({ letter });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Cover letter generation error:", error);
         return NextResponse.json(
             { error: "Mektup oluşturulurken hata oluştu." },

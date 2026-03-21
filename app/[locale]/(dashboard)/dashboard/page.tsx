@@ -6,7 +6,7 @@ import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-    FileText, Briefcase, PlusCircle, FileSearch, Clock, ArrowRight, Sparkles, Loader2
+    FileText, Briefcase, PlusCircle, FileSearch, ArrowRight, Sparkles
 } from "lucide-react";
 
 interface QuotaData {
@@ -102,7 +102,7 @@ export default function DashboardPage() {
                     <CardContent>
                         <div className="grid grid-cols-2 gap-3">
                             {quickLinks.map(link => (
-                                <Link key={link.href} href={link.href as any}>
+                                <Link key={link.href} href={link.href as "/cv/history" | "/cover-letter/new" | "/jobs/tracker" | "/jobs/discover"}>
                                     <div className="flex items-center gap-3 p-3 rounded-lg border bg-zinc-50/50 dark:bg-zinc-900/50 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-200 dark:hover:border-blue-800 transition-all group cursor-pointer">
                                         <link.icon className="h-4 w-4 text-muted-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
                                         <span className="text-sm font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">{link.label}</span>

@@ -29,7 +29,7 @@ export default function CVEditorPage({ params }: { params: Promise<{ id: string 
         isOpen: false,
         initialText: "",
         sectionType: "",
-        onApply: (text: string) => {}
+        onApply: (_text: string) => {}
     });
 
     // Stub data object for the form
@@ -159,7 +159,7 @@ export default function CVEditorPage({ params }: { params: Promise<{ id: string 
             } else {
                 toast.error(result.error || "İçe aktarma başarısız.");
             }
-        } catch (err) {
+        } catch (_err) {
             toast.error("Bir ağ hatası oluştu.");
         } finally {
             setIsImporting(false);
@@ -195,7 +195,7 @@ export default function CVEditorPage({ params }: { params: Promise<{ id: string 
                     // router.replace(`/cv/${result.id}/edit`);
                 }
             }
-        } catch (error) {
+        } catch (_error) {
             toast.error("Kaydetme işlemi sırasında hata oluştu.");
         } finally {
             setIsSaving(false);
@@ -214,7 +214,7 @@ export default function CVEditorPage({ params }: { params: Promise<{ id: string 
             a.click();
             URL.revokeObjectURL(url);
             toast.success("PDF başarıyla indirildi!");
-        } catch (error) {
+        } catch (_error) {
             toast.error("PDF oluşturulurken hata oluştu.");
         }
     };
@@ -392,7 +392,7 @@ export default function CVEditorPage({ params }: { params: Promise<{ id: string 
                                         <p className="text-muted-foreground">Henüz deneyim eklenmedi.</p>
                                     </div>
                                 ) : (
-                                    cvData.experience.map((exp, index) => (
+                                    cvData.experience.map((exp, _index) => (
                                         <Card key={exp.id} className="relative mt-2">
                                             <Button
                                                 variant="ghost" size="icon"
@@ -469,7 +469,7 @@ export default function CVEditorPage({ params }: { params: Promise<{ id: string 
                                         <p className="text-muted-foreground">Henüz eğitim eklenmedi.</p>
                                     </div>
                                 ) : (
-                                    cvData.education.map((edu, index) => (
+                                    cvData.education.map((edu, _index) => (
                                         <Card key={edu.id} className="relative mt-2">
                                             <Button
                                                 variant="ghost" size="icon"
@@ -558,7 +558,7 @@ export default function CVEditorPage({ params }: { params: Promise<{ id: string 
             <div className="hidden lg:flex flex-col w-[500px] border-l bg-zinc-100/50 dark:bg-zinc-950 p-4">
                 <div className="flex items-center justify-between mb-4 gap-2">
                     <div className="flex items-center gap-2">
-                        <Select value={template} onValueChange={(v: any) => setTemplate(v)}>
+                        <Select value={template} onValueChange={(v: 'classic' | 'modern' | 'minimal') => setTemplate(v)}>
                             <SelectTrigger className="h-8 w-[110px] text-xs">
                                 <SelectValue placeholder="Şablon" />
                             </SelectTrigger>

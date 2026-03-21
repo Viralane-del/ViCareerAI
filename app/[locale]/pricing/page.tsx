@@ -5,8 +5,6 @@ import { Check, Sparkles, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 
 export default function PricingPage() {
     const [isLoading, setIsLoading] = useState(false);
@@ -29,8 +27,9 @@ export default function PricingPage() {
             } else {
                 toast.error("Ödeme sayfasına yönlendirilemedi.");
             }
-        } catch (error: any) {
-            toast.error(error.message || "Ödeme işlemi başlatılamadı (Lütfen Stripe Key'lerinizi .env dosyasına girin)");
+        } catch (error: unknown) {
+            const message = error instanceof Error ? error.message : "Ödeme işlemi başlatılamadı";
+            toast.error(message || "Ödeme işlemi başlatılamadı (Lütfen Stripe Key'lerinizi .env dosyasına girin)");
         } finally {
             setIsLoading(false);
         }

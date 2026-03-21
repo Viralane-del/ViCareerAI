@@ -27,7 +27,7 @@ export default function ProfilePage() {
                     setPlan(data.plan || "free");
                 }
             })
-            .catch(() => {})
+            .catch((_err) => {})
             .finally(() => setIsLoading(false));
     }, []);
 
@@ -44,7 +44,7 @@ export default function ProfilePage() {
             } else {
                 toast.error("Güncelleme başarısız.");
             }
-        } catch {
+        } catch (_err) {
             toast.error("Bir hata oluştu.");
         } finally {
             setIsSaving(false);
@@ -63,7 +63,7 @@ export default function ProfilePage() {
             } else {
                 toast.error("E-posta gönderilemedi.");
             }
-        } catch {
+        } catch (_err) {
             toast.error("Bir hata oluştu.");
         }
     };
