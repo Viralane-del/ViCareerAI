@@ -49,13 +49,13 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
 
       {/* Sidebar Navigation */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 transform border-r bg-white transition-transform duration-300 ease-in-out dark:bg-zinc-900 lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-72 transform border-r border-slate-800 bg-slate-900 transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex h-full flex-col">
           {/* Logo */}
-          <div className="flex h-16 shrink-0 items-center justify-between border-b px-6">
+          <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-800 px-6">
             <Link href="/dashboard" className="flex items-center gap-2 font-bold text-xl group">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-brand transition-transform group-hover:scale-105">
                 <Sparkles className="h-4 w-4 text-white" />
@@ -72,7 +72,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
 
           {/* Navigation Links */}
           <nav className="flex-1 space-y-1 p-4 overflow-y-auto">
-            <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4 px-3 mt-4">
+            <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4 px-3 mt-4">
               {t("menuLabel")}
             </div>
             {navigation.map((item) => {
@@ -83,12 +83,12 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                   href={item.href as "/dashboard" | "/cv/history" | "/cover-letter/history" | "/jobs/discover" | "/jobs/tracker" | "/profile"}
                   className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all ${
                     isActive
-                      ? "bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400"
-                      : "text-muted-foreground hover:bg-zinc-100 hover:text-foreground dark:hover:bg-zinc-800"
+                      ? "bg-slate-800 text-white shadow-sm ring-1 ring-white/5"
+                      : "text-slate-400 hover:bg-slate-800/50 hover:text-white"
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <item.icon className={`h-5 w-5 ${isActive ? "text-blue-600 dark:text-blue-400" : ""}`} />
+                  <item.icon className={`h-5 w-5 ${isActive ? "text-blue-400" : ""}`} />
                   {item.name}
                   {isActive && <ChevronRight className="ml-auto h-4 w-4 opacity-50" />}
                 </Link>
@@ -97,10 +97,10 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
           </nav>
 
           {/* User & Logout section */}
-          <div className="border-t p-4">
+          <div className="border-t border-slate-800 p-4">
             <button
               onClick={handleLogout}
-              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-destructive transition-colors hover:bg-destructive/10"
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-red-400 transition-colors hover:bg-red-500/10"
             >
               <LogOut className="h-5 w-5" />
               {t("logout")}
