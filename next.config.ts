@@ -11,21 +11,22 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
-        protocol: 'https',
+        protocol: 'https' as const,
         hostname: 'lh3.googleusercontent.com',
         port: '',
         pathname: '/**',
       },
       {
-        protocol: 'https',
+        protocol: 'https' as const,
         hostname: 'avatars.githubusercontent.com',
         port: '',
         pathname: '/**',
       },
       {
-        protocol: 'https',
+        protocol: 'https' as const,
         hostname: 'api.dicebear.com',
         port: '',
         pathname: '/**',

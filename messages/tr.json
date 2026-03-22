@@ -17,6 +17,7 @@
     },
     "Navigation": {
         "home": "Ana Sayfa",
+        "features": "Özellikler",
         "dashboard": "Panelim",
         "pricing": "Fiyatlandırma",
         "login": "Giriş Yap",

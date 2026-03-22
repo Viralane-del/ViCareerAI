@@ -17,6 +17,7 @@
     },
     "Navigation": {
         "home": "Home",
+        "features": "Features",
         "dashboard": "Dashboard",
         "pricing": "Pricing",
         "login": "Login",
