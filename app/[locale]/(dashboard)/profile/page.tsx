@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +11,7 @@ import { toast } from "sonner";
 import { User, Lock, Crown, ShieldAlert, Save, Loader2 } from "lucide-react";
 
 export default function ProfilePage() {
+    const t = useTranslations("Index");
     const [profile, setProfile] = useState({ fullName: "", email: "" });
     const [plan, setPlan] = useState("free");
     const [isSaving, setIsSaving] = useState(false);
@@ -131,7 +133,7 @@ export default function ProfilePage() {
                     {plan !== "pro" && (
                         <Button className="w-full gradient-brand text-white border-0 h-11">
                             <Crown className="mr-2 h-4 w-4" />
-                            Pro Plana Yükselt — ₺149/ay
+                            Pro Plana Yükselt — {t("proPrice")}
                         </Button>
                     )}
                 </CardContent>

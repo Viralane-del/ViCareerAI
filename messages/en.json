@@ -14,7 +14,7 @@
         "ctaFinal": "Start your career journey today",
         "ctaFinalDesc": "Make a difference in your applications with the CV you will create in minutes.",
         "ctaFinalButton": "Sign Up and Start",
-        "proPrice": "$9.99/mo",
+        "proPrice": "₺299/ay",
         "freePrice": "$0"
     },
     "Navigation": {
@@ -27,6 +27,7 @@
         "cvHistory": "CV History",
         "letterHistory": "Letter History",
         "jobs": "Discover Jobs",
+        "applications": "My Applications",
         "settings": "Settings",
         "menuLabel": "MENU",
         "logout": "Logout"

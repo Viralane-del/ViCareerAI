@@ -35,6 +35,8 @@ export const MinimalTemplate = ({ data }: { data: CVData }) => (
                     {data.personal.email && <Text style={styles.contactItem}>{data.personal.email}</Text>}
                     {data.personal.phone && <Text style={styles.contactItem}>{data.personal.phone}</Text>}
                     {data.personal.location && <Text style={styles.contactItem}>{data.personal.location}</Text>}
+                    {data.personal.linkedin && <Text style={styles.contactItem}>{data.personal.linkedin}</Text>}
+                    {data.personal.website && <Text style={styles.contactItem}>{data.personal.website}</Text>}
                 </View>
             </View>
 

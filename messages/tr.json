@@ -24,9 +24,10 @@
         "pricing": "Fiyatlandırma",
         "login": "Giriş Yap",
         "register": "Ücretsiz Başla",
-        "cvHistory": "CV Geçmişi",
-        "letterHistory": "Mektup Geçmişi",
+        "cvHistory": "CV Geçmişim",
+        "letterHistory": "Mektup Geçmişim",
         "jobs": "Hemen Keşfet",
+        "applications": "Başvurularım",
         "settings": "Hesabım",
         "menuLabel": "MENÜ",
         "logout": "Çıkış Yap"

@@ -28,6 +28,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
     { name: t("cvHistory"), href: "/cv/history", icon: FileText },
     { name: t("letterHistory"), href: "/cover-letter/history", icon: FileText },
     { name: t("jobs"), href: "/jobs/discover", icon: Briefcase },
+    { name: t("applications"), href: "/jobs/tracker", icon: Briefcase },
     { name: t("settings"), href: "/profile", icon: Settings },
   ];
 
@@ -79,7 +80,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
               return (
                 <Link
                   key={item.name}
-                  href={item.href as "/dashboard" | "/cv/history" | "/cover-letter/history" | "/jobs/discover" | "/profile"}
+                  href={item.href as "/dashboard" | "/cv/history" | "/cover-letter/history" | "/jobs/discover" | "/jobs/tracker" | "/profile"}
                   className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all ${
                     isActive
                       ? "bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400"
