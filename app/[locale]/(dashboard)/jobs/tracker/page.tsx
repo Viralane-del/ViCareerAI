@@ -87,7 +87,7 @@ export default function JobTrackerPage() {
 
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-7xl mx-auto p-4 md:p-8 h-full flex flex-col">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 shrink-0">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
                     <p className="text-muted-foreground mt-1">{t("desc")}</p>
