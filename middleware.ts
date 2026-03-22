@@ -9,10 +9,8 @@ export async function middleware(request: NextRequest) {
     // First, handle i18n routing
     const response = handleI18nRouting(request);
 
-    // Then, attach Supabase session cookies to the response
-    await updateSession(request, response);
-
-    return response;
+    // Then, attach Supabase session cookies to the response and potentially handle redirect
+    return await updateSession(request, response);
 }
 
 export const config = {
