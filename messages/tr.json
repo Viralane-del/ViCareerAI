@@ -13,7 +13,9 @@
         "faqTitle": "Sıkça Sorulan Sorular",
         "ctaFinal": "Kariyer yolculuğunu bugün başlat",
         "ctaFinalDesc": "Dakikalar içinde oluşturacağın CV ile başvurularında fark yarat.",
-        "ctaFinalButton": "Kayıt Ol ve Başla"
+        "ctaFinalButton": "Kayıt Ol ve Başla",
+        "proPrice": "₺299/ay",
+        "freePrice": "₺0"
     },
     "Navigation": {
         "home": "Ana Sayfa",

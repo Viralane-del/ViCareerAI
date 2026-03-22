@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Check, Sparkles, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 
 export default function PricingPage() {
+    const t = useTranslations("Index");
     const [isLoading, setIsLoading] = useState(false);
     // In actual usage, this should come from env or config
     const PRO_PRICE_ID = process.env.NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PRICE_ID || "price_1xxxxxx";
@@ -54,7 +56,7 @@ export default function PricingPage() {
                         <CardTitle className="text-2xl mb-2">Başlangıç</CardTitle>
                         <CardDescription className="text-base">Temel CV oluşturma araçları</CardDescription>
                         <div className="mt-6 flex justify-center items-baseline gap-1">
-                            <span className="text-5xl font-black">₺0</span>
+                            <span className="text-5xl font-black">{t("freePrice")}</span>
                             <span className="text-muted-foreground font-medium">/ömür boyu</span>
                         </div>
                     </CardHeader>
@@ -96,7 +98,7 @@ export default function PricingPage() {
                         </CardTitle>
                         <CardDescription className="text-base text-blue-900/70 dark:text-blue-100/70">Tüm AI araçlarına sınırsız erişim</CardDescription>
                         <div className="mt-6 flex justify-center items-baseline gap-1">
-                            <span className="text-5xl font-black text-zinc-900 dark:text-white">₺299</span>
+                            <span className="text-5xl font-black text-zinc-900 dark:text-white">{t("proPrice")}</span>
                             <span className="text-muted-foreground font-medium">/aylık</span>
                         </div>
                     </CardHeader>

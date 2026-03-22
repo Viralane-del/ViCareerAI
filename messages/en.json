@@ -13,7 +13,9 @@
         "faqTitle": "Frequently Asked Questions",
         "ctaFinal": "Start your career journey today",
         "ctaFinalDesc": "Make a difference in your applications with the CV you will create in minutes.",
-        "ctaFinalButton": "Sign Up and Start"
+        "ctaFinalButton": "Sign Up and Start",
+        "proPrice": "$9.99/mo",
+        "freePrice": "$0"
     },
     "Navigation": {
         "home": "Home",

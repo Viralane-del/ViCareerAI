@@ -179,7 +179,7 @@ export default function Home() {
               <h3 className="text-2xl font-bold mb-2">Başlangıç (Free)</h3>
               <p className="text-muted-foreground mb-6">Kariyerine ilk adımı atanlar için.</p>
               <div className="mb-8 flex items-baseline gap-1">
-                <span className="text-5xl font-extrabold">$0</span>
+                <span className="text-5xl font-extrabold">{t("freePrice")}</span>
                 <span className="text-muted-foreground">/ay</span>
               </div>
               <ul className="space-y-4 mb-10 flex-1">
@@ -213,7 +213,7 @@ export default function Home() {
               <h3 className="text-2xl font-bold mb-2">Profesyonel (Pro)</h3>
               <p className="text-zinc-400 mb-6">Sınırsız güç ve tüm özellikler.</p>
               <div className="mb-8 flex items-baseline gap-1">
-                <span className="text-5xl font-extrabold">$9.99</span>
+                <span className="text-5xl font-extrabold">{t("proPrice")}</span>
                 <span className="text-zinc-400">/ay</span>
               </div>
               <ul className="space-y-4 mb-10 flex-1">
@@ -245,7 +245,7 @@ export default function Home() {
           <div className="grid gap-6">
             {[
               {
-                q: "CV'ler realmente ATS uyumlu mu?",
+                q: "CV'ler gerçekten ATS uyumlu mu?",
                 a: "Evet, tüm şablonlarımız SAP, Workday ve Lever gibi büyük ATS sistemlerinin standartlarına göre test edilmiştir."
               },
               {
