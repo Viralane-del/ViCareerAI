@@ -49,13 +49,13 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
 
       {/* Sidebar Navigation */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 transform border-r border-slate-800 bg-slate-900 transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-72 transform border-r border-slate-700 bg-slate-900 transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex h-full flex-col">
           {/* Logo */}
-          <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-800 px-6">
+          <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-700 px-6">
             <Link href="/dashboard" className="flex items-center gap-2 font-bold text-xl group">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-brand transition-transform group-hover:scale-105">
                 <Sparkles className="h-4 w-4 text-white" />
@@ -97,7 +97,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
           </nav>
 
           {/* User & Logout section */}
-          <div className="border-t border-slate-800 p-4">
+          <div className="border-t border-slate-700 p-4">
             <button
               onClick={handleLogout}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-red-400 transition-colors hover:bg-red-500/10"
@@ -111,7 +111,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
 
       {/* Main Content Area */}
       <div className="flex flex-1 flex-col overflow-hidden">
-        <header className="flex h-16 shrink-0 items-center border-b bg-white px-4 shadow-sm dark:bg-zinc-900 lg:hidden">
+        <header className="flex h-16 shrink-0 items-center border-b border-slate-700 bg-slate-900 px-4 lg:hidden">
           <button
             className="text-muted-foreground hover:text-foreground p-2 -ml-2 rounded-md"
             onClick={() => setIsMobileMenuOpen(true)}
@@ -124,7 +124,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto bg-zinc-50/50 p-4 md:p-8 dark:bg-black/20">
+        <main className="flex-1 overflow-y-auto bg-[#09090B] p-4 md:p-8">
           <div className="mx-auto max-w-6xl">
             {children}
           </div>
