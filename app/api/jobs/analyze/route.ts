@@ -8,8 +8,9 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
     try {
-        const supabase = await createClient(); // Added supabase client initialization
-        const { data: { session: _session } } = await supabase.auth.getSession(); // Added session check
+        const supabase = await createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        void user; // auth available but not enforced for this public endpoint
 
         const { jobText } = await request.json();
 

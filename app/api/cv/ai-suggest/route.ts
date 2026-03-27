@@ -20,9 +20,9 @@ export async function POST(req: Request) {
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (authError || !user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
@@ -33,11 +33,11 @@ export async function POST(req: Request) {
         }
 
         // Quota check
-        const { data: profile } = await supabase.from('profiles').select('plan').eq('id', session.user.id).single();
+        const { data: profile } = await supabase.from('profiles').select('plan').eq('id', user.id).single();
         if (profile?.plan === 'free') {
-            let { data: quota } = await supabase.from('usage_quotas').select('analysis_count').eq('user_id', session.user.id).single();
+            let { data: quota } = await supabase.from('usage_quotas').select('analysis_count').eq('user_id', user.id).single();
             if (!quota) {
-                await supabase.from('usage_quotas').insert({ user_id: session.user.id });
+                await supabase.from('usage_quotas').insert({ user_id: user.id });
                 quota = { analysis_count: 0 };
             }
             if (quota.analysis_count >= 5) {
@@ -52,9 +52,9 @@ export async function POST(req: Request) {
             
             // Increment quota mock
             if (profile?.plan === 'free') {
-                const { data: quota } = await supabase.from('usage_quotas').select('analysis_count').eq('user_id', session.user.id).single();
+                const { data: quota } = await supabase.from('usage_quotas').select('analysis_count').eq('user_id', user.id).single();
                 if (quota) {
-                    await supabase.from('usage_quotas').update({ analysis_count: quota.analysis_count + 1 }).eq('user_id', session.user.id);
+                    await supabase.from('usage_quotas').update({ analysis_count: quota.analysis_count + 1 }).eq('user_id', user.id);
                 }
             }
 
@@ -107,9 +107,9 @@ export async function POST(req: Request) {
 
         // Increment quota
         if (profile?.plan === 'free') {
-            const { data: quota } = await supabase.from('usage_quotas').select('analysis_count').eq('user_id', session.user.id).single();
+            const { data: quota } = await supabase.from('usage_quotas').select('analysis_count').eq('user_id', user.id).single();
             if (quota) {
-                await supabase.from('usage_quotas').update({ analysis_count: quota.analysis_count + 1 }).eq('user_id', session.user.id);
+                await supabase.from('usage_quotas').update({ analysis_count: quota.analysis_count + 1 }).eq('user_id', user.id);
             }
         }
 

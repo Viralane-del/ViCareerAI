@@ -68,7 +68,8 @@ const mockJobListings = [
 export async function POST(req: NextRequest) {
     try {
         const supabase = await createClient();
-        const { data: { session: _session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
+        void user; // auth available for future Pro plan gating
 
         // TODO: Check Pro plan for external API access
         // For now, return mock data for all users

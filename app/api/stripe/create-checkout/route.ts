@@ -21,14 +21,14 @@ export async function POST(req: Request) {
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
 
-        if (!session?.user) {
+        if (authError || !user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const userId = session.user.id;
-        const userEmail = session.user.email;
+        const userId = user.id;
+        const userEmail = user.email;
 
         const { priceId } = await req.json();
 

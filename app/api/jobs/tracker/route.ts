@@ -12,13 +12,13 @@ export async function GET() {
             },
         });
 
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
+        if (authError || !user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
         const { data, error } = await supabase
             .from("job_listings")
             .select("*")
-            .eq("user_id", session.user.id)
+            .eq("user_id", user.id)
             .order("created_at", { ascending: false });
 
         if (error) throw error;
@@ -51,8 +51,8 @@ export async function PATCH(request: NextRequest) {
             },
         });
 
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
+        if (authError || !user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
         const dbStatus = mapUiStatusToDb(status);
 
@@ -60,7 +60,7 @@ export async function PATCH(request: NextRequest) {
             .from("job_listings")
             .update({ status: dbStatus })
             .eq("id", id)
-            .eq("user_id", session.user.id);
+            .eq("user_id", user.id);
 
         if (error) throw error;
         return NextResponse.json({ success: true });
