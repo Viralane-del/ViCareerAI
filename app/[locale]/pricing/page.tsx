@@ -57,7 +57,7 @@ export default function PricingPage() {
                         <CardDescription className="text-base">Temel CV oluşturma araçları</CardDescription>
                         <div className="mt-6 flex justify-center items-baseline gap-1">
                             <span className="text-5xl font-black">{t("freePrice")}</span>
-                            <span className="text-muted-foreground font-medium">/ömür boyu</span>
+                            <span className="text-muted-foreground font-medium">{t("lifetime")}</span>
                         </div>
                     </CardHeader>
                     <CardContent className="flex-1 px-8">
@@ -99,7 +99,7 @@ export default function PricingPage() {
                         <CardDescription className="text-base text-blue-900/70 dark:text-blue-100/70">Tüm AI araçlarına sınırsız erişim</CardDescription>
                         <div className="mt-6 flex justify-center items-baseline gap-1">
                             <span className="text-5xl font-black text-zinc-900 dark:text-white">{t("proPrice")}</span>
-                            <span className="text-muted-foreground font-medium">/aylık</span>
+                            <span className="text-muted-foreground font-medium">{t("perMonth")}</span>
                         </div>
                     </CardHeader>
                     <CardContent className="flex-1 px-8">

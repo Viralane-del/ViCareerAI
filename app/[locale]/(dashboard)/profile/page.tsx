@@ -133,7 +133,7 @@ export default function ProfilePage() {
                     {plan !== "pro" && (
                         <Button className="w-full gradient-brand text-white border-0 h-11">
                             <Crown className="mr-2 h-4 w-4" />
-                            Pro Plana Yükselt — {t("proPrice")}
+                            Pro Plana Yükselt — {t("proPrice")}{t("perMonth")}
                         </Button>
                     )}
                 </CardContent>

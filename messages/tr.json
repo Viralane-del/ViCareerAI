@@ -14,8 +14,10 @@
         "ctaFinal": "Kariyer yolculuğunu bugün başlat",
         "ctaFinalDesc": "Dakikalar içinde oluşturacağın CV ile başvurularında fark yarat.",
         "ctaFinalButton": "Kayıt Ol ve Başla",
-        "proPrice": "₺299/ay",
-        "freePrice": "₺0"
+        "proPrice": "₺299",
+        "freePrice": "₺0",
+        "perMonth": "/ay",
+        "lifetime": "/ömür boyu"
     },
     "Navigation": {
         "home": "Ana Sayfa",

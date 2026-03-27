@@ -180,7 +180,7 @@ export default function Home() {
               <p className="text-muted-foreground mb-6">Kariyerine ilk adımı atanlar için.</p>
               <div className="mb-8 flex items-baseline gap-1">
                 <span className="text-5xl font-extrabold">{t("freePrice")}</span>
-                <span className="text-muted-foreground">/ay</span>
+                <span className="text-muted-foreground">{t("perMonth")}</span>
               </div>
               <ul className="space-y-4 mb-10 flex-1">
                 {[
@@ -214,7 +214,7 @@ export default function Home() {
               <p className="text-zinc-400 mb-6">Sınırsız güç ve tüm özellikler.</p>
               <div className="mb-8 flex items-baseline gap-1">
                 <span className="text-5xl font-extrabold">{t("proPrice")}</span>
-                <span className="text-zinc-400">/ay</span>
+                <span className="text-zinc-400">{t("perMonth")}</span>
               </div>
               <ul className="space-y-4 mb-10 flex-1">
                 {[
