@@ -5,7 +5,7 @@ import { NextRequest } from 'next/server';
 
 const handleI18nRouting = createMiddleware(routing);
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     // First, handle i18n routing
     const response = handleI18nRouting(request);
 
