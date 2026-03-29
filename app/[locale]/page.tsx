@@ -231,7 +231,7 @@ export default function Home() {
                 ))}
               </ul>
               <Link href="/register" className="w-full">
-                <Button className="w-full h-14 rounded-2xl text-lg font-bold bg-blue-600 hover:bg-blue-700 text-white border-0 shadow-lg shadow-blue-600/20">Pro'ya Geç</Button>
+                <Button className="w-full h-14 rounded-2xl text-lg font-bold bg-blue-600 hover:bg-blue-700 text-white border-0 shadow-lg shadow-blue-600/20">Pro&apos;ya Geç</Button>
               </Link>
             </motion.div>
           </div>
