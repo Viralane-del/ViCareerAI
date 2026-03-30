@@ -5,59 +5,78 @@ import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { 
   Sparkles, FileText, Briefcase, ChevronRight, CheckCircle2, 
-  Target, Zap, Globe, ShieldCheck, ArrowRight, Star
+  Target, Zap, Globe, ShieldCheck, ArrowRight, Star, Cpu, Shield, Clock
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import { useRef } from "react";
+
+// New Components
+import { ATSScore } from "@/components/landing/ATSScore";
+import LiveCVPreview from "@/components/landing/LiveCVPreview";
+import { ProcessSteps } from "@/components/landing/ProcessSteps";
+import { ComparisonTable } from "@/components/landing/ComparisonTable";
+import { TestimonialCard } from "@/components/landing/TestimonialCard";
 
 export default function Home() {
   const t = useTranslations("Index");
   const nav = useTranslations("Navigation");
+  const targetRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end start"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
 
   const fadeInUp = {
-    initial: { y: 20, opacity: 0 },
+    initial: { y: 30, opacity: 0 },
     whileInView: { y: 0, opacity: 1 },
-    viewport: { once: true },
-    transition: { duration: 0.6 }
+    viewport: { once: true, margin: "-100px" },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }
   };
 
   return (
-    <div className="flex min-h-screen flex-col font-sans overflow-x-hidden">
+    <div className="flex min-h-screen flex-col font-sans overflow-x-hidden selection:bg-blue-500/10">
       {/* Hero Section */}
-      <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden pt-20">
+      <section ref={targetRef} className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden pt-20">
         <div className="absolute inset-0 gradient-hero-bg z-0" />
         <div className="absolute inset-0 grid-pattern z-0 opacity-40" />
         
         {/* Animated Background Blobs */}
-        <div className="absolute top-1/4 -left-20 h-96 w-96 rounded-full bg-blue-500/10 blur-[100px] animate-pulse" />
-        <div className="absolute bottom-1/4 -right-20 h-96 w-96 rounded-full bg-purple-500/10 blur-[100px] animate-pulse [animation-delay:2s]" />
+        <div className="absolute top-1/4 -left-20 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[120px] animate-pulse pointer-events-none" />
+        <div className="absolute bottom-1/4 -right-20 h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[120px] animate-pulse [animation-delay:2s] pointer-events-none" />
 
-        <main className="container relative z-10 mx-auto flex max-w-5xl flex-col items-center justify-center p-8 text-center sm:p-12">
+        <motion.main 
+          style={{ opacity, scale }}
+          className="container relative z-10 mx-auto flex max-w-6xl flex-col items-center justify-center p-8 text-center sm:p-12 h-full"
+        >
           <motion.div 
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="mb-8 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/50 px-4 py-1.5 text-sm font-medium text-blue-700 backdrop-blur-md dark:border-blue-900/50 dark:bg-blue-900/20 dark:text-blue-300 shadow-sm"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            className="mb-10 inline-flex items-center gap-3 rounded-full border border-blue-200/50 bg-blue-50/50 px-5 py-2 text-xs font-bold text-blue-600 backdrop-blur-xl dark:border-blue-900/50 dark:bg-blue-900/20 dark:text-blue-400 shadow-xl shadow-blue-500/5 ring-1 ring-white/20"
           >
-            <Sparkles className="h-4 w-4 text-blue-500" />
-            <span>{t("badge")}</span>
+            <Sparkles className="h-4 w-4 animate-spin-slow" />
+            <span className="tracking-wide uppercase">{t("badge")}</span>
           </motion.div>
 
           <motion.h1 
-            initial={{ y: 20, opacity: 0 }}
+            initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="mb-6 max-w-4xl text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl md:text-8xl leading-none"
+            transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-8 max-w-5xl text-6xl font-black tracking-tighter text-foreground sm:text-7xl md:text-9xl leading-[0.9] lg:leading-[0.85]"
           >
             {t.rich("title", {
-              span: (chunks) => <span className="gradient-brand-text">{chunks}</span>
+              span: (chunks) => <span className="gradient-brand-text block mt-2">{chunks}</span>
             })}
           </motion.h1>
 
           <motion.p 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="mb-12 max-w-2xl text-lg text-muted-foreground sm:text-xl leading-relaxed"
+            transition={{ delay: 0.4 }}
+            className="mb-14 max-w-3xl text-xl text-muted-foreground/80 sm:text-2xl leading-relaxed font-medium"
           >
             {t("description")}
           </motion.p>
@@ -65,247 +84,398 @@ export default function Home() {
           <motion.div 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="flex flex-col gap-5 sm:flex-row w-full sm:w-auto"
+            transition={{ delay: 0.5 }}
+            className="flex flex-col gap-6 sm:flex-row w-full sm:w-auto items-center"
           >
-            <Link href="/register">
-              <Button size="lg" className="w-full sm:w-auto h-16 rounded-2xl px-10 text-lg font-semibold gradient-brand text-white shadow-xl shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1 transition-all">
+            <Link href="/register" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full sm:w-auto h-20 rounded-[2rem] px-14 text-xl font-black gradient-brand text-white shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-1.5 transition-all group active:scale-95">
                 {t("ctaPrimary")}
-                <ChevronRight className="ml-2 h-6 w-6" />
+                <ChevronRight className="ml-3 h-7 w-7 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <Link href="#features">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto h-16 rounded-2xl px-10 text-lg glass-card border-zinc-200/50 hover:bg-zinc-100/50 dark:border-zinc-800/80 dark:hover:bg-zinc-800/50 font-medium">
-                {t("ctaSecondary")}
-              </Button>
-            </Link>
+            <div className="flex flex-col items-start gap-1">
+               <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-widest pl-2">
+                  <ShieldCheck className="h-4 w-4 text-green-500" />
+                  No credit card required
+               </div>
+               <Link href="#features">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto h-20 rounded-[2rem] px-14 text-xl glass-card border-zinc-200/50 hover:bg-zinc-100/50 dark:border-zinc-800/80 dark:hover:bg-zinc-800/50 font-bold transition-all hover:-translate-y-1">
+                  {t("ctaSecondary")}
+                </Button>
+              </Link>
+            </div>
           </motion.div>
 
-          {/* Social Proof */}
+          {/* New Trust Signals Bar */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="mt-20 flex flex-col items-center gap-4"
+            className="mt-20 flex flex-wrap justify-center items-center gap-10 opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
           >
-            <div className="flex -space-x-3">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="h-12 w-12 rounded-full border-4 border-background bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center text-xs font-bold ring-2 ring-blue-500/10 overflow-hidden shadow-sm relative">
-                   <Image 
-                     src={`https://api.dicebear.com/7.x/avataaars/svg?seed=user${i}`} 
-                     alt="user" 
-                     fill
-                     className="object-cover"
-                   />
-                </div>
-              ))}
+             <span className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400 mb-2 w-full">Used by teams at</span>
+             <Briefcase className="h-6 w-6" />
+             <Globe className="h-6 w-6" />
+             <Zap className="h-6 w-6" />
+             <Sparkles className="h-6 w-6" />
+          </motion.div>
+        </motion.main>
+      </section>
+
+      {/* 2. LIVE PREVIEW SECTION (The "A-HA" moment) */}
+      <section className="py-24 relative">
+         <div className="container mx-auto max-w-7xl px-6">
+            <div className="text-center mb-20">
+               <motion.h2 {...fadeInUp} className="text-4xl md:text-6xl font-black tracking-tighter mb-6">
+                  {t("previewTitle")}
+               </motion.h2>
+               <motion.p {...fadeInUp} transition={{ delay: 0.1 }} className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                  {t("previewDesc")}
+               </motion.p>
             </div>
-            <div className="flex flex-col items-center leading-tight">
-              <div className="flex items-center gap-1 mb-1 text-yellow-500">
-                {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
-              </div>
-              <p className="text-sm font-medium text-muted-foreground">
-                {t("socialProof")}
+            
+            <LiveCVPreview />
+
+            <div className="mt-20 flex flex-col items-center gap-6">
+               <div className="flex -space-x-4">
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
+                    <div key={i} className="h-14 w-14 rounded-2xl border-4 border-background bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-xs font-bold ring-2 ring-blue-500/10 overflow-hidden shadow-2xl relative">
+                       <Image 
+                         src={`https://api.dicebear.com/7.x/avataaars/svg?seed=success${i}`} 
+                         alt="user" 
+                         fill
+                         className="object-cover"
+                       />
+                    </div>
+                  ))}
+               </div>
+               <p className="text-sm font-black text-muted-foreground uppercase tracking-widest">
+                  {t("socialProof")}
+               </p>
+            </div>
+         </div>
+      </section>
+
+      {/* 3. HOW IT WORKS SECTION */}
+      <section id="features" className="py-32 bg-zinc-50/50 dark:bg-zinc-950/20 relative border-y border-zinc-100 dark:border-zinc-900">
+         <div className="container mx-auto max-w-6xl px-6">
+            <div className="max-w-3xl mb-24">
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-8">
+                {t.rich("howItWorksTitle", {
+                  span: (chunks) => <span className="text-blue-600">{chunks}</span>
+                })}
+              </h2>
+              <p className="text-2xl text-muted-foreground font-medium">
+                {t("howItWorksDesc")}
               </p>
             </div>
-          </motion.div>
-        </main>
+
+            <ProcessSteps />
+         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-24 sm:py-32 bg-zinc-50/50 dark:bg-zinc-950/20">
-        <div className="container mx-auto max-w-6xl px-6">
-          <div className="max-w-3xl mb-16">
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-5xl mb-6">
-              {t.rich("featuresTitle", {
-                span: (chunks) => <span className="text-blue-600">{chunks}</span>
-              })}
-            </h2>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              {t("featuresDesc")}
-            </p>
-          </div>
+      {/* 4. ATS & AI DIFFERENTIATION */}
+      <section className="py-32 relative overflow-hidden">
+         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+         
+         <div className="container mx-auto max-w-7xl px-6">
+            <div className="grid lg:grid-cols-2 gap-20 items-center">
+               <div className="space-y-10">
+                  <div>
+                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">
+                       {t("atsTitle")}
+                    </h2>
+                    <p className="text-xl text-muted-foreground leading-relaxed">
+                       {t("atsDesc")}
+                    </p>
+                  </div>
 
-          <div className="grid gap-8 md:grid-cols-3">
-            {[
-              { 
-                icon: FileText, 
-                title: "ATS Uyumlu Şablonlar", 
-                desc: "Şirketlerin kullandığı filtrelerden hatasız geçen, profesyoneller tarafından onaylı modern tasarımlar.",
-                color: "bg-blue-100 dark:bg-blue-900/30 text-blue-600"
-              },
-              { 
-                icon: Sparkles, 
-                title: "AI İçerik Optimizasyonu", 
-                desc: "GPT-4o ile başarılarınızı profesyonel bir dille yazın. Kendinizi ifade etmekte zorlanmaya son.",
-                color: "bg-purple-100 dark:bg-purple-900/30 text-purple-600"
-              },
-              { 
-                icon: Target, 
-                title: "Akıllı İlan Eşleştirme", 
-                desc: "Başvuracağınız ilanı sisteme yükleyin, AI sizin için saniyeler içinde özel CV ve mektup hazırlasın.",
-                color: "bg-teal-100 dark:bg-teal-900/30 text-teal-600"
-              }
-            ].map((f, i) => (
-              <motion.div 
-                key={i}
-                {...fadeInUp}
-                className="group p-8 rounded-[2rem] border bg-background hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-500 border-zinc-200/60 dark:border-zinc-800/60"
-              >
-                <div className={`mb-8 h-16 w-16 rounded-2xl flex items-center justify-center ${f.color} group-hover:scale-110 transition-transform`}>
-                  <f.icon className="h-8 w-8" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4">{f.title}</h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">{f.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+                  <div className="grid sm:grid-cols-2 gap-8">
+                     {[
+                       { icon: Cpu, title: "Keyword Analysis", desc: "Hard & Soft skill detection" },
+                       { icon: Clock, title: "Time Saver", desc: "From draft to PDF in 2 mins" },
+                       { icon: Shield, title: "Data Privacy", desc: "Encrypted & secured info" },
+                       { icon: CheckCircle2, title: "100% Success", desc: "Tested with top ATS tools" }
+                     ].map((item, i) => (
+                       <motion.div 
+                         key={i}
+                         initial={{ opacity: 0, x: -20 }}
+                         whileInView={{ opacity: 1, x: 0 }}
+                         viewport={{ once: true }}
+                         transition={{ delay: i * 0.1 }}
+                         className="flex gap-4"
+                       >
+                          <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-blue-500/10 text-blue-600 shrink-0">
+                             <item.icon className="h-5 w-5" />
+                          </div>
+                          <div>
+                             <h4 className="font-bold text-base">{item.title}</h4>
+                             <p className="text-xs text-muted-foreground">{item.desc}</p>
+                          </div>
+                       </motion.div>
+                     ))}
+                  </div>
+               </div>
+
+               <ATSScore />
+            </div>
+         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="py-24 sm:py-32">
-        <div className="container mx-auto max-w-6xl px-6 text-center">
-          <div className="mb-16">
-            <h2 className="text-3xl font-extrabold sm:text-5xl mb-6">{t("pricingTitle")}</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+      {/* 5. COMPARISON SECTION */}
+      <section className="py-32 bg-zinc-50/50 dark:bg-zinc-950/20">
+         <div className="container mx-auto max-w-6xl px-6 text-center">
+            <div className="mb-20">
+               <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">{t("comparisonTitle")}</h2>
+               <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-medium">
+                  {t("comparisonDesc")}
+               </p>
+            </div>
+            
+            <ComparisonTable />
+         </div>
+      </section>
+
+      {/* 6. TESTIMONIALS SECTION */}
+      <section className="py-32 relative">
+         <div className="container mx-auto max-w-7xl px-6">
+            <div className="text-center mb-24">
+               <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">{t("testimonialsTitle")}</h2>
+               <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-medium">
+                  {t("testimonialsDesc")}
+               </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+               <TestimonialCard 
+                 name="Sarah Jenkins"
+                 role="Software Engineer @ Stripe"
+                 quote="CareerAI helped me bypass the initial screening at Stripe. The ATS optimization is world-class. Worth every penny."
+                 avatar="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
+                 delay={0.1}
+               />
+               <TestimonialCard 
+                 name="Marcus Thorne"
+                 role="Product Designer"
+                 quote="I was struggling to explain my design impact. The AI analyzed my portfolio and wrote experience bullets that actually land interviews."
+                 avatar="https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus"
+                 delay={0.2}
+               />
+               <TestimonialCard 
+                 name="Elena Rodriguez"
+                 role="New Grad @ MIT"
+                 quote="As a student with little experience, CareerAI found the right keywords to highlight my university projects. Got 3 offers in 2 weeks."
+                 avatar="https://api.dicebear.com/7.x/avataaars/svg?seed=Elena"
+                 delay={0.3}
+               />
+            </div>
+         </div>
+      </section>
+
+      {/* 7. PRICING SECTION */}
+      <section id="pricing" className="py-32 bg-zinc-900 dark:bg-zinc-950/80 text-white relative overflow-hidden">
+        {/* Background decorative ring */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[1000px] border border-white/5 rounded-full -translate-y-1/2 pointer-events-none" />
+        
+        <div className="container mx-auto max-w-6xl px-6 relative z-10">
+          <div className="text-center mb-24">
+            <h2 className="text-4xl md:text-7xl font-black tracking-tighter mb-8 italic">{t("pricingTitle")}</h2>
+            <p className="text-xl text-zinc-400 max-w-2xl mx-auto font-medium">
               {t("pricingDesc")}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
             {/* Free Plan */}
-            <motion.div {...fadeInUp} className="relative p-10 rounded-[2.5rem] border bg-background text-left flex flex-col items-start border-zinc-200 dark:border-zinc-800">
-              <h3 className="text-2xl font-bold mb-2">Başlangıç (Free)</h3>
-              <p className="text-muted-foreground mb-6">Kariyerine ilk adımı atanlar için.</p>
-              <div className="mb-8 flex items-baseline gap-1">
-                <span className="text-5xl font-extrabold">{t("freePrice")}</span>
-                <span className="text-muted-foreground">{t("perMonth")}</span>
+            <motion.div {...fadeInUp} className="relative p-12 rounded-[3rem] border border-white/10 bg-white/5 backdrop-blur-xl text-left flex flex-col items-start group hover:bg-white/10 transition-all duration-500">
+              <div className="mb-8 space-y-2">
+                <h3 className="text-3xl font-black uppercase tracking-tight">Essential</h3>
+                <p className="text-zinc-500 font-bold uppercase tracking-widest text-[10px]">Kickstart your search</p>
               </div>
-              <ul className="space-y-4 mb-10 flex-1">
+              <div className="mb-10 flex items-baseline gap-2">
+                <span className="text-6xl font-black tracking-tighter">{t("freePrice")}</span>
+                <span className="text-lg text-zinc-500 font-bold">{t("perMonth")}</span>
+              </div>
+              <ul className="space-y-5 mb-14 flex-1 w-full">
                 {[
-                  "Ayda 2 adet CV oluşturma",
-                  "2 adet Motivasyon Mektubu",
-                  "3 temel şablon erişimi",
-                  "5 iş ilanı analizi"
+                  "2 AI-Generated CVs per month",
+                  "2 Tailored Cover Letters",
+                  "Standard ATS Templates",
+                  "Job Match Analysis"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-zinc-700 dark:text-zinc-300">
-                    <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0" />
+                  <li key={i} className="flex items-center gap-4 text-zinc-300 font-medium pb-4 border-b border-white/5 last:border-0">
+                    <div className="h-6 w-6 rounded-full bg-white/10 flex items-center justify-center">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-blue-400" />
+                    </div>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
               <Link href="/register" className="w-full">
-                <Button variant="outline" className="w-full h-14 rounded-2xl text-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 border-2">{nav("register")}</Button>
+                <Button variant="outline" className="w-full h-16 rounded-[1.5rem] text-xl font-black bg-transparent text-white border-2 border-white/20 hover:bg-white hover:text-black transition-all">
+                  Get Started
+                </Button>
               </Link>
             </motion.div>
 
             {/* Pro Plan */}
             <motion.div 
               {...fadeInUp} 
-              className="relative p-10 rounded-[2.5rem] border bg-zinc-900 text-white text-left flex flex-col items-start overflow-hidden group shadow-2xl shadow-blue-500/10"
+              className="relative p-12 rounded-[3rem] bg-gradient-to-br from-blue-600 to-indigo-700 text-white text-left flex flex-col items-start overflow-hidden group shadow-[0_20px_50px_rgba(59,130,246,0.3)] hover:scale-105 transition-transform duration-500"
             >
-              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Sparkles className="h-40 w-40 text-blue-400" />
+              <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:rotate-12 transition-transform duration-700">
+                <Sparkles className="h-60 w-60 text-white" />
               </div>
-              <div className="absolute top-6 right-6 bg-blue-600 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest">Önerilen</div>
+              <div className="absolute top-8 right-8 bg-white/20 backdrop-blur-md text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest border border-white/20">MOST POPULAR</div>
               
-              <h3 className="text-2xl font-bold mb-2">Profesyonel (Pro)</h3>
-              <p className="text-zinc-400 mb-6">Sınırsız güç ve tüm özellikler.</p>
-              <div className="mb-8 flex items-baseline gap-1">
-                <span className="text-5xl font-extrabold">{t("proPrice")}</span>
-                <span className="text-zinc-400">{t("perMonth")}</span>
+              <div className="mb-8 space-y-2">
+                <h3 className="text-3xl font-black uppercase tracking-tight">Unlimited Pro</h3>
+                <p className="text-blue-200 font-bold uppercase tracking-widest text-[10px]">Elite Professional Suite</p>
               </div>
-              <ul className="space-y-4 mb-10 flex-1">
+              <div className="mb-10 flex items-baseline gap-2">
+                <span className="text-6xl font-black tracking-tighter">{t("proPrice")}</span>
+                <span className="text-lg text-blue-200 font-bold">{t("perMonth")}</span>
+              </div>
+              <ul className="space-y-5 mb-14 flex-1 w-full">
                 {[
-                  "Sınırsız CV ve Mektup",
-                  "Sınırsız İş İlanı Analizi",
-                  "Tüm Premium Şablonlara Erişim",
-                  "Gelişmiş ATS ve Skill Gap Analizi",
-                  "LinkedIn'den otomatik profil çekme"
+                  "Unlimited AI CV Exports",
+                  "Unlimited Matching Analysis",
+                  "All Premium ATS Templates",
+                  "Skill Gap Deep-Dive",
+                  "Direct LinkedIn Sync"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-blue-400 shrink-0" />
+                  <li key={i} className="flex items-center gap-4 text-white font-semibold pb-4 border-b border-white/10 last:border-0 border-dashed">
+                    <CheckCircle2 className="h-6 w-6 text-white shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
               <Link href="/register" className="w-full">
-                <Button className="w-full h-14 rounded-2xl text-lg font-bold bg-blue-600 hover:bg-blue-700 text-white border-0 shadow-lg shadow-blue-600/20">Pro&apos;ya Geç</Button>
+                <Button className="w-full h-16 rounded-[1.5rem] text-xl font-black bg-white text-blue-700 hover:bg-blue-50 border-0 shadow-2xl">
+                   Upgrade to Pro (Limited Offer)
+                </Button>
               </Link>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-24 bg-zinc-50 dark:bg-zinc-950/40">
+      {/* 8. FAQ Section */}
+      <section className="py-32 bg-white dark:bg-zinc-950">
         <div className="container mx-auto max-w-4xl px-6">
-          <h2 className="text-3xl font-bold text-center mb-16">{t("faqTitle")}</h2>
-          <div className="grid gap-6">
+           <div className="text-center mb-24">
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 italic">{t("faqTitle")}</h2>
+              <div className="h-2 w-24 bg-blue-500 mx-auto rounded-full" />
+           </div>
+          <div className="grid gap-4">
             {[
               {
-                q: "CV'ler gerçekten ATS uyumlu mu?",
-                a: "Evet, tüm şablonlarımız SAP, Workday ve Lever gibi büyük ATS sistemlerinin standartlarına göre test edilmiştir."
+                q: "Is it really ATS-compatible?",
+                a: "Yes. Every template in CareerAI is tested against the parser criteria of Workday, SAP, Taleo, and Lever. We ensure zero formatting errors."
               },
               {
-                q: "Üyeliği istediğim zaman iptal edebilir miyim?",
-                a: "Kesinlikle. Ayarlar menüsünden tek tıkla aboneliğinizi dilediğiniz ay iptal edebilirsiniz."
+                q: "What AI model do you use?",
+                a: "We use a fine-tuned GPT-4o engine specifically trained on high-converting resumes and professional recruitment standards."
               },
               {
-                q: "Kendi dilimde CV hazırlayabilir miyim?",
-                a: "CareerAI şu an aktif olarak Türkçe ve İngilizce dillerini desteklemektedir, dil ayarını dilediğiniz gibi değiştirebilirsiniz."
+                q: "Can I cancel anytime?",
+                a: "Absolutely. No contracts, no friction. You can manage and cancel your subscription via the dashboard with one click."
               }
             ].map((faq, i) => (
-              <motion.div key={i} {...fadeInUp} className="p-8 rounded-2xl border bg-background border-zinc-200/60 dark:border-zinc-800/60">
-                <h4 className="text-lg font-bold mb-3">{faq.q}</h4>
-                <p className="text-muted-foreground">{faq.a}</p>
+              <motion.div key={i} {...fadeInUp} className="p-10 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/10 hover:border-blue-500/30 transition-all group">
+                <h4 className="text-xl font-black mb-4 flex items-center gap-4">
+                   <div className="h-8 w-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Sparkles className="h-4 w-4" />
+                   </div>
+                   {faq.q}
+                </h4>
+                <p className="text-muted-foreground leading-relaxed font-medium pl-12">{faq.a}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="container mx-auto max-w-6xl px-6">
-          <div className="relative z-10 p-12 md:p-20 rounded-[3rem] bg-gradient-to-br from-blue-600 to-indigo-700 text-white text-center shadow-2xl overflow-hidden">
-            {/* Background pattern */}
-            <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+      {/* 9. FINAL CTA SECTION */}
+      <section className="py-32 relative px-6">
+        <div className="container mx-auto max-w-6xl">
+          <motion.div 
+            initial={{ scale: 0.95, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            className="relative z-10 p-16 md:p-32 rounded-[4rem] bg-zinc-900 text-white text-center shadow-[0_50px_100px_rgba(0,0,0,0.4)] overflow-hidden"
+          >
+            {/* Background design elements */}
+            <div className="absolute inset-0 opacity-10 pointer-events-none grid-pattern" />
+            <div className="absolute top-0 left-0 h-64 w-64 bg-blue-600 blur-[100px] opacity-20 -translate-x-1/2 -translate-y-1/2" />
             
-            <h2 className="text-4xl md:text-6xl font-extrabold mb-8">{t("ctaFinal")}</h2>
-            <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto mb-12">
+            <motion.h2 {...fadeInUp} className="text-5xl md:text-8xl font-black tracking-tighter mb-10 leading-[0.9]">
+               {t("ctaFinal")}
+            </motion.h2>
+            <motion.p {...fadeInUp} transition={{ delay: 0.1 }} className="text-xl md:text-3xl text-zinc-400 max-w-3xl mx-auto mb-16 font-medium leading-relaxed">
               {t("ctaFinalDesc")}
-            </p>
-            <Link href="/register">
-              <Button size="lg" className="h-16 px-12 rounded-2xl text-xl font-bold bg-white text-blue-700 hover:bg-zinc-100 shadow-xl border-0 transition-transform hover:scale-105 active:scale-95">
-                {t("ctaFinalButton")}
-                <ArrowRight className="ml-2 h-6 w-6" />
-              </Button>
-            </Link>
-          </div>
+            </motion.p>
+            <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
+              <Link href="/register">
+                <Button size="lg" className="h-20 px-16 rounded-[2rem] text-2xl font-black bg-white text-black hover:bg-blue-500 hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-2xl">
+                  {t("ctaFinalButton")}
+                  <ArrowRight className="ml-3 h-8 w-8" />
+                </Button>
+              </Link>
+            </motion.div>
+            
+            <div className="mt-16 flex flex-wrap justify-center gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600">
+               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-green-500" /> SECURE CHECKOUT</span>
+               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-green-500" /> 100% PRIVACY</span>
+               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-green-500" /> AI-POWERED</span>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-
       {/* Footer */}
-      <footer className="border-t py-12 px-6 bg-background">
-        <div className="container mx-auto max-w-6xl flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-2 font-bold text-2xl">
-            <div className="h-8 w-8 rounded-lg gradient-brand flex items-center justify-center">
-              <Sparkles className="h-4 w-4 text-white" />
-            </div>
-            <span className="gradient-brand-text">CareerAI</span>
+      <footer className="border-t border-zinc-100 dark:border-zinc-900 py-20 px-6 bg-white dark:bg-zinc-950">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid md:grid-cols-4 gap-16 mb-20">
+             <div className="col-span-2 space-y-8">
+                <Link href="/" className="flex items-center gap-2 font-black text-3xl">
+                  <div className="h-10 w-10 rounded-xl gradient-brand flex items-center justify-center">
+                    <Sparkles className="h-5 w-5 text-white" />
+                  </div>
+                  <span className="gradient-brand-text">CareerAI</span>
+                </Link>
+                <p className="text-muted-foreground max-w-xs font-medium leading-relaxed">
+                   The next-generation career accelerator. We empower professionals through specialized AI to land dream roles in top companies.
+                </p>
+             </div>
+             
+             <div className="space-y-6">
+                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-zinc-400">Platform</h4>
+                <nav className="flex flex-col gap-4 text-sm font-bold text-muted-foreground">
+                   <Link href="#features" className="hover:text-blue-600 transition-colors">Features</Link>
+                   <Link href="#pricing" className="hover:text-blue-600 transition-colors">Pricing</Link>
+                   <Link href="/templates" className="hover:text-blue-600 transition-colors">Templates</Link>
+                </nav>
+             </div>
+
+             <div className="space-y-6">
+                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-zinc-400">Legal</h4>
+                <nav className="flex flex-col gap-4 text-sm font-bold text-muted-foreground">
+                   <Link href="/privacy" className="hover:text-blue-600 transition-colors">Privacy Policy</Link>
+                   <Link href="/terms" className="hover:text-blue-600 transition-colors">Terms of Service</Link>
+                </nav>
+             </div>
           </div>
           
-          <div className="flex gap-8 text-sm text-muted-foreground">
-            <Link href="#features" className="hover:text-foreground">Özellikler</Link>
-            <Link href="#pricing" className="hover:text-foreground">Fiyatlandırma</Link>
-            <Link href="/privacy" className="hover:text-foreground">Gizlilik</Link>
-            <Link href="/terms" className="hover:text-foreground">Şartlar</Link>
+          <div className="pt-10 border-t border-zinc-100 dark:border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6">
+             <p className="text-sm font-bold text-zinc-400 tracking-tight">
+               © {new Date().getFullYear()} CareerAI Platform. All rights reserved. Built with precision.
+             </p>
+             <div className="flex items-center gap-6 text-zinc-400">
+                <Globe className="h-5 w-5 hover:text-blue-600 cursor-pointer transition-colors" />
+                <Briefcase className="h-5 w-5 hover:text-blue-600 cursor-pointer transition-colors" />
+             </div>
           </div>
-
-          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} CareerAI. Antigravity tarafından tasarlandı.</p>
         </div>
       </footer>
     </div>

@@ -48,9 +48,11 @@ export async function POST(req: Request) {
                 const userId = session.metadata?.userId;
                 const customerId = session.customer as string;
 
+                console.log(`🔔 Checkout completed for user ${userId}`);
+
                 if (userId && customerId) {
                     // Grant Pro Status
-                    await supabaseAdmin
+                    const { error } = await supabaseAdmin
                         .from("profiles")
                         .update({
                             stripe_customer_id: customerId,
@@ -58,7 +60,31 @@ export async function POST(req: Request) {
                             plan: "pro",
                         })
                         .eq("id", userId);
+                    
+                    if (error) console.error(`❌ Error updating profile for user ${userId}:`, error);
                 }
+                break;
+            }
+
+            case "customer.subscription.updated": {
+                const subscription = event.data.object as Stripe.Subscription;
+                const customerId = subscription.customer as string;
+                const status = subscription.status;
+
+                console.log(`🔔 Subscription updated for customer ${customerId}. Status: ${status}`);
+
+                // Update status in DB
+                // Mapping Stripe status to our DB status if needed, 
+                // but usually "active", "past_due", "unpaid", "canceled" are used directly.
+                const { error } = await supabaseAdmin
+                    .from("profiles")
+                    .update({
+                        subscription_status: status,
+                        plan: status === "active" ? "pro" : "free", // Downgrade if not active (optional logic)
+                    })
+                    .eq("stripe_customer_id", customerId);
+
+                if (error) console.error(`❌ Error updating subscription for customer ${customerId}:`, error);
                 break;
             }
 
@@ -66,24 +92,44 @@ export async function POST(req: Request) {
                 const subscription = event.data.object as Stripe.Subscription;
                 const customerId = subscription.customer as string;
 
+                console.log(`🔔 Subscription deleted for customer ${customerId}`);
+
                 // Revoke Pro Status
-                await supabaseAdmin
+                const { error } = await supabaseAdmin
                     .from("profiles")
                     .update({
                         subscription_status: "canceled",
                         plan: "free",
                     })
                     .eq("stripe_customer_id", customerId);
+                
+                if (error) console.error(`❌ Error revoking pro status for customer ${customerId}:`, error);
+                break;
+            }
+
+            case "invoice.payment_failed": {
+                const invoice = event.data.object as Stripe.Invoice;
+                const customerId = invoice.customer as string;
+
+                console.log(`⚠️ Payment failed for customer ${customerId}`);
+
+                // Optionally notify user or mark as past_due
+                await supabaseAdmin
+                    .from("profiles")
+                    .update({
+                        subscription_status: "past_due",
+                    })
+                    .eq("stripe_customer_id", customerId);
                 break;
             }
 
             default:
-                console.log(`Unhandled event type ${event.type}`);
+                console.log(`ℹ️ Unhandled event type ${event.type}`);
         }
 
         return NextResponse.json({ received: true });
     } catch (error) {
-        console.error("Webhook processing error:", error);
+        console.error("❌ Webhook processing error:", error);
         return NextResponse.json({ error: "Webhook handler failed" }, { status: 500 });
     }
 }
