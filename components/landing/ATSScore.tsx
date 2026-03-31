@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { CheckCircle2, AlertCircle, Sparkles, TrendingUp } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface ATSScoreProps {
   score?: number;
@@ -9,6 +10,8 @@ interface ATSScoreProps {
 }
 
 export function ATSScore({ score = 85, className = "" }: ATSScoreProps) {
+  const t = useTranslations("ATS");
+  
   // Calculate stroke-dashoffset for the circular progress
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
@@ -59,11 +62,11 @@ export function ATSScore({ score = 85, className = "" }: ATSScoreProps) {
                whileInView={{ opacity: 1, scale: 1 }}
                viewport={{ once: true }}
                transition={{ duration: 0.5, delay: 0.8 }}
-               className="text-4xl font-black gradient-brand-text leading-tight"
+               className="text-3xl font-black gradient-brand-text leading-none mb-0.5"
              >
                {score}%
              </motion.span>
-             <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground opacity-60">ATS Match</span>
+             <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-muted-foreground opacity-60 text-center px-2 leading-tight">{t("match")}</span>
           </div>
         </div>
 
@@ -74,16 +77,16 @@ export function ATSScore({ score = 85, className = "" }: ATSScoreProps) {
                 <Sparkles className="h-5 w-5" />
              </div>
              <div>
-                <h4 className="font-bold text-lg leading-none mb-1">AI Optimization Suggestions</h4>
-                <p className="text-xs text-muted-foreground">Based on current Job Market Trends</p>
+                <h4 className="font-bold text-lg leading-none mb-1">{t("aiSuggest")}</h4>
+                <p className="text-xs text-muted-foreground">{t("aiDesc")}</p>
              </div>
           </div>
 
           <div className="space-y-3">
              {[
-               { icon: CheckCircle2, text: "Strong keyword matching in 'Experience' section.", positive: true },
-               { icon: TrendingUp, text: "Formatting is 100% readable by top ATS systems.", positive: true },
-               { icon: AlertCircle, text: "Add 'Cloud Architecture' to 'Skills' for a 95% match.", positive: false },
+               { icon: CheckCircle2, text: t("s1"), positive: true },
+               { icon: TrendingUp, text: t("s2"), positive: true },
+               { icon: AlertCircle, text: t("s3"), positive: false },
              ].map((item, i) => (
                <motion.div 
                  key={i}

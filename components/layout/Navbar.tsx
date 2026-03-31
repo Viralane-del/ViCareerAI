@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Sparkles, LayoutDashboard } from "lucide-react";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { createClient } from "@/lib/supabase/client";
 import { Badge } from "@/components/ui/badge";
 
@@ -104,6 +105,7 @@ export default function Navbar() {
 
                 {/* Desktop Actions */}
                 <div className="hidden md:flex items-center gap-4">
+                    <LanguageSwitcher />
                     <ThemeToggle />
                     <div className="h-6 w-px bg-zinc-200 dark:bg-zinc-800 mx-1" />
                     {isLoggedIn ? (
@@ -133,6 +135,7 @@ export default function Navbar() {
 
                 {/* Mobile Menu & Theme Toggle */}
                 <div className="flex md:hidden items-center gap-3">
+                    <LanguageSwitcher />
                     <ThemeToggle />
                     <button
                         className="rounded-xl p-2.5 bg-zinc-100 dark:bg-zinc-800/50 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all active:scale-90"

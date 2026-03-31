@@ -2,28 +2,31 @@
 
 import { motion } from "framer-motion";
 import { Check, X, Sparkles } from "lucide-react";
-
-const comparisonFeatures = [
-  { feature: "AI Optimized for ATS Systems", us: true, them: false },
-  { feature: "CV Content Consistency Checks", us: true, them: false },
-  { feature: "Specific Job Match Analysis", us: true, them: true }, // Generic AI can analyze text
-  { feature: "PDF Output with Proper Metadata", us: true, them: false },
-  { feature: "Privacy-Focused Data Handling", us: true, them: false },
-  { feature: "AI-Generated Follow-up System", us: true, them: false },
-  { feature: "Real-time Skill Gap Discovery", us: true, them: false }
-];
+import { useTranslations } from "next-intl";
 
 export function ComparisonTable() {
+  const t = useTranslations("Comparison");
+  
+  const comparisonFeatures = [
+    { feature: t("f1"), us: true, them: false },
+    { feature: t("f2"), us: true, them: false },
+    { feature: t("f3"), us: true, them: true }, // Generic AI can analyze text
+    { feature: t("f4"), us: true, them: false },
+    { feature: t("f5"), us: true, them: false },
+    { feature: t("f6"), us: true, them: false },
+    { feature: t("f7"), us: true, them: false }
+  ];
+
   return (
     <div className="w-full max-w-4xl mx-auto overflow-hidden rounded-[2.5rem] border border-zinc-200/60 dark:border-zinc-800/60 bg-white/50 dark:bg-zinc-950/20 backdrop-blur-md shadow-2xl">
       <div className="grid grid-cols-[1.5fr,1fr,1fr] gap-px bg-zinc-100 dark:bg-zinc-800/60">
         {/* Header Row */}
-        <div className="bg-zinc-50/50 dark:bg-zinc-900/50 p-6 font-bold text-sm tracking-tight text-zinc-400 uppercase">Feature Focus</div>
+        <div className="bg-zinc-50/50 dark:bg-zinc-900/50 p-6 font-bold text-sm tracking-tight text-zinc-400 uppercase">{t("headerFocus")}</div>
         <div className="bg-blue-600 p-6 flex flex-col items-center justify-center gap-2 group">
            <Sparkles className="h-5 w-5 text-white animate-pulse" />
-           <span className="text-white font-black text-sm uppercase tracking-widest">CareerAI</span>
+           <span className="text-white font-black text-sm uppercase tracking-widest">{t("headerUs")}</span>
         </div>
-        <div className="bg-zinc-50/50 dark:bg-zinc-900/50 p-6 flex flex-col items-center justify-center font-bold text-sm text-zinc-400 uppercase">Generic AI</div>
+        <div className="bg-zinc-50/50 dark:bg-zinc-900/50 p-6 flex flex-col items-center justify-center font-bold text-sm text-zinc-400 uppercase">{t("headerThem")}</div>
 
         {/* Feature Rows */}
         {comparisonFeatures.map((item, i) => (

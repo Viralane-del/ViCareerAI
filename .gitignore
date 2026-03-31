@@ -42,3 +42,11 @@ next-env.d.ts
 
 # stripe cli
 stripe.exe
+
+# IDE & tool config
+.vscode/
+.claude/
+.mcp.json
+
+# temp error logs
+ts-errors*.txt

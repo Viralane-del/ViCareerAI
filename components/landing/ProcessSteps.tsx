@@ -2,41 +2,23 @@
 
 import { motion } from "framer-motion";
 import { Upload, Cpu, Download, ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
-const steps = [
-  {
-    id: 1,
-    title: "Upload Resume",
-    description: "Import your current CV or start with a blank canvas. Our AI scans for structure.",
-    icon: Upload,
-    color: "text-blue-500",
-    bg: "bg-blue-500/10"
-  },
-  {
-    id: 2,
-    title: "AI Optimization",
-    description: "Our GPT-4o engine transforms your experience into high-impact, professional content.",
-    icon: Cpu,
-    color: "text-purple-500",
-    bg: "bg-purple-500/10"
-  },
-  {
-    id: 3,
-    title: "Download & Apply",
-    description: "Export your ATS-ready PDF and land your dream job faster than ever before.",
-    icon: Download,
-    color: "text-teal-500",
-    bg: "bg-teal-500/10"
-  }
+const stepIcons = [
+  { id: 1, icon: Upload, color: "text-blue-500", bg: "bg-blue-500/10" },
+  { id: 2, icon: Cpu, color: "text-purple-500", bg: "bg-purple-500/10" },
+  { id: 3, icon: Download, color: "text-teal-500", bg: "bg-teal-500/10" }
 ];
 
 export function ProcessSteps() {
+  const t = useTranslations("ProcessSteps");
+  
   return (
     <div className="grid gap-12 md:grid-cols-3 relative">
       {/* Decorative connecting lines for desktop */}
       <div className="hidden md:block absolute top-1/2 left-0 w-full h-px border-t-2 border-dashed border-zinc-200 dark:border-zinc-800 -translate-y-12 -z-10" />
 
-      {steps.map((step, i) => (
+      {stepIcons.map((step, i) => (
         <motion.div
           key={step.id}
           initial={{ y: 20, opacity: 0 }}
@@ -47,7 +29,7 @@ export function ProcessSteps() {
         >
           {/* Step Number Badge */}
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-zinc-100 dark:bg-zinc-800 rounded-full text-[10px] font-black uppercase tracking-widest text-zinc-500 border border-zinc-200 dark:border-zinc-700">
-             Step {step.id}
+             {t("step")} {step.id}
           </div>
 
           <div className={`h-20 w-20 rounded-3xl flex items-center justify-center ${step.bg} ${step.color} transform transition-transform group-hover:scale-110 group-hover:rotate-6 duration-500 shadow-inner`}>
@@ -55,9 +37,9 @@ export function ProcessSteps() {
           </div>
 
           <div className="space-y-3">
-             <h3 className="text-xl font-bold tracking-tight">{step.title}</h3>
+             <h3 className="text-xl font-bold tracking-tight">{t(`${step.id}_title`)}</h3>
              <p className="text-sm text-muted-foreground leading-relaxed max-w-[240px] mx-auto">
-                {step.description}
+                {t(`${step.id}_desc`)}
              </p>
           </div>
 

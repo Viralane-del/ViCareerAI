@@ -21,6 +21,9 @@ import { TestimonialCard } from "@/components/landing/TestimonialCard";
 export default function Home() {
   const t = useTranslations("Index");
   const nav = useTranslations("Navigation");
+  const tPricing = useTranslations("Pricing");
+  const tFooter = useTranslations("Footer");
+  const tTestimonial = useTranslations("Testimonials");
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -37,6 +40,8 @@ export default function Home() {
     transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }
   };
 
+  const tATS = useTranslations("ATS");
+  
   return (
     <div className="flex min-h-screen flex-col font-sans overflow-x-hidden selection:bg-blue-500/10">
       {/* Hero Section */}
@@ -96,7 +101,7 @@ export default function Home() {
             <div className="flex flex-col items-start gap-1">
                <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-widest pl-2">
                   <ShieldCheck className="h-4 w-4 text-green-500" />
-                  No credit card required
+                  {t("noCreditCard")}
                </div>
                <Link href="#features">
                 <Button size="lg" variant="outline" className="w-full sm:w-auto h-20 rounded-[2rem] px-14 text-xl glass-card border-zinc-200/50 hover:bg-zinc-100/50 dark:border-zinc-800/80 dark:hover:bg-zinc-800/50 font-bold transition-all hover:-translate-y-1">
@@ -113,7 +118,7 @@ export default function Home() {
             transition={{ delay: 0.8 }}
             className="mt-20 flex flex-wrap justify-center items-center gap-10 opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
           >
-             <span className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400 mb-2 w-full">Used by teams at</span>
+             <span className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400 mb-2 w-full">{t("trustTeams")}</span>
              <Briefcase className="h-6 w-6" />
              <Globe className="h-6 w-6" />
              <Zap className="h-6 w-6" />
@@ -192,10 +197,10 @@ export default function Home() {
 
                   <div className="grid sm:grid-cols-2 gap-8">
                      {[
-                       { icon: Cpu, title: "Keyword Analysis", desc: "Hard & Soft skill detection" },
-                       { icon: Clock, title: "Time Saver", desc: "From draft to PDF in 2 mins" },
-                       { icon: Shield, title: "Data Privacy", desc: "Encrypted & secured info" },
-                       { icon: CheckCircle2, title: "100% Success", desc: "Tested with top ATS tools" }
+                       { icon: Cpu, title: tATS("kw_title"), desc: tATS("kw_desc") },
+                       { icon: Clock, title: tATS("time_title"), desc: tATS("time_desc") },
+                       { icon: Shield, title: tATS("shield_title"), desc: tATS("shield_desc") },
+                       { icon: CheckCircle2, title: tATS("check_title"), desc: tATS("check_desc") }
                      ].map((item, i) => (
                        <motion.div 
                          key={i}
@@ -248,23 +253,23 @@ export default function Home() {
 
             <div className="grid md:grid-cols-3 gap-8">
                <TestimonialCard 
-                 name="Sarah Jenkins"
-                 role="Software Engineer @ Stripe"
-                 quote="CareerAI helped me bypass the initial screening at Stripe. The ATS optimization is world-class. Worth every penny."
+                 name={tTestimonial("t1_name")}
+                 role={tTestimonial("t1_role")}
+                 quote={tTestimonial("t1_quote")}
                  avatar="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
                  delay={0.1}
                />
                <TestimonialCard 
-                 name="Marcus Thorne"
-                 role="Product Designer"
-                 quote="I was struggling to explain my design impact. The AI analyzed my portfolio and wrote experience bullets that actually land interviews."
+                 name={tTestimonial("t2_name")}
+                 role={tTestimonial("t2_role")}
+                 quote={tTestimonial("t2_quote")}
                  avatar="https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus"
                  delay={0.2}
                />
                <TestimonialCard 
-                 name="Elena Rodriguez"
-                 role="New Grad @ MIT"
-                 quote="As a student with little experience, CareerAI found the right keywords to highlight my university projects. Got 3 offers in 2 weeks."
+                 name={tTestimonial("t3_name")}
+                 role={tTestimonial("t3_role")}
+                 quote={tTestimonial("t3_quote")}
                  avatar="https://api.dicebear.com/7.x/avataaars/svg?seed=Elena"
                  delay={0.3}
                />
@@ -289,8 +294,8 @@ export default function Home() {
             {/* Free Plan */}
             <motion.div {...fadeInUp} className="relative p-12 rounded-[3rem] border border-white/10 bg-white/5 backdrop-blur-xl text-left flex flex-col items-start group hover:bg-white/10 transition-all duration-500">
               <div className="mb-8 space-y-2">
-                <h3 className="text-3xl font-black uppercase tracking-tight">Essential</h3>
-                <p className="text-zinc-500 font-bold uppercase tracking-widest text-[10px]">Kickstart your search</p>
+                <h3 className="text-3xl font-black uppercase tracking-tight">{tPricing("essential")}</h3>
+                <p className="text-zinc-500 font-bold uppercase tracking-widest text-[10px]">{tPricing("kickstart")}</p>
               </div>
               <div className="mb-10 flex items-baseline gap-2">
                 <span className="text-6xl font-black tracking-tighter">{t("freePrice")}</span>
@@ -298,10 +303,10 @@ export default function Home() {
               </div>
               <ul className="space-y-5 mb-14 flex-1 w-full">
                 {[
-                  "2 AI-Generated CVs per month",
-                  "2 Tailored Cover Letters",
-                  "Standard ATS Templates",
-                  "Job Match Analysis"
+                  tPricing("f1"),
+                  tPricing("f2"),
+                  tPricing("f3"),
+                  tPricing("f4")
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-4 text-zinc-300 font-medium pb-4 border-b border-white/5 last:border-0">
                     <div className="h-6 w-6 rounded-full bg-white/10 flex items-center justify-center">
@@ -313,7 +318,7 @@ export default function Home() {
               </ul>
               <Link href="/register" className="w-full">
                 <Button variant="outline" className="w-full h-16 rounded-[1.5rem] text-xl font-black bg-transparent text-white border-2 border-white/20 hover:bg-white hover:text-black transition-all">
-                  Get Started
+                  {tPricing("getStarted")}
                 </Button>
               </Link>
             </motion.div>
@@ -321,16 +326,16 @@ export default function Home() {
             {/* Pro Plan */}
             <motion.div 
               {...fadeInUp} 
-              className="relative p-12 rounded-[3rem] bg-gradient-to-br from-blue-600 to-indigo-700 text-white text-left flex flex-col items-start overflow-hidden group shadow-[0_20px_50px_rgba(59,130,246,0.3)] hover:scale-105 transition-transform duration-500"
+              className="relative p-12 rounded-[3rem] bg-linear-to-br from-blue-600 to-indigo-700 text-white text-left flex flex-col items-start overflow-hidden group shadow-[0_20px_50px_rgba(59,130,246,0.3)] hover:scale-105 transition-transform duration-500"
             >
               <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:rotate-12 transition-transform duration-700">
                 <Sparkles className="h-60 w-60 text-white" />
               </div>
-              <div className="absolute top-8 right-8 bg-white/20 backdrop-blur-md text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest border border-white/20">MOST POPULAR</div>
+              <div className="absolute top-8 right-8 bg-white/20 backdrop-blur-md text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest border border-white/20">{tPricing("mostPopular")}</div>
               
               <div className="mb-8 space-y-2">
-                <h3 className="text-3xl font-black uppercase tracking-tight">Unlimited Pro</h3>
-                <p className="text-blue-200 font-bold uppercase tracking-widest text-[10px]">Elite Professional Suite</p>
+                <h3 className="text-3xl font-black uppercase tracking-tight">{tPricing("pro")}</h3>
+                <p className="text-blue-200 font-bold uppercase tracking-widest text-[10px]">{tPricing("proSubtitle")}</p>
               </div>
               <div className="mb-10 flex items-baseline gap-2">
                 <span className="text-6xl font-black tracking-tighter">{t("proPrice")}</span>
@@ -338,11 +343,11 @@ export default function Home() {
               </div>
               <ul className="space-y-5 mb-14 flex-1 w-full">
                 {[
-                  "Unlimited AI CV Exports",
-                  "Unlimited Matching Analysis",
-                  "All Premium ATS Templates",
-                  "Skill Gap Deep-Dive",
-                  "Direct LinkedIn Sync"
+                  tPricing("p1"),
+                  tPricing("p2"),
+                  tPricing("p3"),
+                  tPricing("p4"),
+                  tPricing("p5")
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-4 text-white font-semibold pb-4 border-b border-white/10 last:border-0 border-dashed">
                     <CheckCircle2 className="h-6 w-6 text-white shrink-0" />
@@ -352,7 +357,7 @@ export default function Home() {
               </ul>
               <Link href="/register" className="w-full">
                 <Button className="w-full h-16 rounded-[1.5rem] text-xl font-black bg-white text-blue-700 hover:bg-blue-50 border-0 shadow-2xl">
-                   Upgrade to Pro (Limited Offer)
+                   {tPricing("upgrade")}
                 </Button>
               </Link>
             </motion.div>
@@ -370,16 +375,16 @@ export default function Home() {
           <div className="grid gap-4">
             {[
               {
-                q: "Is it really ATS-compatible?",
-                a: "Yes. Every template in CareerAI is tested against the parser criteria of Workday, SAP, Taleo, and Lever. We ensure zero formatting errors."
+                q: t("faq1q"),
+                a: t("faq1a")
               },
               {
-                q: "What AI model do you use?",
-                a: "We use a fine-tuned GPT-4o engine specifically trained on high-converting resumes and professional recruitment standards."
+                q: t("faq2q"),
+                a: t("faq2a")
               },
               {
-                q: "Can I cancel anytime?",
-                a: "Absolutely. No contracts, no friction. You can manage and cancel your subscription via the dashboard with one click."
+                q: t("faq3q"),
+                a: t("faq3a")
               }
             ].map((faq, i) => (
               <motion.div key={i} {...fadeInUp} className="p-10 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/10 hover:border-blue-500/30 transition-all group">
@@ -425,9 +430,9 @@ export default function Home() {
             </motion.div>
             
             <div className="mt-16 flex flex-wrap justify-center gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600">
-               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-green-500" /> SECURE CHECKOUT</span>
-               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-green-500" /> 100% PRIVACY</span>
-               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-green-500" /> AI-POWERED</span>
+               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-green-500" /> {t("secureCheckout")}</span>
+               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-green-500" /> {t("privacy")}</span>
+               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-green-500" /> {t("aiPowered")}</span>
             </div>
           </motion.div>
         </div>
@@ -445,31 +450,31 @@ export default function Home() {
                   <span className="gradient-brand-text">CareerAI</span>
                 </Link>
                 <p className="text-muted-foreground max-w-xs font-medium leading-relaxed">
-                   The next-generation career accelerator. We empower professionals through specialized AI to land dream roles in top companies.
+                   {tFooter("desc")}
                 </p>
              </div>
              
              <div className="space-y-6">
-                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-zinc-400">Platform</h4>
+                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-zinc-400">{tFooter("platform")}</h4>
                 <nav className="flex flex-col gap-4 text-sm font-bold text-muted-foreground">
-                   <Link href="#features" className="hover:text-blue-600 transition-colors">Features</Link>
-                   <Link href="#pricing" className="hover:text-blue-600 transition-colors">Pricing</Link>
-                   <Link href="/templates" className="hover:text-blue-600 transition-colors">Templates</Link>
+                   <Link href="#features" className="hover:text-blue-600 transition-colors">{tFooter("features")}</Link>
+                   <Link href="#pricing" className="hover:text-blue-600 transition-colors">{tFooter("pricing")}</Link>
+                   <Link href="/templates" className="hover:text-blue-600 transition-colors">{tFooter("templates")}</Link>
                 </nav>
              </div>
 
              <div className="space-y-6">
-                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-zinc-400">Legal</h4>
+                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-zinc-400">{tFooter("legal")}</h4>
                 <nav className="flex flex-col gap-4 text-sm font-bold text-muted-foreground">
-                   <Link href="/privacy" className="hover:text-blue-600 transition-colors">Privacy Policy</Link>
-                   <Link href="/terms" className="hover:text-blue-600 transition-colors">Terms of Service</Link>
+                   <Link href="/privacy" className="hover:text-blue-600 transition-colors">{tFooter("privacy")}</Link>
+                   <Link href="/terms" className="hover:text-blue-600 transition-colors">{tFooter("terms")}</Link>
                 </nav>
              </div>
           </div>
           
           <div className="pt-10 border-t border-zinc-100 dark:border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6">
              <p className="text-sm font-bold text-zinc-400 tracking-tight">
-               © {new Date().getFullYear()} CareerAI Platform. All rights reserved. Built with precision.
+               {tFooter("rights", { year: new Date().getFullYear() })}
              </p>
              <div className="flex items-center gap-6 text-zinc-400">
                 <Globe className="h-5 w-5 hover:text-blue-600 cursor-pointer transition-colors" />
