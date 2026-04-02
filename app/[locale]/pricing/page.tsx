@@ -10,16 +10,16 @@ import { toast } from "sonner";
 export default function PricingPage() {
     const t = useTranslations("Index");
     const [isLoading, setIsLoading] = useState(false);
-    // In actual usage, this should come from env or config
-    const PRO_PRICE_ID = process.env.NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PRICE_ID || "price_1xxxxxx";
+    // LemonSqueezy Variant ID mapping
+    const PRO_VARIANT_ID = process.env.NEXT_PUBLIC_LEMONSQUEEZY_PRO_MONTHLY_VARIANT_ID || "1479578";
 
     const handleSubscribe = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/stripe/create-checkout", {
+            const res = await fetch("/api/lemonsqueezy/create-checkout", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ priceId: PRO_PRICE_ID })
+                body: JSON.stringify({ variantId: PRO_VARIANT_ID })
             });
             const data = await res.json();
 
@@ -31,7 +31,7 @@ export default function PricingPage() {
             }
         } catch (error: unknown) {
             const message = error instanceof Error ? error.message : "Ödeme işlemi başlatılamadı";
-            toast.error(message || "Ödeme işlemi başlatılamadı (Lütfen Stripe Key'lerinizi .env dosyasına girin)");
+            toast.error(message || "Ödeme işlemi başlatılamadı (Lütfen LemonSqueezy anahtarlarını kontrol edin)");
         } finally {
             setIsLoading(false);
         }
