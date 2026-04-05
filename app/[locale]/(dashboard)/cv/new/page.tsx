@@ -35,7 +35,21 @@ export default function NewCVPage() {
             name: "Yönetici (Executive)",
             description: "Üst düzey yöneticiler için premium tasarım detayları barındırır.",
             isPro: true,
-            color: "gradient-brand text-white",
+            color: "bg-slate-50 border-slate-200",
+        },
+        {
+            id: "creative",
+            name: "Yaratıcı (Creative)",
+            description: "Portfolyo odaklı, modern ve dinamik tasarım. Tasarımcılar için mükemmel.",
+            isPro: true,
+            color: "bg-blue-900",
+        },
+        {
+            id: "tech",
+            name: "Teknoloji (Tech)",
+            description: "Yazılımcılar için terminal estetiği. GitHub ve TechStack odaklı.",
+            isPro: true,
+            color: "bg-zinc-950 font-mono",
         }
     ];
 

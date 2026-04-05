@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "@/i18n/routing";
@@ -14,6 +15,7 @@ import { Loader2 } from "lucide-react";
 export default function RegisterPage() {
     const supabase = createClient();
     const router = useRouter();
+    const t = useTranslations("Auth");
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -40,11 +42,11 @@ export default function RegisterPage() {
             return;
         }
 
-        toast.success("Kayıt başarılı! E-postanızı doğrulamanız gerekebilir.");
+        toast.success(t("successRegister"));
         if (data.session) {
             router.push("/dashboard");
         } else {
-            router.push("/login"); // Email verification required flow
+            router.push("/login");
         }
         setIsLoading(false);
     }
@@ -62,13 +64,13 @@ export default function RegisterPage() {
         <div className="flex min-h-screen items-center justify-center p-4">
             <Card className="w-full max-w-sm">
                 <CardHeader className="space-y-2 text-center">
-                    <CardTitle className="text-2xl font-bold">Hesap Oluşturun</CardTitle>
-                    <CardDescription>CareerAI platformuna katılmak için formu doldurun</CardDescription>
+                    <CardTitle className="text-2xl font-bold">{t("registerTitle")}</CardTitle>
+                    <CardDescription>{t("registerDesc")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleEmailRegister} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="name">Ad Soyad</Label>
+                            <Label htmlFor="name">{t("fullName")}</Label>
                             <Input
                                 id="name"
                                 placeholder="Ad Soyad"
@@ -78,7 +80,7 @@ export default function RegisterPage() {
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="email">E-posta</Label>
+                            <Label htmlFor="email">{t("email")}</Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -89,7 +91,7 @@ export default function RegisterPage() {
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="password">Şifre</Label>
+                            <Label htmlFor="password">{t("password")}</Label>
                             <Input
                                 id="password"
                                 type="password"
@@ -99,7 +101,7 @@ export default function RegisterPage() {
                             />
                         </div>
                         <Button type="submit" className="w-full" disabled={isLoading}>
-                            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Hesap Oluştur"}
+                            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : t("registerButton")}
                         </Button>
                     </form>
 
@@ -108,19 +110,19 @@ export default function RegisterPage() {
                             <span className="w-full border-t" />
                         </div>
                         <div className="relative flex justify-center text-xs uppercase">
-                            <span className="bg-background px-2 text-muted-foreground">veya</span>
+                            <span className="bg-background px-2 text-muted-foreground">{t("or")}</span>
                         </div>
                     </div>
 
                     <Button variant="outline" type="button" className="w-full" onClick={handleGoogleLogin}>
-                        Google ile devam et
+                        {t("googleContinue")}
                     </Button>
                 </CardContent>
                 <CardFooter className="flex flex-col gap-2 text-center text-sm text-muted-foreground">
                     <p>
-                        Zaten hesabınız var mı?{" "}
+                        {t("hasAccount")}{" "}
                         <Link href="/login" className="text-blue-600 hover:underline">
-                            Giriş Yap
+                            {t("loginButton")}
                         </Link>
                     </p>
                 </CardFooter>

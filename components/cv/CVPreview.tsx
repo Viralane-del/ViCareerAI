@@ -4,12 +4,15 @@ import { PDFViewer } from '@react-pdf/renderer';
 import { ClassicTemplate, CVData } from './templates/ClassicTemplate';
 import { ModernTemplate } from './templates/ModernTemplate';
 import { MinimalTemplate } from './templates/MinimalTemplate';
+import { ExecutiveTemplate } from './templates/ExecutiveTemplate';
+import { CreativeTemplate } from './templates/CreativeTemplate';
+import { TechTemplate } from './templates/TechTemplate';
 import { Loader2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 interface CVPreviewProps {
     data: CVData;
-    template?: 'classic' | 'modern' | 'minimal';
+    template?: 'classic' | 'modern' | 'minimal' | 'executive' | 'creative' | 'tech';
 }
 
 export default function CVPreview({ data, template = 'classic' }: CVPreviewProps) {
@@ -35,11 +38,13 @@ export default function CVPreview({ data, template = 'classic' }: CVPreviewProps
         );
     }
 
-    const TemplateComponent = template === 'modern'
-        ? ModernTemplate
-        : template === 'minimal'
-            ? MinimalTemplate
-            : ClassicTemplate;
+    const TemplateComponent =
+        template === 'modern' ? ModernTemplate :
+            template === 'minimal' ? MinimalTemplate :
+                template === 'executive' ? ExecutiveTemplate :
+                    template === 'creative' ? CreativeTemplate :
+                        template === 'tech' ? TechTemplate :
+                            ClassicTemplate;
 
     return (
         <div className="h-full w-full rounded-lg overflow-hidden border shadow-sm bg-zinc-50 relative">

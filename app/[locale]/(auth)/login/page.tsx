@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "@/i18n/routing";
@@ -14,6 +15,7 @@ import { Loader2 } from "lucide-react";
 export default function LoginPage() {
     const supabase = createClient();
     const router = useRouter();
+    const t = useTranslations("Auth");
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -34,7 +36,7 @@ export default function LoginPage() {
             return;
         }
 
-        toast.success("Giriş başarılı!");
+        toast.success(t("successLogin"));
         router.push("/dashboard");
         setIsLoading(false);
     }
@@ -52,13 +54,13 @@ export default function LoginPage() {
         <div className="flex min-h-screen items-center justify-center p-4">
             <Card className="w-full max-w-sm">
                 <CardHeader className="space-y-2 text-center">
-                    <CardTitle className="text-2xl font-bold">Tekrar Hoş Geldiniz</CardTitle>
-                    <CardDescription>Hesabınıza giriş yapmak için e-posta bilginizi girin</CardDescription>
+                    <CardTitle className="text-2xl font-bold">{t("loginTitle")}</CardTitle>
+                    <CardDescription>{t("loginDesc")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleEmailLogin} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="email">E-posta</Label>
+                            <Label htmlFor="email">{t("email")}</Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -70,9 +72,9 @@ export default function LoginPage() {
                         </div>
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                                <Label htmlFor="password">Şifre</Label>
+                                <Label htmlFor="password">{t("password")}</Label>
                                 <Link href="#" className="text-sm text-blue-600 hover:underline">
-                                    Şifrenizi mi unuttunuz?
+                                    {t("forgotPassword")}
                                 </Link>
                             </div>
                             <Input
@@ -84,7 +86,7 @@ export default function LoginPage() {
                             />
                         </div>
                         <Button type="submit" className="w-full" disabled={isLoading}>
-                            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Giriş Yap"}
+                            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : t("loginButton")}
                         </Button>
                     </form>
 
@@ -93,19 +95,19 @@ export default function LoginPage() {
                             <span className="w-full border-t" />
                         </div>
                         <div className="relative flex justify-center text-xs uppercase">
-                            <span className="bg-background px-2 text-muted-foreground">veya</span>
+                            <span className="bg-background px-2 text-muted-foreground">{t("or")}</span>
                         </div>
                     </div>
 
                     <Button variant="outline" type="button" className="w-full" onClick={handleGoogleLogin}>
-                        Google ile devam et
+                        {t("googleContinue")}
                     </Button>
                 </CardContent>
                 <CardFooter className="flex flex-col gap-2 text-center text-sm text-muted-foreground">
                     <p>
-                        Hesabınız yok mu?{" "}
+                        {t("noAccount")}{" "}
                         <Link href="/register" className="text-blue-600 hover:underline">
-                            Kayıt Ol
+                            {t("registerButton")}
                         </Link>
                     </p>
                 </CardFooter>

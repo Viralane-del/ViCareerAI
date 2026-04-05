@@ -37,7 +37,10 @@ export default function Home() {
     initial: { y: 30, opacity: 0 },
     whileInView: { y: 0, opacity: 1 },
     viewport: { once: true, margin: "-100px" },
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }
+    transition: { 
+      duration: 0.8, 
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number] 
+    }
   };
 
   const tATS = useTranslations("ATS");
