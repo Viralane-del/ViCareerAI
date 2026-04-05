@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Globe, GraduationCap, Briefcase, Award, Cpu, Code, MessageSquarePlus } from "lucide-react";
+import { Mail, Phone, MapPin, Globe, GraduationCap, Briefcase, Cpu, MessageSquarePlus } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function LiveCVPreview() {

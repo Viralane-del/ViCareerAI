@@ -15,7 +15,7 @@ export async function POST(req: Request) {
             {
                 cookies: {
                     getAll() { return cookieStore.getAll(); },
-                    setAll(_cookiesToSet) { /* Ignore */ },
+                    setAll() { /* Ignore */ },
                 },
             }
         );

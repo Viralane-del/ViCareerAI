@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
             skills: []
         };
 
-        for (const [_key, value] of formData.entries()) {
+        for (const [, value] of formData.entries()) {
             if (value instanceof File && value.name.endsWith('.csv')) {
                 const text = await value.text();
                 const records: Record<string, string>[] = parse(text, {

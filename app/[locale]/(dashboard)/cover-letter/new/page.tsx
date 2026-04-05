@@ -16,8 +16,6 @@ import { Sparkles, Loader2, Copy, Download, RotateCcw, Save } from "lucide-react
 export default function NewCoverLetterPage() {
     const searchParams = useSearchParams();
     const editId = searchParams.get("id");
-
-    const [result, setResult] = useState<unknown>(null);
     const [form, setForm] = useState({
         position: "",
         company: "",
@@ -54,7 +52,7 @@ export default function NewCoverLetterPage() {
                 setGeneratedLetter(data.content || "");
                 setLetterId(data.id);
             }
-        } catch (_err) {
+        } catch {
             toast.error("Mektup yüklenemedi.");
         }
     };
@@ -88,8 +86,8 @@ export default function NewCoverLetterPage() {
 
             setGeneratedLetter(data.letter);
             toast.success("Mektup başarıyla oluşturuldu!");
-        } catch (_err) {
-            console.error(_err);
+        } catch {
+            // Error logged if needed
         } finally {
             // Loading handled
             setIsLoading(false);
@@ -124,7 +122,7 @@ export default function NewCoverLetterPage() {
             a.click();
             URL.revokeObjectURL(url);
             toast.success("PDF başarıyla indirildi!");
-        } catch (_error) {
+        } catch {
             toast.error("PDF oluşturulurken hata oluştu.");
         }
     };
@@ -155,7 +153,7 @@ export default function NewCoverLetterPage() {
             } else {
                 toast.success("Mektup başarıyla kaydedildi!");
             }
-        } catch (_err) {
+        } catch {
             toast.error("Kaydetme işlemi sırasında hata oluştu.");
         } finally {
             setIsSaving(false);

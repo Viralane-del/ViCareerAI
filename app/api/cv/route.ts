@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
     }
 }
 
-export async function GET(_request: NextRequest) {
+export async function GET() {
     // Get all CVs for the user
     try {
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -120,7 +120,7 @@ export async function GET(_request: NextRequest) {
 
         if (error) throw error;
         return NextResponse.json(data);
-    } catch (_error) {
+    } catch {
         return NextResponse.json({ error: "CV'ler getirilemedi." }, { status: 500 });
     }
 }

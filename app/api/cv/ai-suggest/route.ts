@@ -69,7 +69,7 @@ export async function POST(req: Request) {
 
         const openai = new OpenAI({ apiKey: openaiApiKey });
 
-        let systemPrompt = "Sen profesyonel bir CV danışmanısın. Kullanıcının girdiği ham metni daha profesyonel, IK tarafında dikkat çekici ve etkili bir dille yeniden yazacaksın. Çıktı olarak SADECE 3 farklı alternatif içeren bir JSON dizisi vereceksin. Her bir dizi elemanı string olacak. Örnek: [\"alternatif 1\", \"alternatif 2\", \"alternatif 3\"]";
+        const systemPrompt = "Sen profesyonel bir CV danışmanısın. Kullanıcının girdiği ham metni daha profesyonel, IK tarafında dikkat çekici ve etkili bir dille yeniden yazacaksın. Çıktı olarak SADECE 3 farklı alternatif içeren bir JSON dizisi vereceksin. Her bir dizi elemanı string olacak. Örnek: [\"alternatif 1\", \"alternatif 2\", \"alternatif 3\"]";
 
         let userPrompt = `Lütfen şu metni profesyonelleştir: "${rawText}"\nBölüm: ${sectionType || 'Bilinmiyor'}\n`;
         if (targetPosition) {
@@ -100,7 +100,7 @@ export async function POST(req: Request) {
                 // fallback
                 suggestions = [resultText];
             }
-        } catch (e) {
+        } catch {
             console.error("Failed to parse JSON", resultText);
             return NextResponse.json({ error: "AI yanıtı işlenemedi." }, { status: 500 });
         }
@@ -115,7 +115,7 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ suggestions: suggestions.slice(0, 3) });
 
-    } catch (error: any) {
+    } catch (error) {
         console.error("AI Suggest API Error:", error);
         return NextResponse.json(
             { error: "İçerik önerisi oluşturulurken bir hata meydana geldi." },

@@ -46,7 +46,7 @@ export default function CoverLetterHistoryPage() {
             } else {
                 throw new Error();
             }
-        } catch (_err) {
+        } catch {
             toast.error("Silme işlemi başarısız");
         }
     };
@@ -63,7 +63,7 @@ export default function CoverLetterHistoryPage() {
             a.click();
             URL.revokeObjectURL(url);
             toast.success("PDF indirildi!");
-        } catch (_error) {
+        } catch {
             toast.error("PDF oluşturulamadı.");
         } finally {
             setDownloadingId(null);

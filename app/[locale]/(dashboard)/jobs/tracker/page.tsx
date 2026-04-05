@@ -35,7 +35,6 @@ export default function JobTrackerPage() {
     const t = useTranslations("Tracker");
     const [isMounted, setIsMounted] = useState(false);
     const [jobs, setJobs] = useState<JobApplication[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         setIsMounted(true);
@@ -47,10 +46,8 @@ export default function JobTrackerPage() {
             const res = await fetch("/api/jobs/tracker");
             const data = await res.json();
             if (Array.isArray(data)) setJobs(data);
-        } catch (_err) {
-            console.error(_err);
-        } finally {
-            setIsLoading(false);
+        } catch {
+            // Error handling
         }
     };
 
@@ -75,9 +72,8 @@ export default function JobTrackerPage() {
                 body: JSON.stringify({ id: draggableId, status: newStatus })
             });
             if (!res.ok) throw new Error("Update failed");
-        } catch (_err) {
+        } catch {
             setJobs(oldJobs); // Revert
-            console.error(_err);
         }
     };
 

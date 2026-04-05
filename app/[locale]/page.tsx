@@ -4,8 +4,8 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { 
-  Sparkles, FileText, Briefcase, ChevronRight, CheckCircle2, 
-  Target, Zap, Globe, ShieldCheck, ArrowRight, Star, Cpu, Shield, Clock
+  Sparkles, Briefcase, ChevronRight, CheckCircle2, 
+  Zap, Globe, ShieldCheck, ArrowRight, Cpu, Shield, Clock
 } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
@@ -20,7 +20,6 @@ import { TestimonialCard } from "@/components/landing/TestimonialCard";
 
 export default function Home() {
   const t = useTranslations("Index");
-  const nav = useTranslations("Navigation");
   const tPricing = useTranslations("Pricing");
   const tFooter = useTranslations("Footer");
   const tTestimonial = useTranslations("Testimonials");

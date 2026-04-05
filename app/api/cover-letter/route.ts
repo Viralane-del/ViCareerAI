@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
     }
 }
 
-export async function GET(_request: NextRequest) {
+export async function GET() {
     try {
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
         const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -98,7 +98,7 @@ export async function GET(_request: NextRequest) {
 
         if (error) throw error;
         return NextResponse.json(data);
-    } catch (_error) {
+    } catch {
         return NextResponse.json({ error: "Mektuplar getirilemedi." }, { status: 500 });
     }
 }

@@ -46,7 +46,7 @@ export default function AIEnhanceModal({ isOpen, onClose, initialText, sectionTy
             }
 
             setSuggestions(data.suggestions || []);
-        } catch (_error) {
+        } catch {
             toast.error("Bir ağ hatası oluştu.");
         } finally {
             setIsLoading(false);

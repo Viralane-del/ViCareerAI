@@ -159,7 +159,7 @@ export default function CVEditorPage({ params }: { params: Promise<{ id: string 
             } else {
                 toast.error(result.error || "İçe aktarma başarısız.");
             }
-        } catch (_err) {
+        } catch {
             toast.error("Bir ağ hatası oluştu.");
         } finally {
             setIsImporting(false);
@@ -195,7 +195,7 @@ export default function CVEditorPage({ params }: { params: Promise<{ id: string 
                     // router.replace(`/cv/${result.id}/edit`);
                 }
             }
-        } catch (_error) {
+        } catch {
             toast.error("Kaydetme işlemi sırasında hata oluştu.");
         } finally {
             setIsSaving(false);
@@ -214,7 +214,7 @@ export default function CVEditorPage({ params }: { params: Promise<{ id: string 
             a.click();
             URL.revokeObjectURL(url);
             toast.success("PDF başarıyla indirildi!");
-        } catch (_error) {
+        } catch {
             toast.error("PDF oluşturulurken hata oluştu.");
         }
     };
@@ -392,7 +392,7 @@ export default function CVEditorPage({ params }: { params: Promise<{ id: string 
                                         <p className="text-muted-foreground">Henüz deneyim eklenmedi.</p>
                                     </div>
                                 ) : (
-                                    cvData.experience.map((exp, _index) => (
+                                    cvData.experience.map((exp) => (
                                         <Card key={exp.id} className="relative mt-2">
                                             <Button
                                                 variant="ghost" size="icon"
@@ -469,7 +469,7 @@ export default function CVEditorPage({ params }: { params: Promise<{ id: string 
                                         <p className="text-muted-foreground">Henüz eğitim eklenmedi.</p>
                                     </div>
                                 ) : (
-                                    cvData.education.map((edu, _index) => (
+                                    cvData.education.map((edu) => (
                                         <Card key={edu.id} className="relative mt-2">
                                             <Button
                                                 variant="ghost" size="icon"
