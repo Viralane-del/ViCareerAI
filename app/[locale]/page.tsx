@@ -113,21 +113,10 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* New Trust Signals Bar */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="mt-20 flex flex-wrap justify-center items-center gap-10 opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
-          >
-             <span className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400 mb-2 w-full">{t("trustTeams")}</span>
-             <Briefcase className="h-6 w-6" />
-             <Globe className="h-6 w-6" />
-             <Zap className="h-6 w-6" />
-             <Sparkles className="h-6 w-6" />
-          </motion.div>
+          {/* Hero Content ends here */}
         </motion.main>
       </section>
+
 
       {/* 2. LIVE PREVIEW SECTION (The "A-HA" moment) */}
       <section className="py-24 relative">
