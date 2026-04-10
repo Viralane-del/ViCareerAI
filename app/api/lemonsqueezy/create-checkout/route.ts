@@ -6,8 +6,18 @@ import { configureLemonSqueezy } from "@/lib/lemonsqueezy";
 
 export async function POST(req: Request) {
     try {
-        configureLemonSqueezy();
+        // 1. Configure LemonSqueezy SDK
+        try {
+            configureLemonSqueezy();
+        } catch (configError) {
+            console.error("LemonSqueezy Config Error:", configError);
+            return NextResponse.json(
+                { error: "Ödeme sistemi yapılandırılamadı. Lütfen daha sonra tekrar deneyin." },
+                { status: 500 }
+            );
+        }
 
+        // 2. Authenticate user
         const cookieStore = await cookies();
         const supabase = createServerClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -22,26 +32,38 @@ export async function POST(req: Request) {
 
         const { data: { user }, error: authError } = await supabase.auth.getUser();
 
-        if (authError || !user) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        if (authError) {
+            console.error("Supabase Auth Error:", authError.message);
+            return NextResponse.json({ error: "Oturum doğrulanamadı." }, { status: 401 });
+        }
+
+        if (!user) {
+            return NextResponse.json({ error: "Lütfen giriş yapın." }, { status: 401 });
         }
 
         const userId = user.id;
-        const userEmail = user.email!;
+        const userEmail = user.email || "";
 
+        // 3. Parse request body
         const { variantId } = await req.json();
 
         if (!variantId) {
-            return NextResponse.json({ error: "Variant ID is required" }, { status: 400 });
+            return NextResponse.json({ error: "Variant ID gerekli." }, { status: 400 });
         }
 
+        // 4. Check required env vars
         const storeId = process.env.LEMONSQUEEZY_STORE_ID;
         if (!storeId) {
-             return NextResponse.json({ error: "Store ID is required in env" }, { status: 500 });
+            console.error("LEMONSQUEEZY_STORE_ID is not defined in environment.");
+            return NextResponse.json({ error: "Ödeme sistemi yapılandırması eksik." }, { status: 500 });
         }
 
+        // 5. Determine redirect URL
         const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
+        console.log("[Checkout] Creating checkout for user:", userId, "email:", userEmail, "variantId:", variantId, "storeId:", storeId);
+
+        // 6. Create checkout session
         const { data: checkout, error: checkoutError } = await createCheckout(storeId, variantId, {
             checkoutOptions: {
                 embed: false,
@@ -51,29 +73,41 @@ export async function POST(req: Request) {
             checkoutData: {
                 email: userEmail,
                 custom: {
-                    userId: userId // We receive this in the webhook
+                    userId: userId
                 }
             },
             productOptions: {
                 redirectUrl: `${appUrl}/tr/dashboard?success=true`,
-            }
+            },
+            testMode: true,
         });
 
         if (checkoutError) {
-             console.error("LemonSqueezy Checkout Error:", checkoutError);
-             return NextResponse.json({ error: "Ödeme sayfası oluşturulamadı." }, { status: 500 });
+            console.error("LemonSqueezy Checkout Error:", JSON.stringify(checkoutError, null, 2));
+            const errorMessage = typeof checkoutError === 'object' && checkoutError !== null
+                ? JSON.stringify(checkoutError)
+                : String(checkoutError);
+            return NextResponse.json(
+                { error: `Ödeme sayfası oluşturulamadı: ${errorMessage}` },
+                { status: 500 }
+            );
         }
 
-        if (checkout && checkout.data && checkout.data.attributes.url) {
+        if (checkout?.data?.attributes?.url) {
+            console.log("[Checkout] Success! URL:", checkout.data.attributes.url);
             return NextResponse.json({ url: checkout.data.attributes.url });
         } else {
-             return NextResponse.json({ error: "Checkout URL not returned." }, { status: 500 });
+            console.error("LemonSqueezy returned no checkout URL. Response:", JSON.stringify(checkout, null, 2));
+            return NextResponse.json({ error: "Ödeme bağlantısı alınamadı." }, { status: 500 });
         }
 
     } catch (error: unknown) {
-        console.error("LemonSqueezy Checkout Route Error:", error);
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        const errorStack = error instanceof Error ? error.stack : "";
+        console.error("LemonSqueezy Checkout Route Error:", errorMessage);
+        console.error("Stack:", errorStack);
         return NextResponse.json(
-            { error: "Sunucu hatası oluştu." },
+            { error: `Sunucu hatası: ${errorMessage}` },
             { status: 500 }
         );
     }

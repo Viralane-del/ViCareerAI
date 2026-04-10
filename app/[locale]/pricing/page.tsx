@@ -1,20 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Check, Sparkles, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
+import { createBrowserClient } from "@supabase/ssr";
+import { useRouter } from "next/navigation";
 
 export default function PricingPage() {
     const t = useTranslations("Index");
     const p = useTranslations("Pricing");
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     // LemonSqueezy Variant ID mapping
     const PRO_VARIANT_ID = process.env.NEXT_PUBLIC_LEMONSQUEEZY_PRO_MONTHLY_VARIANT_ID || "1479578";
 
+    useEffect(() => {
+        const supabase = createBrowserClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        );
+        supabase.auth.getUser().then(({ data }) => {
+            setIsLoggedIn(!!data.user);
+        });
+    }, []);
+
     const handleSubscribe = async () => {
+        // If not logged in, redirect to login page
+        if (!isLoggedIn) {
+            toast.error("Lütfen önce giriş yapın.");
+            router.push("/login");
+            return;
+        }
+
         setIsLoading(true);
         try {
             const res = await fetch("/api/lemonsqueezy/create-checkout", {
@@ -24,15 +45,23 @@ export default function PricingPage() {
             });
             const data = await res.json();
 
-            if (!res.ok) throw new Error(data.error);
+            if (!res.ok) {
+                // If unauthorized, redirect to login
+                if (res.status === 401) {
+                    toast.error("Oturum süreniz dolmuş. Lütfen tekrar giriş yapın.");
+                    router.push("/login");
+                    return;
+                }
+                throw new Error(data.error || "Ödeme sayfası oluşturulamadı.");
+            }
             if (data.url) {
                 window.location.href = data.url;
             } else {
-                toast.error(p("checkoutLoading"));
+                toast.error("Ödeme bağlantısı alınamadı. Lütfen tekrar deneyin.");
             }
         } catch (error: unknown) {
-            const message = error instanceof Error ? error.message : p("checkoutLoading");
-            toast.error(message || p("checkoutLoading"));
+            const message = error instanceof Error ? error.message : "Bir hata oluştu. Lütfen tekrar deneyin.";
+            toast.error(message);
         } finally {
             setIsLoading(false);
         }
