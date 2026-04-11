@@ -9,10 +9,11 @@ export async function POST(req: Request) {
         // 1. Configure LemonSqueezy SDK
         try {
             configureLemonSqueezy();
-        } catch (configError) {
-            console.error("LemonSqueezy Config Error:", configError);
+        } catch (configError: unknown) {
+            const configMsg = configError instanceof Error ? configError.message : String(configError);
+            console.error("LemonSqueezy Config Error:", configMsg);
             return NextResponse.json(
-                { error: "Ödeme sistemi yapılandırılamadı. Lütfen daha sonra tekrar deneyin." },
+                { error: `Ödeme sistemi yapılandırılamadı: ${configMsg}` },
                 { status: 500 }
             );
         }
