@@ -9,8 +9,9 @@ export function configureLemonSqueezy() {
   const apiKey = process.env.LEMONSQUEEZY_API_KEY;
 
   if (!apiKey) {
+    console.error('[LemonSqueezy] ALL ENV:', Object.keys(process.env).filter(k => k.includes('LEMON')));
     console.error('[LemonSqueezy] LEMONSQUEEZY_API_KEY is not defined in environment variables.');
-    throw new Error('LEMONSQUEEZY_API_KEY is not defined.');
+    throw new Error(`LEMONSQUEEZY_API_KEY is not defined. (Keys found: ${Object.keys(process.env).filter(k => k.includes('LEMON')).join(',')})`);
   }
 
   lemonSqueezySetup({
