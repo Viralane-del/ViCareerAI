@@ -35,10 +35,13 @@
         "aiPowered": "YAPAY ZEKA DESTEKLİ",
         "faq1q": "Gerçekten ATS uyumlu mu?",
         "faq1a": "Evet. CareerAI'deki her şablon Workday, SAP, Taleo ve Lever'ın ayrıştırıcı kriterlerine göre test edilir. Sıfır biçimlendirme hatası garanti ediyoruz.",
+        "faq1video": "https://www.w3schools.com/html/mov_bbb.mp4",
         "faq2q": "Hangi AI modelini kullanıyorsunuz?",
         "faq2a": "Yüksek dönüşüm sağlayan özgeçmişler ve profesyonel işe alım standartları konusunda özel olarak eğitilmiş, ince ayarlı bir GPT-4o motoru kullanıyoruz.",
+        "faq2video": "",
         "faq3q": "İstediğim zaman iptal edebilir miyim?",
-        "faq3a": "Kesinlikle. Sözleşme yok, pürüz yok. Tek tıklama ile panel üzerinden aboneliğinizi yönetebilir ve iptal edebilirsiniz."
+        "faq3a": "Kesinlikle. Sözleşme yok, pürüz yok. Tek tıklama ile panel üzerinden aboneliğinizi yönetebilir ve iptal edebilirsiniz.",
+        "faq3video": ""
     },
     "ProcessSteps": {
         "step": "Adım",

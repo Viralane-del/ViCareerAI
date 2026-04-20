@@ -367,15 +367,18 @@ export default function Home() {
             {[
               {
                 q: t("faq1q"),
-                a: t("faq1a")
+                a: t("faq1a"),
+                video: t("faq1video")
               },
               {
                 q: t("faq2q"),
-                a: t("faq2a")
+                a: t("faq2a"),
+                video: t("faq2video")
               },
               {
                 q: t("faq3q"),
-                a: t("faq3a")
+                a: t("faq3a"),
+                video: t("faq3video")
               }
             ].map((faq, i) => (
               <motion.div key={i} {...fadeInUp} className="p-10 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/10 hover:border-blue-500/30 transition-all group">
@@ -385,7 +388,20 @@ export default function Home() {
                    </div>
                    {faq.q}
                 </h4>
-                <p className="text-muted-foreground leading-relaxed font-medium pl-12">{faq.a}</p>
+                <div className="pl-12">
+                  <p className="text-muted-foreground leading-relaxed font-medium">{faq.a}</p>
+                  
+                  {faq.video && faq.video !== "" && (
+                    <div className="mt-6 relative rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-lg group-hover:border-blue-500/30 transition-colors bg-zinc-900/5 dark:bg-zinc-900 aspect-video">
+                      <video 
+                        src={faq.video} 
+                        controls 
+                        className="absolute inset-0 w-full h-full object-cover"
+                        preload="metadata"
+                      />
+                    </div>
+                  )}
+                </div>
               </motion.div>
             ))}
           </div>
