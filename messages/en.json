@@ -35,7 +35,7 @@
         "aiPowered": "AI-POWERED",
         "faq1q": "Is it really ATS-compatible?",
         "faq1a": "Yes. Every template in CareerAI is tested against the parser criteria of Workday, SAP, Taleo, and Lever. We ensure zero formatting errors.",
-        "faq1video": "https://www.w3schools.com/html/mov_bbb.mp4",
+        "faq1video": "",
         "faq2q": "What AI model do you use?",
         "faq2a": "We use a fine-tuned GPT-4o engine specifically trained on high-converting resumes and professional recruitment standards.",
         "faq2video": "",
