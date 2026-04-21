@@ -14,10 +14,10 @@ export default function LiveCVPreview() {
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true, margin: "-10%" }}
         transition={{ duration: 0.8 }}
-        className="relative z-10 w-full bg-white dark:bg-zinc-900 shadow-2xl rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 flex flex-col md:flex-row aspect-[1/1.4] md:aspect-auto"
+        className="relative z-10 w-full bg-white dark:bg-zinc-900 shadow-2xl rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 flex flex-col md:flex-row"
       >
         {/* Left Sidebar (Narrow) or Top Header (Mobile) */}
-        <div className="w-full md:w-64 bg-zinc-50 dark:bg-zinc-950/40 p-8 border-b md:border-b-0 md:border-r border-zinc-200/60 dark:border-zinc-800/60">
+        <div className="w-full md:w-64 bg-zinc-50 dark:bg-zinc-950/40 p-6 md:p-8 border-b md:border-b-0 md:border-r border-zinc-200/60 dark:border-zinc-800/60">
           <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-6">
             {/* Minimalist Profile Picture */}
             <div className="h-24 w-24 rounded-2xl bg-zinc-200 dark:bg-zinc-800 animate-pulse" />
@@ -55,7 +55,7 @@ export default function LiveCVPreview() {
         </div>
 
         {/* Main Content (Wide) */}
-        <div className="flex-1 p-8 md:p-10 space-y-8 overflow-y-auto custom-scrollbar">
+        <div className="flex-1 p-6 md:p-10 space-y-8 overflow-y-auto custom-scrollbar">
            {/* Professional Summary */}
            <section className="space-y-3">
               <div className="flex items-center gap-2 mb-2">

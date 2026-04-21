@@ -72,7 +72,7 @@ export default function Home() {
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-8 max-w-5xl text-6xl font-black tracking-tighter text-foreground sm:text-7xl md:text-9xl leading-[0.9] lg:leading-[0.85]"
+            className="mb-8 max-w-5xl text-5xl font-black tracking-tighter text-foreground sm:text-7xl md:text-9xl leading-[0.9] lg:leading-[0.85]"
           >
             {t.rich("title", {
               span: (chunks) => <span className="gradient-brand-text block mt-2">{chunks}</span>
@@ -95,7 +95,7 @@ export default function Home() {
             className="flex flex-col gap-6 sm:flex-row w-full sm:w-auto items-center"
           >
             <Link href="/register" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto h-20 rounded-[2rem] px-14 text-xl font-black gradient-brand text-white shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-1.5 transition-all group active:scale-95">
+              <Button size="lg" className="w-full sm:w-auto h-16 md:h-20 rounded-[2rem] px-8 md:px-14 text-lg md:text-xl font-black gradient-brand text-white shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-1.5 transition-all group active:scale-95">
                 {t("ctaPrimary")}
                 <ChevronRight className="ml-3 h-7 w-7 group-hover:translate-x-1 transition-transform" />
               </Button>
@@ -105,8 +105,8 @@ export default function Home() {
                   <ShieldCheck className="h-4 w-4 text-green-500" />
                   {t("noCreditCard")}
                </div>
-               <Link href="#features">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto h-20 rounded-[2rem] px-14 text-xl glass-card border-zinc-200/50 hover:bg-zinc-100/50 dark:border-zinc-800/80 dark:hover:bg-zinc-800/50 font-bold transition-all hover:-translate-y-1">
+               <Link href="#features" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto h-16 md:h-20 rounded-[2rem] px-8 md:px-14 text-lg md:text-xl glass-card border-zinc-200/50 hover:bg-zinc-100/50 dark:border-zinc-800/80 dark:hover:bg-zinc-800/50 font-bold transition-all hover:-translate-y-1">
                   {t("ctaSecondary")}
                 </Button>
               </Link>
@@ -283,7 +283,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
             {/* Free Plan */}
-            <motion.div {...fadeInUp} className="relative p-12 rounded-[3rem] border border-white/10 bg-white/5 backdrop-blur-xl text-left flex flex-col items-start group hover:bg-white/10 transition-all duration-500">
+            <motion.div {...fadeInUp} className="relative p-8 md:p-12 rounded-[3rem] border border-white/10 bg-white/5 backdrop-blur-xl text-left flex flex-col items-start group hover:bg-white/10 transition-all duration-500">
               <div className="mb-8 space-y-2">
                 <h3 className="text-3xl font-black uppercase tracking-tight">{tPricing("essential")}</h3>
                 <p className="text-zinc-500 font-bold uppercase tracking-widest text-[10px]">{tPricing("kickstart")}</p>
@@ -317,9 +317,9 @@ export default function Home() {
             {/* Pro Plan */}
             <motion.div 
               {...fadeInUp} 
-              className="relative p-12 rounded-[3rem] bg-linear-to-br from-blue-600 to-indigo-700 text-white text-left flex flex-col items-start overflow-hidden group shadow-[0_20px_50px_rgba(59,130,246,0.3)] hover:scale-105 transition-transform duration-500"
+              className="relative p-8 md:p-12 rounded-[3rem] bg-linear-to-br from-blue-600 to-indigo-700 text-white text-left flex flex-col items-start overflow-hidden group shadow-[0_20px_50px_rgba(59,130,246,0.3)] hover:scale-105 transition-transform duration-500"
             >
-              <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:rotate-12 transition-transform duration-700">
+              <div className="absolute top-0 right-0 p-8 md:p-12 opacity-10 group-hover:rotate-12 transition-transform duration-700">
                 <Sparkles className="h-60 w-60 text-white" />
               </div>
               <div className="absolute top-8 right-8 bg-white/20 backdrop-blur-md text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest border border-white/20">{tPricing("mostPopular")}</div>
@@ -381,7 +381,7 @@ export default function Home() {
                 video: t("faq3video")
               }
             ].map((faq, i) => (
-              <motion.div key={i} {...fadeInUp} className="p-10 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/10 hover:border-blue-500/30 transition-all group">
+              <motion.div key={i} {...fadeInUp} className="p-6 md:p-10 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/10 hover:border-blue-500/30 transition-all group">
                 <h4 className="text-xl font-black mb-4 flex items-center gap-4">
                    <div className="h-8 w-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Sparkles className="h-4 w-4" />
@@ -415,13 +415,13 @@ export default function Home() {
             initial={{ scale: 0.95, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
-            className="relative z-10 p-16 md:p-32 rounded-[4rem] bg-zinc-900 text-white text-center shadow-[0_50px_100px_rgba(0,0,0,0.4)] overflow-hidden"
+            className="relative z-10 p-10 md:p-32 rounded-[3rem] md:rounded-[4rem] bg-zinc-900 text-white text-center shadow-[0_50px_100px_rgba(0,0,0,0.4)] overflow-hidden"
           >
             {/* Background design elements */}
             <div className="absolute inset-0 opacity-10 pointer-events-none grid-pattern" />
             <div className="absolute top-0 left-0 h-64 w-64 bg-blue-600 blur-[100px] opacity-20 -translate-x-1/2 -translate-y-1/2" />
             
-            <motion.h2 {...fadeInUp} className="text-5xl md:text-8xl font-black tracking-tighter mb-10 leading-[0.9]">
+            <motion.h2 {...fadeInUp} className="text-4xl md:text-8xl font-black tracking-tighter mb-10 leading-[0.9]">
                {t("ctaFinal")}
             </motion.h2>
             <motion.p {...fadeInUp} transition={{ delay: 0.1 }} className="text-xl md:text-3xl text-zinc-400 max-w-3xl mx-auto mb-16 font-medium leading-relaxed">

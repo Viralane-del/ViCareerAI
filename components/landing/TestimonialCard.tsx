@@ -20,7 +20,7 @@ export function TestimonialCard({ name, role, quote, avatar, delay = 0 }: Testim
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
       whileHover={{ y: -5 }}
-      className="group relative h-full bg-white dark:bg-zinc-950/20 border border-zinc-200/50 dark:border-zinc-800/50 p-8 rounded-[2.5rem] shadow-xl hover:shadow-2xl transition-all duration-300"
+      className="group relative h-full bg-white dark:bg-zinc-950/20 border border-zinc-200/50 dark:border-zinc-800/50 p-6 md:p-8 rounded-[2.5rem] shadow-xl hover:shadow-2xl transition-all duration-300"
     >
       {/* Decorative Quote Icon */}
       <div className="absolute top-6 right-8 text-blue-500/10 dark:text-blue-500/5 group-hover:text-blue-500/20 transition-colors">

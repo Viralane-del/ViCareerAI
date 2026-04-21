@@ -22,7 +22,7 @@ export function ProcessSteps() {
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: i * 0.2 }}
-          className="relative group flex flex-col items-center text-center space-y-6 bg-white/50 dark:bg-zinc-900/30 p-10 rounded-[3rem] border border-zinc-100/50 dark:border-zinc-800/50 hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-500 overflow-hidden"
+          className="relative group flex flex-col items-center text-center space-y-6 bg-white/50 dark:bg-zinc-900/30 p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] border border-zinc-100/50 dark:border-zinc-800/50 hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-500 overflow-hidden"
         >
           {/* Subtle Background Number */}
           <div className="absolute -right-4 -bottom-4 text-9xl font-black text-zinc-100/10 dark:text-zinc-800/20 select-none pointer-events-none group-hover:text-blue-500/5 group-hover:-translate-y-2 transition-all duration-700">
