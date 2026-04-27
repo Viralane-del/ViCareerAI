@@ -18,16 +18,16 @@ export function ComparisonTable() {
   ];
 
   return (
-    <div className="w-full max-w-4xl mx-auto rounded-[2.5rem] border border-zinc-200/60 dark:border-zinc-800/60 bg-white/50 dark:bg-zinc-950/20 backdrop-blur-md shadow-2xl overflow-hidden">
+    <div className="w-full max-w-4xl mx-auto rounded-[40px] glass-panel shadow-2xl overflow-hidden">
       <div className="overflow-x-auto custom-scrollbar">
-        <div className="min-w-[600px] grid grid-cols-[1.5fr,1fr,1fr] gap-px bg-zinc-100 dark:bg-zinc-800/60">
+        <div className="min-w-[600px] grid grid-cols-[1.5fr,1fr,1fr] gap-px bg-white/[0.06]">
         {/* Header Row */}
-        <div className="bg-zinc-50/50 dark:bg-zinc-900/50 p-6 font-bold text-sm tracking-tight text-zinc-400 uppercase">{t("headerFocus")}</div>
-        <div className="bg-blue-600 p-6 flex flex-col items-center justify-center gap-2 group">
+        <div className="bg-[#131315] p-6 font-bold text-sm tracking-tight text-[#A1A1AA] uppercase">{t("headerFocus")}</div>
+        <div className="bg-[#2563EB] p-6 flex flex-col items-center justify-center gap-2 group">
            <Sparkles className="h-5 w-5 text-white animate-pulse" />
            <span className="text-white font-black text-sm uppercase tracking-widest">{t("headerUs")}</span>
         </div>
-        <div className="bg-zinc-50/50 dark:bg-zinc-900/50 p-6 flex flex-col items-center justify-center font-bold text-sm text-zinc-400 uppercase">{t("headerThem")}</div>
+        <div className="bg-[#131315] p-6 flex flex-col items-center justify-center font-bold text-sm text-[#A1A1AA] uppercase">{t("headerThem")}</div>
 
         {/* Feature Rows */}
         {comparisonFeatures.map((item, i) => (
@@ -40,12 +40,12 @@ export function ComparisonTable() {
             className="contents group/row"
           >
             {/* Feature Label */}
-            <div className="bg-white dark:bg-zinc-950/40 p-6 text-sm font-semibold text-zinc-700 dark:text-zinc-300 border-b border-zinc-100 dark:border-zinc-900 group-hover/row:bg-blue-50/20 transition-colors">
+            <div className="bg-[#1c1b1d] p-6 text-sm font-semibold text-white border-b border-white/[0.06] group-hover/row:bg-white/5 transition-colors">
               {item.feature}
             </div>
             
             {/* Our Status */}
-            <div className="bg-blue-50/30 dark:bg-blue-900/10 p-6 flex items-center justify-center border-b border-zinc-100 dark:border-zinc-900">
+            <div className="bg-[#2563EB]/10 p-6 flex items-center justify-center border-b border-white/[0.06]">
                <motion.div
                  initial={{ scale: 0 }}
                  whileInView={{ scale: 1 }}
@@ -58,9 +58,9 @@ export function ComparisonTable() {
             </div>
 
             {/* Their Status */}
-            <div className="bg-white dark:bg-zinc-950/40 p-6 flex items-center justify-center border-b border-zinc-100 dark:border-zinc-900 group-hover/row:bg-zinc-100/30 transition-colors">
+            <div className="bg-[#1c1b1d] p-6 flex items-center justify-center border-b border-white/[0.06] group-hover/row:bg-white/5 transition-colors">
                {item.them ? (
-                 <Check className="h-4 w-4 text-zinc-300 stroke-[2px]" />
+                 <Check className="h-4 w-4 text-[#A1A1AA] stroke-[2px]" />
                ) : (
                  <X className="h-4 w-4 text-red-500/30 stroke-[2px]" />
                )}

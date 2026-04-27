@@ -45,26 +45,24 @@ export default function Home() {
   const tATS = useTranslations("ATS");
   
   return (
-    <div className="flex min-h-screen flex-col font-sans overflow-x-hidden selection:bg-blue-500/10">
+    <div className="flex min-h-screen flex-col font-sans overflow-x-hidden selection:bg-blue-500/10 bg-background text-on-background">
       {/* Hero Section */}
       <section ref={targetRef} className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden pt-20">
-        <div className="absolute inset-0 gradient-hero-bg z-0" />
-        <div className="absolute inset-0 grid-pattern z-0 opacity-40" />
-        
-        {/* Animated Background Blobs */}
-        <div className="absolute top-1/4 -left-20 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[120px] animate-pulse pointer-events-none" />
-        <div className="absolute bottom-1/4 -right-20 h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[120px] animate-pulse [animation-delay:2s] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] ai-gradient opacity-50 blur-[120px] pointer-events-none" />
 
         <motion.main 
           style={{ opacity, scale }}
-          className="container relative z-10 mx-auto flex max-w-6xl flex-col items-center justify-center p-8 text-center sm:p-12 h-full"
+          className="container relative z-10 mx-auto flex max-w-6xl flex-col items-center justify-center p-6 text-center sm:p-12 h-full"
         >
           <motion.div 
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="mb-10 inline-flex items-center gap-3 rounded-full border border-blue-200/50 bg-blue-50/50 px-5 py-2 text-xs font-bold text-blue-600 backdrop-blur-xl dark:border-blue-900/50 dark:bg-blue-900/20 dark:text-blue-400 shadow-xl shadow-blue-500/5 ring-1 ring-white/20"
+            className="mb-10 inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border-blue-500/20 text-blue-400 text-sm font-mono"
           >
-            <Sparkles className="h-4 w-4 animate-spin-slow" />
+            <span className="relative flex h-2 w-2">
+               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+               <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            </span>
             <span className="tracking-wide uppercase">{t("badge")}</span>
           </motion.div>
 
@@ -72,10 +70,10 @@ export default function Home() {
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-8 max-w-5xl text-5xl font-black tracking-tighter text-foreground sm:text-7xl md:text-9xl leading-[0.9] lg:leading-[0.85]"
+            className="mb-8 max-w-5xl font-h1 text-4xl sm:text-6xl md:text-8xl lg:text-[80px] leading-[1.1] tracking-tighter text-white"
           >
             {t.rich("title", {
-              span: (chunks) => <span className="gradient-brand-text block mt-2">{chunks}</span>
+              span: (chunks) => <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500 block mt-2">{chunks}</span>
             })}
           </motion.h1>
 
@@ -83,7 +81,7 @@ export default function Home() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="mb-14 max-w-3xl text-xl text-muted-foreground/80 sm:text-2xl leading-relaxed font-medium"
+            className="mb-14 max-w-3xl font-body-lg text-lg sm:text-xl md:text-2xl text-zinc-400"
           >
             {t("description")}
           </motion.p>
@@ -92,25 +90,18 @@ export default function Home() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="flex flex-col gap-6 sm:flex-row w-full sm:w-auto items-center"
+            className="flex flex-wrap gap-4 pt-4 justify-center"
           >
-            <Link href="/register" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto h-16 md:h-20 rounded-[2rem] px-8 md:px-14 text-lg md:text-xl font-black gradient-brand text-white shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-1.5 transition-all group active:scale-95">
-                {t("ctaPrimary")}
-                <ChevronRight className="ml-3 h-7 w-7 group-hover:translate-x-1 transition-transform" />
-              </Button>
+            <Link href="/register">
+              <button className="px-8 py-4 bg-blue-600 text-white font-bold rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2">
+                {t("ctaPrimary")} <ArrowRight className="w-5 h-5" />
+              </button>
             </Link>
-            <div className="flex flex-col items-start gap-1">
-               <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-widest pl-2">
-                  <ShieldCheck className="h-4 w-4 text-green-500" />
-                  {t("noCreditCard")}
-               </div>
-               <Link href="#features" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto h-16 md:h-20 rounded-[2rem] px-8 md:px-14 text-lg md:text-xl glass-card border-zinc-200/50 hover:bg-zinc-100/50 dark:border-zinc-800/80 dark:hover:bg-zinc-800/50 font-bold transition-all hover:-translate-y-1">
-                  {t("ctaSecondary")}
-                </Button>
-              </Link>
-            </div>
+            <Link href="#features">
+              <button className="px-8 py-4 glass-panel text-white font-bold rounded-xl hover:bg-white/5 active:scale-95 transition-all duration-200">
+                {t("ctaSecondary")}
+              </button>
+            </Link>
           </motion.div>
 
           {/* Hero Content ends here */}
@@ -119,13 +110,13 @@ export default function Home() {
 
 
       {/* 2. LIVE PREVIEW SECTION (The "A-HA" moment) */}
-      <section className="py-24 relative">
-         <div className="container mx-auto max-w-7xl px-6">
+      <section className="py-16 md:py-24 relative">
+         <div className="container mx-auto max-w-7xl px-4 sm:px-6">
             <div className="text-center mb-20">
-               <motion.h2 {...fadeInUp} className="text-4xl md:text-6xl font-black tracking-tighter mb-6">
+               <motion.h2 {...fadeInUp} className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-6 text-white">
                   {t("previewTitle")}
                </motion.h2>
-               <motion.p {...fadeInUp} transition={{ delay: 0.1 }} className="text-xl text-muted-foreground max-w-2xl mx-auto">
+               <motion.p {...fadeInUp} transition={{ delay: 0.1 }} className="text-base md:text-xl text-[#A1A1AA] max-w-2xl mx-auto">
                   {t("previewDesc")}
                </motion.p>
             </div>
@@ -135,7 +126,7 @@ export default function Home() {
             <div className="mt-20 flex flex-col items-center gap-6">
                <div className="flex -space-x-4">
                   {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <div key={i} className="h-14 w-14 rounded-2xl border-4 border-background bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-xs font-bold ring-2 ring-blue-500/10 overflow-hidden shadow-2xl relative">
+                    <div key={i} className="h-12 w-12 md:h-14 md:w-14 rounded-lg border-4 border-[#131315] bg-[#1c1b1d] flex items-center justify-center text-xs font-bold ring-1 ring-white/5 overflow-hidden shadow-2xl relative">
                        <Image 
                          src={`https://api.dicebear.com/7.x/avataaars/svg?seed=success${i}`} 
                          alt="user" 
@@ -145,7 +136,7 @@ export default function Home() {
                     </div>
                   ))}
                </div>
-               <p className="text-sm font-black text-muted-foreground uppercase tracking-widest">
+               <p className="text-xs md:text-sm font-semibold text-[#A1A1AA]/60 uppercase tracking-[0.2em]">
                   {t("socialProof")}
                </p>
             </div>
@@ -153,15 +144,15 @@ export default function Home() {
       </section>
 
       {/* 3. HOW IT WORKS SECTION */}
-      <section id="features" className="py-32 bg-zinc-50/50 dark:bg-zinc-950/20 relative border-y border-zinc-100 dark:border-zinc-900">
-         <div className="container mx-auto max-w-6xl px-6">
-            <div className="max-w-3xl mb-24">
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-8">
+      <section id="features" className="py-24 px-6 relative bg-[#0e0e10]">
+         <div className="container mx-auto max-w-7xl">
+            <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
+              <h2 className="font-h1 text-4xl sm:text-5xl text-white">
                 {t.rich("howItWorksTitle", {
-                  span: (chunks) => <span className="text-blue-600">{chunks}</span>
+                  span: (chunks) => <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">{chunks}</span>
                 })}
               </h2>
-              <p className="text-2xl text-muted-foreground font-medium">
+              <p className="font-body-lg text-lg text-zinc-400">
                 {t("howItWorksDesc")}
               </p>
             </div>
@@ -172,21 +163,21 @@ export default function Home() {
 
       {/* 4. ATS & AI DIFFERENTIATION */}
       <section className="py-32 relative overflow-hidden">
-         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[400px] md:h-[600px] md:w-[600px] bg-[#2563EB]/5 rounded-full blur-[120px] pointer-events-none" />
          
-         <div className="container mx-auto max-w-7xl px-6">
-            <div className="grid lg:grid-cols-2 gap-20 items-center">
+         <div className="container mx-auto max-w-7xl px-4 sm:px-6">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                <div className="space-y-10">
                   <div>
-                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-6 text-white">
                        {t("atsTitle")}
                     </h2>
-                    <p className="text-xl text-muted-foreground leading-relaxed">
+                    <p className="text-base md:text-xl text-[#A1A1AA] leading-relaxed">
                        {t("atsDesc")}
                     </p>
                   </div>
 
-                  <div className="grid sm:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
                      {[
                        { icon: Cpu, title: tATS("kw_title"), desc: tATS("kw_desc") },
                        { icon: Clock, title: tATS("time_title"), desc: tATS("time_desc") },
@@ -201,12 +192,12 @@ export default function Home() {
                          transition={{ delay: i * 0.1 }}
                          className="flex gap-4"
                        >
-                          <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-blue-500/10 text-blue-600 shrink-0">
+                          <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-[#2563EB]/10 text-[#2563EB] shrink-0">
                              <item.icon className="h-5 w-5" />
                           </div>
                           <div>
-                             <h4 className="font-bold text-base">{item.title}</h4>
-                             <p className="text-xs text-muted-foreground">{item.desc}</p>
+                             <h4 className="font-semibold text-base text-white">{item.title}</h4>
+                             <p className="text-xs text-[#A1A1AA]">{item.desc}</p>
                           </div>
                        </motion.div>
                      ))}
@@ -219,11 +210,11 @@ export default function Home() {
       </section>
 
       {/* 5. COMPARISON SECTION */}
-      <section className="py-32 bg-zinc-50/50 dark:bg-zinc-950/20">
-         <div className="container mx-auto max-w-6xl px-6 text-center">
+      <section className="py-24 bg-background">
+         <div className="container mx-auto max-w-6xl px-4 sm:px-6 text-center">
             <div className="mb-20">
-               <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">{t("comparisonTitle")}</h2>
-               <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-medium">
+               <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-6 text-white">{t("comparisonTitle")}</h2>
+               <p className="text-base md:text-xl text-[#A1A1AA] max-w-2xl mx-auto font-medium">
                   {t("comparisonDesc")}
                </p>
             </div>
@@ -233,16 +224,16 @@ export default function Home() {
       </section>
 
       {/* 6. TESTIMONIALS SECTION */}
-      <section className="py-32 relative">
-         <div className="container mx-auto max-w-7xl px-6">
+      <section className="py-20 md:py-32 relative">
+         <div className="container mx-auto max-w-7xl px-4 sm:px-6">
             <div className="text-center mb-24">
-               <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">{t("testimonialsTitle")}</h2>
-               <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-medium">
+               <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-6 text-white">{t("testimonialsTitle")}</h2>
+               <p className="text-base md:text-xl text-[#A1A1AA] max-w-2xl mx-auto font-medium">
                   {t("testimonialsDesc")}
                </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                <TestimonialCard 
                  name={tTestimonial("t1_name")}
                  role={tTestimonial("t1_role")}
@@ -269,28 +260,28 @@ export default function Home() {
       </section>
 
       {/* 7. PRICING SECTION */}
-      <section id="pricing" className="py-32 bg-zinc-900 dark:bg-zinc-950/80 text-white relative overflow-hidden">
+      <section id="pricing" className="py-24 bg-background text-white relative overflow-hidden">
         {/* Background decorative ring */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[1000px] border border-white/5 rounded-full -translate-y-1/2 pointer-events-none" />
         
         <div className="container mx-auto max-w-6xl px-6 relative z-10">
           <div className="text-center mb-24">
-            <h2 className="text-4xl md:text-7xl font-black tracking-tighter mb-8 italic">{t("pricingTitle")}</h2>
-            <p className="text-xl text-zinc-400 max-w-2xl mx-auto font-medium">
+            <h2 className="text-3xl md:text-5xl lg:text-7xl font-bold tracking-tighter mb-8">{t("pricingTitle")}</h2>
+            <p className="text-base md:text-xl text-[#A1A1AA] max-w-2xl mx-auto font-medium">
               {t("pricingDesc")}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
             {/* Free Plan */}
-            <motion.div {...fadeInUp} className="relative p-8 md:p-12 rounded-[3rem] border border-white/10 bg-white/5 backdrop-blur-xl text-left flex flex-col items-start group hover:bg-white/10 transition-all duration-500">
+            <motion.div {...fadeInUp} className="relative p-6 md:p-12 rounded-lg border border-white/[0.06] bg-[#1c1b1d] text-left flex flex-col items-start group hover:border-[#2563EB]/30 transition-all duration-500 shadow-xl">
               <div className="mb-8 space-y-2">
-                <h3 className="text-3xl font-black uppercase tracking-tight">{tPricing("essential")}</h3>
-                <p className="text-zinc-500 font-bold uppercase tracking-widest text-[10px]">{tPricing("kickstart")}</p>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight">{tPricing("essential")}</h3>
+                <p className="text-[#A1A1AA] font-semibold uppercase tracking-widest text-[10px]">{tPricing("kickstart")}</p>
               </div>
               <div className="mb-10 flex items-baseline gap-2">
-                <span className="text-6xl font-black tracking-tighter">{t("freePrice")}</span>
-                <span className="text-lg text-zinc-500 font-bold">{t("perMonth")}</span>
+                <span className="text-5xl md:text-6xl font-bold tracking-tighter">{t("freePrice")}</span>
+                <span className="text-base md:text-lg text-[#A1A1AA] font-semibold">{t("perMonth")}</span>
               </div>
               <ul className="space-y-5 mb-14 flex-1 w-full">
                 {[
@@ -299,16 +290,16 @@ export default function Home() {
                   tPricing("f3"),
                   tPricing("f4")
                 ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-4 text-zinc-300 font-medium pb-4 border-b border-white/5 last:border-0">
-                    <div className="h-6 w-6 rounded-full bg-white/10 flex items-center justify-center">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-blue-400" />
+                  <li key={i} className="flex items-center gap-4 text-[#A1A1AA] font-medium pb-4 border-b border-white/[0.06] last:border-0">
+                    <div className="h-6 w-6 rounded-full bg-[#2563EB]/10 flex items-center justify-center">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-[#2563EB]" />
                     </div>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
               <Link href="/register" className="w-full">
-                <Button variant="outline" className="w-full h-16 rounded-[1.5rem] text-xl font-black bg-transparent text-white border-2 border-white/20 hover:bg-white hover:text-black transition-all">
+                <Button variant="outline" className="w-full h-14 md:h-16 rounded-lg text-lg font-bold bg-transparent text-white border-white/20 hover:bg-white/5 transition-all">
                   {tPricing("getStarted")}
                 </Button>
               </Link>
@@ -317,20 +308,20 @@ export default function Home() {
             {/* Pro Plan */}
             <motion.div 
               {...fadeInUp} 
-              className="relative p-8 md:p-12 rounded-[3rem] bg-linear-to-br from-blue-600 to-indigo-700 text-white text-left flex flex-col items-start overflow-hidden group shadow-[0_20px_50px_rgba(59,130,246,0.3)] hover:scale-105 transition-transform duration-500"
+              className="relative p-6 md:p-12 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#1E40AF] text-white text-left flex flex-col items-start overflow-hidden group shadow-[0_20px_50px_rgba(37,99,235,0.3)] hover:scale-[1.02] transition-transform duration-500"
             >
               <div className="absolute top-0 right-0 p-8 md:p-12 opacity-10 group-hover:rotate-12 transition-transform duration-700">
                 <Sparkles className="h-60 w-60 text-white" />
               </div>
-              <div className="absolute top-8 right-8 bg-white/20 backdrop-blur-md text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest border border-white/20">{tPricing("mostPopular")}</div>
+              <div className="absolute top-6 right-6 md:top-8 md:right-8 bg-white/20 backdrop-blur-md text-[10px] font-bold px-4 py-2 rounded-lg uppercase tracking-widest border border-white/20">{tPricing("mostPopular")}</div>
               
               <div className="mb-8 space-y-2">
-                <h3 className="text-3xl font-black uppercase tracking-tight">{tPricing("pro")}</h3>
-                <p className="text-blue-200 font-bold uppercase tracking-widest text-[10px]">{tPricing("proSubtitle")}</p>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight">{tPricing("pro")}</h3>
+                <p className="text-blue-200 font-semibold uppercase tracking-widest text-[10px]">{tPricing("proSubtitle")}</p>
               </div>
               <div className="mb-10 flex items-baseline gap-2">
-                <span className="text-6xl font-black tracking-tighter">{t("proPrice")}</span>
-                <span className="text-lg text-blue-200 font-bold">{t("perMonth")}</span>
+                <span className="text-5xl md:text-6xl font-bold tracking-tighter">{t("proPrice")}</span>
+                <span className="text-base md:text-lg text-blue-200 font-semibold">{t("perMonth")}</span>
               </div>
               <ul className="space-y-5 mb-14 flex-1 w-full">
                 {[
@@ -340,14 +331,14 @@ export default function Home() {
                   tPricing("p4"),
                   tPricing("p5")
                 ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-4 text-white font-semibold pb-4 border-b border-white/10 last:border-0 border-dashed">
-                    <CheckCircle2 className="h-6 w-6 text-white shrink-0" />
+                  <li key={i} className="flex items-center gap-4 text-white font-medium pb-4 border-b border-white/10 last:border-0 border-dashed">
+                    <CheckCircle2 className="h-5 w-5 md:h-6 md:w-6 text-white shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
               <Link href="/register" className="w-full">
-                <Button className="w-full h-16 rounded-[1.5rem] text-xl font-black bg-white text-blue-700 hover:bg-blue-50 border-0 shadow-2xl">
+                <Button className="w-full h-14 md:h-16 rounded-lg text-lg font-bold bg-white text-[#2563EB] hover:bg-zinc-100 shadow-2xl">
                    {tPricing("upgrade")}
                 </Button>
               </Link>
@@ -357,11 +348,11 @@ export default function Home() {
       </section>
 
       {/* 8. FAQ Section */}
-      <section className="py-32 bg-white dark:bg-zinc-950">
+      <section className="py-24 bg-[#0e0e10]">
         <div className="container mx-auto max-w-4xl px-6">
            <div className="text-center mb-24">
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 italic">{t("faqTitle")}</h2>
-              <div className="h-2 w-24 bg-blue-500 mx-auto rounded-full" />
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-4 text-white">{t("faqTitle")}</h2>
+              <div className="h-1 w-24 bg-[#2563EB] mx-auto rounded-full" />
            </div>
           <div className="grid gap-4">
             {[
@@ -381,18 +372,18 @@ export default function Home() {
                 video: t("faq3video")
               }
             ].map((faq, i) => (
-              <motion.div key={i} {...fadeInUp} className="p-6 md:p-10 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/10 hover:border-blue-500/30 transition-all group">
-                <h4 className="text-xl font-black mb-4 flex items-center gap-4">
-                   <div className="h-8 w-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <motion.div key={i} {...fadeInUp} className="p-6 md:p-10 rounded-lg border border-white/[0.06] bg-[#131315] hover:border-[#2563EB]/30 transition-all group">
+                <h4 className="text-lg md:text-xl font-bold mb-4 flex items-center gap-4 text-white">
+                   <div className="h-8 w-8 rounded-lg bg-[#2563EB]/10 text-[#2563EB] flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Sparkles className="h-4 w-4" />
                    </div>
                    {faq.q}
                 </h4>
                 <div className="pl-12">
-                  <p className="text-muted-foreground leading-relaxed font-medium">{faq.a}</p>
+                  <p className="text-[#A1A1AA] leading-relaxed font-medium">{faq.a}</p>
                   
                   {faq.video && faq.video !== "" && (
-                    <div className="mt-6 relative rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-lg group-hover:border-blue-500/30 transition-colors bg-zinc-900/5 dark:bg-zinc-900 aspect-video">
+                    <div className="mt-6 relative rounded-lg overflow-hidden border border-white/[0.06] shadow-lg group-hover:border-[#2563EB]/30 transition-colors bg-[#1c1b1d] aspect-video">
                       <video 
                         src={faq.video} 
                         controls 
@@ -409,83 +400,83 @@ export default function Home() {
       </section>
 
       {/* 9. FINAL CTA SECTION */}
-      <section className="py-32 relative px-6">
+      <section className="py-20 md:py-32 relative px-4 sm:px-6">
         <div className="container mx-auto max-w-6xl">
           <motion.div 
             initial={{ scale: 0.95, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
-            className="relative z-10 p-10 md:p-32 rounded-[3rem] md:rounded-[4rem] bg-zinc-900 text-white text-center shadow-[0_50px_100px_rgba(0,0,0,0.4)] overflow-hidden"
+            className="relative z-10 p-8 md:p-24 lg:p-32 rounded-lg bg-[#2563EB] text-white text-center shadow-[0_30px_100px_rgba(37,99,235,0.3)] overflow-hidden"
           >
             {/* Background design elements */}
             <div className="absolute inset-0 opacity-10 pointer-events-none grid-pattern" />
-            <div className="absolute top-0 left-0 h-64 w-64 bg-blue-600 blur-[100px] opacity-20 -translate-x-1/2 -translate-y-1/2" />
+            <div className="absolute top-0 left-0 h-64 w-64 bg-white blur-[100px] opacity-10 -translate-x-1/2 -translate-y-1/2" />
             
-            <motion.h2 {...fadeInUp} className="text-4xl md:text-8xl font-black tracking-tighter mb-10 leading-[0.9]">
+            <motion.h2 {...fadeInUp} className="text-3xl md:text-5xl lg:text-7xl font-bold tracking-tighter mb-8 lg:mb-10 leading-[1.1] md:leading-[0.9]">
                {t("ctaFinal")}
             </motion.h2>
-            <motion.p {...fadeInUp} transition={{ delay: 0.1 }} className="text-xl md:text-3xl text-zinc-400 max-w-3xl mx-auto mb-16 font-medium leading-relaxed">
+            <motion.p {...fadeInUp} transition={{ delay: 0.1 }} className="text-base md:text-xl lg:text-2xl text-blue-100 max-w-3xl mx-auto mb-10 lg:mb-16 font-medium leading-relaxed">
               {t("ctaFinalDesc")}
             </motion.p>
             <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
               <Link href="/register">
-                <Button size="lg" className="h-20 px-16 rounded-[2rem] text-2xl font-black bg-white text-black hover:bg-blue-500 hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-2xl">
+                <Button size="lg" className="h-14 md:h-20 px-8 md:px-16 rounded-lg text-lg md:text-2xl font-bold bg-white text-[#131315] hover:bg-zinc-100 transition-all transform hover:scale-[1.02] active:scale-95 shadow-2xl w-full sm:w-auto">
                   {t("ctaFinalButton")}
-                  <ArrowRight className="ml-3 h-8 w-8" />
+                  <ArrowRight className="ml-2 md:ml-3 h-6 w-6 md:h-8 md:w-8" />
                 </Button>
               </Link>
             </motion.div>
             
-            <div className="mt-16 flex flex-wrap justify-center gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600">
-               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-green-500" /> {t("secureCheckout")}</span>
-               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-green-500" /> {t("privacy")}</span>
-               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-green-500" /> {t("aiPowered")}</span>
+            <div className="mt-12 md:mt-16 flex flex-wrap justify-center gap-4 md:gap-8 text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-200">
+               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-white" /> {t("secureCheckout")}</span>
+               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-white" /> {t("privacy")}</span>
+               <span className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-white" /> {t("aiPowered")}</span>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-100 dark:border-zinc-900 py-20 px-6 bg-white dark:bg-zinc-950">
+      <footer className="w-full py-12 bg-[#09090B] border-t border-white/5">
         <div className="container mx-auto max-w-7xl">
           <div className="grid md:grid-cols-4 gap-16 mb-20">
              <div className="col-span-2 space-y-8">
-                <Link href="/" className="flex items-center gap-2 font-black text-3xl">
-                  <div className="h-10 w-10 rounded-xl gradient-brand flex items-center justify-center">
+                <Link href="/" className="flex items-center gap-2 font-bold text-3xl">
+                  <div className="h-10 w-10 rounded-lg gradient-brand flex items-center justify-center">
                     <Sparkles className="h-5 w-5 text-white" />
                   </div>
                   <span className="gradient-brand-text">CareerAI</span>
                 </Link>
-                <p className="text-muted-foreground max-w-xs font-medium leading-relaxed">
+                <p className="text-[#A1A1AA] max-w-xs font-medium leading-relaxed">
                    {tFooter("desc")}
                 </p>
              </div>
              
              <div className="space-y-6">
-                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-zinc-400">{tFooter("platform")}</h4>
-                <nav className="flex flex-col gap-4 text-sm font-bold text-muted-foreground">
-                   <Link href="#features" className="hover:text-blue-600 transition-colors">{tFooter("features")}</Link>
-                   <Link href="#pricing" className="hover:text-blue-600 transition-colors">{tFooter("pricing")}</Link>
-                   <Link href="/templates" className="hover:text-blue-600 transition-colors">{tFooter("templates")}</Link>
+                 <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">{tFooter("platform")}</h4>
+                 <nav className="flex flex-col gap-4 text-sm font-medium text-[#A1A1AA]">
+                    <Link href="#features" className="hover:text-[#2563EB] transition-colors">{tFooter("features")}</Link>
+                    <Link href="#pricing" className="hover:text-[#2563EB] transition-colors">{tFooter("pricing")}</Link>
+                    <Link href="/templates" className="hover:text-[#2563EB] transition-colors">{tFooter("templates")}</Link>
                 </nav>
              </div>
 
              <div className="space-y-6">
-                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-zinc-400">{tFooter("legal")}</h4>
-                <nav className="flex flex-col gap-4 text-sm font-bold text-muted-foreground">
-                   <Link href="/privacy" className="hover:text-blue-600 transition-colors">{tFooter("privacy")}</Link>
-                   <Link href="/terms" className="hover:text-blue-600 transition-colors">{tFooter("terms")}</Link>
+                 <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">{tFooter("legal")}</h4>
+                 <nav className="flex flex-col gap-4 text-sm font-medium text-[#A1A1AA]">
+                    <Link href="/privacy" className="hover:text-[#2563EB] transition-colors">{tFooter("privacy")}</Link>
+                    <Link href="/terms" className="hover:text-[#2563EB] transition-colors">{tFooter("terms")}</Link>
                 </nav>
              </div>
           </div>
           
-          <div className="pt-10 border-t border-zinc-100 dark:border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6">
-             <p className="text-sm font-bold text-zinc-400 tracking-tight">
+          <div className="pt-10 border-t border-white/[0.06] flex flex-col md:flex-row justify-between items-center gap-6">
+             <p className="text-sm font-medium text-[#A1A1AA] tracking-tight">
                {tFooter("rights", { year: new Date().getFullYear() })}
              </p>
-             <div className="flex items-center gap-6 text-zinc-400">
-                <Globe className="h-5 w-5 hover:text-blue-600 cursor-pointer transition-colors" />
-                <Briefcase className="h-5 w-5 hover:text-blue-600 cursor-pointer transition-colors" />
+             <div className="flex items-center gap-6 text-[#A1A1AA]">
+                <Globe className="h-5 w-5 hover:text-[#2563EB] cursor-pointer transition-colors" />
+                <Briefcase className="h-5 w-5 hover:text-[#2563EB] cursor-pointer transition-colors" />
              </div>
           </div>
         </div>

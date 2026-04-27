@@ -61,11 +61,11 @@ export default function RegisterPage() {
     }
 
     return (
-        <div className="flex min-h-screen items-center justify-center p-4">
-            <Card className="w-full max-w-sm">
+        <div className="flex min-h-screen items-center justify-center p-4 bg-[#131315] text-white">
+            <Card className="w-full max-w-sm bg-[#1c1b1d] border-white/[0.06] shadow-2xl rounded-lg">
                 <CardHeader className="space-y-2 text-center">
                     <CardTitle className="text-2xl font-bold">{t("registerTitle")}</CardTitle>
-                    <CardDescription>{t("registerDesc")}</CardDescription>
+                    <CardDescription className="text-[#A1A1AA]">{t("registerDesc")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleEmailRegister} className="space-y-4">
@@ -77,6 +77,7 @@ export default function RegisterPage() {
                                 required
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
+                                className="bg-[#131315] border-white/[0.06] rounded-lg text-white"
                             />
                         </div>
                         <div className="space-y-2">
@@ -88,6 +89,7 @@ export default function RegisterPage() {
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                className="bg-[#131315] border-white/[0.06] rounded-lg text-white"
                             />
                         </div>
                         <div className="space-y-2">
@@ -98,30 +100,31 @@ export default function RegisterPage() {
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                className="bg-[#131315] border-white/[0.06] rounded-lg text-white"
                             />
                         </div>
-                        <Button type="submit" className="w-full" disabled={isLoading}>
+                        <Button type="submit" className="w-full rounded-lg bg-[#2563EB] hover:bg-[#1E40AF] text-white" disabled={isLoading}>
                             {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : t("registerButton")}
                         </Button>
                     </form>
 
                     <div className="relative my-4">
                         <div className="absolute inset-0 flex items-center">
-                            <span className="w-full border-t" />
+                            <span className="w-full border-t border-white/[0.06]" />
                         </div>
                         <div className="relative flex justify-center text-xs uppercase">
-                            <span className="bg-background px-2 text-muted-foreground">{t("or")}</span>
+                            <span className="bg-[#1c1b1d] px-2 text-[#A1A1AA]">{t("or")}</span>
                         </div>
                     </div>
 
-                    <Button variant="outline" type="button" className="w-full" onClick={handleGoogleLogin}>
+                    <Button variant="outline" type="button" className="w-full rounded-lg bg-[#131315] border-white/[0.06] text-white hover:bg-white/5" onClick={handleGoogleLogin}>
                         {t("googleContinue")}
                     </Button>
                 </CardContent>
-                <CardFooter className="flex flex-col gap-2 text-center text-sm text-muted-foreground">
+                <CardFooter className="flex flex-col gap-2 text-center text-sm text-[#A1A1AA]">
                     <p>
                         {t("hasAccount")}{" "}
-                        <Link href="/login" className="text-blue-600 hover:underline">
+                        <Link href="/login" className="text-[#2563EB] hover:underline font-medium">
                             {t("loginButton")}
                         </Link>
                     </p>
