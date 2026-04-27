@@ -14,6 +14,7 @@ import { useTranslations } from "next-intl";
 
 export default function Navbar() {
     const t = useTranslations("Navigation");
+    const tLanding = useTranslations("Landing");
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -88,13 +89,15 @@ export default function Navbar() {
                     {/* Desktop Nav Links */}
                     <nav className="hidden lg:flex items-center gap-8">
                         {[
-                          { name: t("features"), href: "/#features" },
-                          { name: t("pricing"), href: "/pricing" }
+                          { name: tLanding("navHome"), href: "/" },
+                          { name: tLanding("navRoadmap"), href: "/roadmap" },
+                          { name: tLanding("navInterview"), href: "/interview" },
+                          { name: tLanding("navSkills"), href: "/skills" }
                         ].map((link) => (
                           <Link 
                             key={link.name} 
                             href={link.href} 
-                            className="text-[#A1A1AA] hover:text-white transition-colors text-sm font-bold font-['Space_Grotesk'] tracking-tight"
+                            className="text-[#A1A1AA] hover:text-white transition-colors text-sm font-bold font-['Space_Grotesk'] tracking-tight group/link relative"
                           >
                             {link.name}
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#2563EB] transition-all group-hover/link:w-full rounded-full" />
@@ -159,8 +162,10 @@ export default function Navbar() {
                     >
                         <div className="flex flex-col gap-2 p-4">
                             {[
-                              { name: t("features"), href: "/#features" },
-                              { name: t("pricing"), href: "/pricing" }
+                              { name: tLanding("navHome"), href: "/" },
+                              { name: tLanding("navRoadmap"), href: "/roadmap" },
+                              { name: tLanding("navInterview"), href: "/interview" },
+                              { name: tLanding("navSkills"), href: "/skills" }
                             ].map((link) => (
                                 <Link 
                                   key={link.name}

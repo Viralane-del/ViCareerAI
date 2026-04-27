@@ -246,5 +246,32 @@
         "cs": "M.S. Computer Science",
         "ds": "B.A. Graphic Design",
         "ai": "AI GENERATED OUTPUT"
+    },
+    "Landing": {
+        "heroBadge": "AI Career Coach Live",
+        "heroTitle1": "Shape Your Career with ",
+        "heroTitleHighlight": "AI",
+        "heroDesc": "Preparing for your dream job has never been smarter with personalized roadmaps and AI interview simulation.",
+        "heroStart": "Start for Free",
+        "heroHowItWorks": "How it Works?",
+        "heroSocialProof": "Used by 10,000+ professionals",
+        "heroFloating1": "CV Analysis Complete",
+        "heroFloating2": "Roadmap Updated",
+        "featuresTitle": "Smart Career Tools",
+        "featuresDesc": "Stay one step ahead in the hiring process with our AI technology.",
+        "f1Title": "Career Roadmap",
+        "f1Desc": "Identify your missing skills for your target position and follow your personalized learning route.",
+        "f1Link": "Explore",
+        "f2Title": "AI Interview",
+        "f2Desc": "Practice with real interview scenarios against AI and improve yourself by getting instant feedback.",
+        "f2Link": "Try Now",
+        "f3Title": "CV Analysis",
+        "f3Desc": "Make your CV ATS (Applicant Tracking Systems) compliant and complete your shortcomings with AI scoring.",
+        "f3Link": "Upload CV",
+        "navHome": "Home",
+        "navRoadmap": "Roadmap",
+        "navInterview": "Interview",
+        "navSkills": "Skills",
+        "navStart": "Start for Free"
     }
 }
