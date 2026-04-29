@@ -3,171 +3,177 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { ChevronRight, Check, Loader2, Lock, TrendingUp, BrainCircuit, Zap } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function RoadmapPage() {
+    const t = useTranslations("Roadmap");
+
     return (
-        <div className="min-h-screen bg-surface-dim selection:bg-primary-container selection:text-white">
-            <main className="max-w-7xl mx-auto px-6 py-10 pb-32">
-                {/* Hero Section */}
-                <div className="mb-12">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                        <div>
-                            <h1 className="font-h1 text-4xl text-on-background mb-2">Senior Frontend Developer</h1>
-                            <p className="font-body-lg text-lg text-on-surface-variant max-w-2xl">Your specialized path to technical mastery. Follow the roadmap to bridge the gap between mid-level and senior architectural leadership.</p>
-                        </div>
-                        <div className="flex gap-4">
-                            <button className="bg-primary-container text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 glow-blue active:scale-95 duration-200">
-                                <Zap className="w-5 h-5" />
-                                Resume Analysis
-                            </button>
-                        </div>
-                    </div>
+        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-6xl mx-auto">
+            {/* Hero Section */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <h1 className="text-3xl font-bold tracking-tight mb-2">{t("title")}</h1>
+                    <p className="text-muted-foreground text-lg max-w-2xl">{t("desc")}</p>
                 </div>
+                <div className="flex gap-4">
+                    <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold flex items-center gap-2 shadow-md">
+                        <Zap className="w-5 h-5" />
+                        {t("resumeAnalysis")}
+                    </Button>
+                </div>
+            </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    {/* Left Column: Metrics Bento Grid */}
-                    <div className="lg:col-span-4 space-y-6">
-                        <div className="glass-panel p-6 rounded-3xl relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-4 opacity-20">
-                                <TrendingUp className="w-16 h-16 text-white" />
-                            </div>
-                            <p className="font-label-caps text-xs text-on-surface-variant uppercase mb-2 font-bold tracking-widest">Skills Score</p>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                {/* Left Column: Metrics Bento Grid */}
+                <div className="lg:col-span-4 space-y-6">
+                    <Card className="relative overflow-hidden bg-gradient-to-br from-blue-500 to-indigo-600 text-white border-0 shadow-lg">
+                        <div className="absolute top-0 right-0 p-4 opacity-20">
+                            <TrendingUp className="w-16 h-16 text-white" />
+                        </div>
+                        <CardContent className="p-6">
+                            <p className="text-xs uppercase mb-2 font-bold tracking-widest text-blue-100">{t("skillsScore")}</p>
                             <div className="flex items-baseline gap-2">
-                                <span className="font-display text-5xl font-bold text-blue-500">84</span>
-                                <span className="font-h3 text-xl text-on-surface-variant">/100</span>
+                                <span className="text-5xl font-black">84</span>
+                                <span className="text-xl text-blue-200">/100</span>
                             </div>
-                            <div className="mt-4 w-full bg-white/10 h-2 rounded-full overflow-hidden">
-                                <div className="bg-blue-500 h-full w-[84%] rounded-full"></div>
+                            <div className="mt-4 w-full bg-blue-900/30 h-2 rounded-full overflow-hidden">
+                                <div className="bg-white h-full w-[84%] rounded-full"></div>
                             </div>
-                            <p className="mt-4 text-sm text-on-surface-variant">+5% since last assessment</p>
-                        </div>
+                            <p className="mt-4 text-sm text-blue-100">{t("sinceLastAssessment")}</p>
+                        </CardContent>
+                    </Card>
 
-                        <div className="glass-panel p-6 rounded-3xl border-t-2 border-t-blue-500/50">
-                            <p className="font-label-caps text-xs text-on-surface-variant uppercase mb-4 font-bold tracking-widest">Readiness Forecast</p>
-                            <div className="space-y-4">
-                                <div className="flex justify-between items-center">
-                                    <span className="text-sm font-medium">Architecture</span>
-                                    <span className="text-blue-500 font-mono text-sm">92%</span>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-sm font-medium">Optimization</span>
-                                    <span className="text-on-surface-variant font-mono text-sm">68%</span>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-sm font-medium">Leadership</span>
-                                    <span className="text-on-surface-variant font-mono text-sm">45%</span>
-                                </div>
+                    <Card>
+                        <CardHeader className="pb-4 border-b border-zinc-100 dark:border-zinc-800">
+                            <CardTitle className="text-xs uppercase font-bold tracking-widest text-muted-foreground">{t("readinessForecast")}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-6 space-y-4">
+                            <div className="flex justify-between items-center">
+                                <span className="text-sm font-medium">{t("architecture")}</span>
+                                <span className="text-blue-600 dark:text-blue-400 font-mono text-sm font-bold">92%</span>
                             </div>
-                        </div>
-
-                        {/* AI Recommendations */}
-                        <div className="glass-level-2 p-6 rounded-3xl">
-                            <div className="flex items-center gap-2 mb-4">
-                                <BrainCircuit className="text-blue-400 w-5 h-5" />
-                                <h3 className="font-h3 text-xl text-white font-semibold">AI Insights</h3>
+                            <div className="flex justify-between items-center">
+                                <span className="text-sm font-medium">{t("optimization")}</span>
+                                <span className="text-muted-foreground font-mono text-sm">68%</span>
                             </div>
-                            <div className="space-y-4">
-                                <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
-                                    <p className="text-sm font-medium text-blue-400 mb-1">Critical Priority</p>
-                                    <p className="text-sm text-zinc-300">Focus on 'Web Workers' and 'Off-main-thread' patterns to boost your Optimization score.</p>
-                                </div>
-                                <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
-                                    <p className="text-sm font-medium text-zinc-400 mb-1">Growth Opportunity</p>
-                                    <p className="text-sm text-zinc-300">Your React knowledge is elite. Try mentoring a junior to unlock the 'Leadership' milestone.</p>
-                                </div>
+                            <div className="flex justify-between items-center">
+                                <span className="text-sm font-medium">{t("leadership")}</span>
+                                <span className="text-muted-foreground font-mono text-sm">45%</span>
                             </div>
-                        </div>
-                    </div>
+                        </CardContent>
+                    </Card>
 
-                    {/* Right Column: Interactive Roadmap */}
-                    <div className="lg:col-span-8">
-                        <div className="glass-panel p-8 rounded-3xl relative">
-                            <div className="flex items-center justify-between mb-10">
-                                <h2 className="font-h2 text-3xl font-semibold text-white">Learning Journey</h2>
-                                <span className="bg-blue-500/10 text-blue-500 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Level 4/6</span>
+                    {/* AI Recommendations */}
+                    <Card className="bg-blue-50/50 dark:bg-blue-950/20 border-blue-100 dark:border-blue-900/50">
+                        <CardHeader className="pb-2">
+                            <CardTitle className="flex items-center gap-2 text-lg text-blue-900 dark:text-blue-100">
+                                <BrainCircuit className="text-blue-500 w-5 h-5" />
+                                {t("aiInsights")}
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+                                <p className="text-sm font-bold text-red-500 mb-1">{t("criticalPriority")}</p>
+                                <p className="text-sm text-zinc-600 dark:text-zinc-400">{t("criticalPriorityDesc")}</p>
                             </div>
-                            
-                            <div className="relative pl-12 space-y-12">
-                                {/* Roadmap Vertical Line */}
-                                <div className="absolute left-[23px] top-4 bottom-4 w-1 bg-gradient-to-b from-blue-500 via-blue-500/50 to-white/10 rounded-full"></div>
-                                
-                                {/* Step 1: Completed */}
-                                <div className="relative">
-                                    <div className="absolute -left-[45px] top-1 w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center border-4 border-zinc-950 z-10 shadow-lg shadow-blue-500/20">
-                                        <Check className="text-white w-5 h-5" />
-                                    </div>
-                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 rounded-2xl bg-blue-500/5 border border-blue-500/20">
-                                        <div>
-                                            <h4 className="font-h3 text-xl font-medium text-white mb-1">Mastering React</h4>
-                                            <p className="text-zinc-400 text-sm">Advanced hooks, concurrent rendering, and state management architectures.</p>
-                                        </div>
-                                        <div className="flex items-center gap-3 shrink-0">
-                                            <span className="text-xs font-mono text-blue-500 uppercase font-bold">Completed</span>
-                                            <button className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
-                                                <ChevronRight className="w-4 h-4 text-white" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Step 2: In Progress */}
-                                <div className="relative">
-                                    <div className="absolute -left-[45px] top-1 w-10 h-10 rounded-full bg-zinc-950 flex items-center justify-center border-4 border-blue-600 z-10 shadow-lg shadow-blue-500/40">
-                                        <Loader2 className="text-blue-500 w-5 h-5 animate-spin" />
-                                    </div>
-                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 ring-2 ring-blue-500/30">
-                                        <div className="w-full">
-                                            <h4 className="font-h3 text-xl font-medium text-white mb-1">Performance Optimization</h4>
-                                            <p className="text-zinc-400 text-sm">Bundle analysis, tree-shaking, memory leaks, and Core Web Vitals profiling.</p>
-                                            <div className="mt-4 flex items-center gap-4 w-full max-w-sm">
-                                                <div className="flex-1 bg-white/5 h-1.5 rounded-full overflow-hidden">
-                                                    <div className="bg-blue-600 h-full w-[65%]"></div>
-                                                </div>
-                                                <span className="text-xs font-mono text-zinc-400">65%</span>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center gap-3 shrink-0 mt-4 md:mt-0">
-                                            <button className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-sm font-bold active:scale-95 transition-all glow-blue">Continue</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Step 3: Locked */}
-                                <div className="relative opacity-50 grayscale">
-                                    <div className="absolute -left-[45px] top-1 w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center border-4 border-zinc-950 z-10">
-                                        <Lock className="text-zinc-500 w-4 h-4" />
-                                    </div>
-                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 rounded-2xl bg-white/5 border border-white/5">
-                                        <div>
-                                            <h4 className="font-h3 text-xl font-medium text-zinc-400 mb-1">System Design</h4>
-                                            <p className="text-zinc-500 text-sm">Micro-frontends, module federation, and scalable infrastructure patterns.</p>
-                                        </div>
-                                        <div className="flex items-center gap-3 shrink-0">
-                                            <span className="text-xs font-mono text-zinc-600 uppercase font-bold">Locked</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Step 4: Locked */}
-                                <div className="relative opacity-50 grayscale">
-                                    <div className="absolute -left-[45px] top-1 w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center border-4 border-zinc-950 z-10">
-                                        <Lock className="text-zinc-500 w-4 h-4" />
-                                    </div>
-                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 rounded-2xl bg-white/5 border border-white/5">
-                                        <div>
-                                            <h4 className="font-h3 text-xl font-medium text-zinc-400 mb-1">Technical Leadership</h4>
-                                            <p className="text-zinc-500 text-sm">Strategic decision making, team mentorship, and architectural reviews.</p>
-                                        </div>
-                                        <div className="flex items-center gap-3 shrink-0">
-                                            <span className="text-xs font-mono text-zinc-600 uppercase font-bold">Locked</span>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+                                <p className="text-sm font-bold text-green-600 dark:text-green-500 mb-1">{t("growthOpportunity")}</p>
+                                <p className="text-sm text-zinc-600 dark:text-zinc-400">{t("growthOpportunityDesc")}</p>
                             </div>
-                        </div>
-                    </div>
+                        </CardContent>
+                    </Card>
                 </div>
-            </main>
+
+                {/* Right Column: Interactive Roadmap */}
+                <div className="lg:col-span-8">
+                    <Card className="h-full relative overflow-hidden">
+                        <CardHeader className="flex flex-row items-center justify-between pb-8">
+                            <CardTitle className="text-2xl font-bold">{t("learningJourney")}</CardTitle>
+                            <span className="bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">{t("level")}</span>
+                        </CardHeader>
+                        
+                        <CardContent className="relative pl-12 space-y-12 pb-10">
+                            {/* Roadmap Vertical Line */}
+                            <div className="absolute left-[39px] top-4 bottom-4 w-1 bg-gradient-to-b from-blue-500 via-blue-400 to-zinc-200 dark:to-zinc-800 rounded-full"></div>
+                            
+                            {/* Step 1: Completed */}
+                            <div className="relative">
+                                <div className="absolute -left-[45px] top-1 w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center border-4 border-white dark:border-zinc-950 z-10 shadow-sm">
+                                    <Check className="text-white w-5 h-5" />
+                                </div>
+                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-xl bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-800/30">
+                                    <div>
+                                        <h4 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-1">{t("step1Title")}</h4>
+                                        <p className="text-muted-foreground text-sm">{t("step1Desc")}</p>
+                                    </div>
+                                    <div className="flex items-center gap-3 shrink-0">
+                                        <span className="text-xs font-mono text-blue-600 dark:text-blue-400 uppercase font-bold">{t("completed")}</span>
+                                        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-800/50">
+                                            <ChevronRight className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Step 2: In Progress */}
+                            <div className="relative">
+                                <div className="absolute -left-[45px] top-1 w-10 h-10 rounded-full bg-white dark:bg-zinc-900 flex items-center justify-center border-4 border-blue-600 z-10 shadow-sm ring-2 ring-blue-500/20 ring-offset-2 ring-offset-white dark:ring-offset-zinc-950">
+                                    <Loader2 className="text-blue-600 w-5 h-5 animate-spin" />
+                                </div>
+                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-xl bg-white dark:bg-zinc-900 border-2 border-blue-500 shadow-sm">
+                                    <div className="w-full">
+                                        <h4 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-1">{t("step2Title")}</h4>
+                                        <p className="text-muted-foreground text-sm">{t("step2Desc")}</p>
+                                        <div className="mt-4 flex items-center gap-4 w-full max-w-sm">
+                                            <div className="flex-1 bg-zinc-100 dark:bg-zinc-800 h-2 rounded-full overflow-hidden">
+                                                <div className="bg-blue-600 h-full w-[65%]"></div>
+                                            </div>
+                                            <span className="text-xs font-mono font-bold text-muted-foreground">65%</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-3 shrink-0 mt-4 md:mt-0">
+                                        <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold">{t("continue")}</Button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Step 3: Locked */}
+                            <div className="relative opacity-60">
+                                <div className="absolute -left-[45px] top-1 w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center border-4 border-white dark:border-zinc-950 z-10">
+                                    <Lock className="text-zinc-400 w-4 h-4" />
+                                </div>
+                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-xl bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800">
+                                    <div>
+                                        <h4 className="text-lg font-bold text-muted-foreground mb-1">{t("step3Title")}</h4>
+                                        <p className="text-muted-foreground/70 text-sm">{t("step3Desc")}</p>
+                                    </div>
+                                    <div className="flex items-center gap-3 shrink-0">
+                                        <span className="text-xs font-mono text-zinc-400 uppercase font-bold">{t("locked")}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Step 4: Locked */}
+                            <div className="relative opacity-60">
+                                <div className="absolute -left-[45px] top-1 w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center border-4 border-white dark:border-zinc-950 z-10">
+                                    <Lock className="text-zinc-400 w-4 h-4" />
+                                </div>
+                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-xl bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800">
+                                    <div>
+                                        <h4 className="text-lg font-bold text-muted-foreground mb-1">{t("step4Title")}</h4>
+                                        <p className="text-muted-foreground/70 text-sm">{t("step4Desc")}</p>
+                                    </div>
+                                    <div className="flex items-center gap-3 shrink-0">
+                                        <span className="text-xs font-mono text-zinc-400 uppercase font-bold">{t("locked")}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
         </div>
     );
 }
